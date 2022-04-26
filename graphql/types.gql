@@ -1,0 +1,198 @@
+type User {
+    id: ID!
+    first_name: String
+    last_name: String
+    middle_name: String
+    user_type: String
+    phone: String
+    gender: String
+    religion: String
+    photo: String
+    email: String
+    lga: String
+    password: String
+    created_at: DateTime
+    updated_at: DateTime
+    # createdAt: DateTime! @rename(attribute: "created_at")
+    rolex: [Role]
+    roles: [Role]
+    permissions: [Permission!]
+    country: Country @belongsTo
+    state: State @belongsTo
+    city: City @belongsTo
+    blood_group: BloodGroup @belongsTo
+}
+
+type Role {
+    id: Int!
+    name: String!
+    permissions: [Permission]
+}
+
+type Permission {
+    id: Int!
+    name: String!
+}
+
+type Country {
+    id: ID!
+    name: String
+    state: [State] @hasMany
+}
+type State {
+    id: ID!
+    name: String
+    cities: [City] @hasMany
+}
+type City {
+    id: ID!
+    name: String
+}
+type BloodGroup {
+    id: ID!
+    name: String
+}
+
+type Event {
+    id: ID!
+    slug: String
+    description: String!
+    title: String
+    photo: Upload
+    date: String!
+    published: Boolean
+}
+type Notice {
+    id: ID!
+    slug: String
+    description: String!
+    title: String
+    photo: Upload
+    date: String!
+     published: Boolean
+}
+type Student {
+    id: ID!
+    slug: String
+    adm_no: String
+    code: String!
+    admitted_year: String
+    term: String
+    session: String
+    status: Boolean
+    first_name: String
+    last_name: String!
+    gender: String!
+    middle_name: String
+    address: String!
+    phone: String
+    photo: Upload
+    guardian_name: String
+    guardian_no: String
+    guardian_email: String
+    guardian_address: String
+    klase: Klase @belongsTo
+    user: User @belongsTo
+    guardian: Guardian @belongsTo
+}
+type Teacher {
+    id: ID!
+    slug: String
+    first_name: String!
+    last_name: String!
+    gender: String
+    code: String
+    middle_name: String
+    photo: Upload
+    phone: String
+    facebook: String
+    qualification: String
+    user: User @belongsTo
+    klases: [Klase] @belongsToMany
+}
+
+type Accountant {
+    id: ID!
+    slug: String!
+    first_name: String!
+    last_name: String!
+    code: String
+    gender: String!
+    middle_name: String
+    photo: Upload
+    phone: String
+    facebook: String
+    qualification: String
+    user: User @belongsTo
+}
+type Libarian {
+    id: ID!
+    slug: String
+    first_name: String!
+    last_name: String!
+    gender: String!
+    code: String
+    middle_name: String
+    photo: Upload
+    phone: String
+    facebook: String
+    qualification: String
+    user: User @belongsTo
+}
+
+type Driver {
+    id: ID!
+    slug: String!
+    first_name: String
+    last_name: String
+    religion: String
+    route: String
+    lga: String
+    driver_license: String
+    vehicle_number: String
+    phone: String!
+    blood_group: BloodGroup @belongsTo
+    country: Country @belongsTo
+    state: State @belongsTo
+    city: City @belongsTo
+}
+type Guardian {
+    id: ID!
+    slug: String
+    students: [Student] @hasMany
+}
+type Klase {
+    id: ID!
+    slug: String
+    name: String!
+    subjects: [Subject] @hasMany
+    teachers: [Teacher] @belongsToMany
+}
+type Subject {
+    id: ID!
+    subject: String!
+    klase: Int
+    student: Student @belongsTo
+    klases: [Klase] @belongsToMany
+}
+type Timetable {
+    id: ID!
+    monday: String
+    tuesday: String
+    wednesday: String
+    thursday: String
+    friday: String
+    time: String
+    klase_id: Int!
+}
+type ExamTimetable {
+    id: ID!
+    monday: String
+    tuesday: String
+    wednesday: String
+    thursday: String
+    friday: String
+    time: String
+    date: String
+    klase_id: Int!
+}

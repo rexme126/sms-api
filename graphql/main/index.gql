@@ -1,0 +1,13 @@
+#import auth.gql
+#import user.gql
+#import notice.gql
+#import event.gql
+#import student.gql
+#import teacher.gql
+#import subject.gql
+#import accountant.gql
+#import libarian.gql
+#import driver.gql
+#import klase.gql
+#import timetable.gql
+#import examTimetable.gql

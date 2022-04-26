@@ -1,0 +1,49 @@
+extend type Query {
+    students: [Student!]! @all
+    student(slug: String! @eq): Student @first
+}
+
+extend type Mutation {
+    createStudent(
+        first_name: String!
+        last_name: String!
+        gender: String!
+        country: Int!
+        state: Int!
+        city: Int!
+        middle_name: String
+        email: String!
+        klase: Int
+        phone: String
+        photo: Upload
+        guardian_name: String
+        guardian_no: String
+        guardian_email: String
+        guardian_address: String
+        blood_group: Int
+        lga: String
+        religion: String
+    ): Student @field(resolver: "Student\\CreateStudentMutator")
+
+    updateStudent(
+        id: ID!
+        first_name: String!
+        last_name: String!
+        gender: String!
+        country: Int!
+        state: Int!
+        city: Int!
+        middle_name: String
+        email: String!
+        klase: Int
+        phone: String
+        photo: Upload
+        guardian_name: String
+        guardian_no: String
+        guardian_email: String
+        guardian_address: String
+        blood_group: Int
+        lga: String
+        religion: String
+    ): Student @field(resolver: "Student\\UpdateStudentMutator")
+}

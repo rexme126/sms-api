@@ -1,0 +1,11 @@
+extend type Query {
+    subjects: [Subject!]! @all
+    subject(id: ID! @eq): Subject @first
+}
+
+extend type Mutation {
+    createSubject(subject: String!, klase_id: Int!, student: Int): Subject @create
+
+    updateSubject(id: ID!, subject: String!, klase_id: Int!, student: Int): Subject
+        @update
+}

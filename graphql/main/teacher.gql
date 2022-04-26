@@ -1,0 +1,43 @@
+extend type Query {
+    teachers: [Teacher!]! @all
+    teacher(slug: String! @eq): Teacher @first
+}
+
+extend type Mutation {
+    createTeacher(
+        first_name: String!
+        last_name: String!
+        gender: String!
+        email: String!
+        country: Int!
+        state: Int!
+        city: Int!
+        lga: String
+        middle_name: String
+        photo: Upload
+        phone: String
+        facebook: String
+        qualification: String
+        blood_group: Int
+        religion: String
+    ): Teacher @field(resolver: "Teacher\\CreateTeacherMutator")
+
+    updateTeacher(
+        id: ID!
+        first_name: String!
+        last_name: String!
+        gender: String!
+        email: String!
+        country: Int!
+        state: Int!
+        city: Int!
+        lga: String
+        middle_name: String
+        photo: Upload
+        phone: String
+        facebook: String
+        qualification: String
+        blood_group: Int
+        religion: String
+    ): Teacher @field(resolver: "Teacher\\UpdateTeacherMutator")
+}

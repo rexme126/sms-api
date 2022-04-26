@@ -1,0 +1,21 @@
+extend type Query {
+    notices: [Notice!]! @all
+    notice(id: ID! @eq): Notice @find
+}
+
+extend type Mutation {
+    createNotice(
+        description: String!
+        title: String
+        photo: Upload
+        date: String!
+    ): Notice @create
+
+    updateNotice(
+        id: ID!
+        description: String!
+        title: String
+        photo: Upload
+        date: String!
+    ): Notice @update
+}

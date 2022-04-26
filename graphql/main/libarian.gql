@@ -1,0 +1,43 @@
+extend type Query {
+    libarians: [Libarian!]! @all
+    libarian(slug: String! @eq): Libarian @first
+}
+
+extend type Mutation {
+    createLibarian(
+        first_name: String!
+        last_name: String!
+        gender: String!
+        email: String!
+        country: Int!
+        state: Int!
+        city: Int!
+        lga: String
+        middle_name: String
+        photo: Upload
+        phone: String
+        facebook: String
+        qualification: String
+        blood_group: Int
+        religion: String
+    ): Libarian  @field(resolver: "Libarian\\CreateLibarianMutator")
+
+    updateLibarian(
+        id: ID!
+        first_name: String!
+        last_name: String!
+        gender: String!
+        email: String!
+        country: Int!
+        state: Int!
+        city: Int!
+        lga: String
+        middle_name: String
+        photo: Upload
+        phone: String
+        facebook: String
+        qualification: String
+        blood_group: Int
+        religion: String
+    ): Libarian @field(resolver: "Libarian\\UpdateLibarianMutator")
+}

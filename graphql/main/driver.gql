@@ -1,0 +1,37 @@
+extend type Query {
+    drivers: [Driver!]! @all
+    driver(slug: String! @eq): Driver @first
+}
+
+extend type Mutation {
+    createDriver(
+        first_name: String
+        last_name: String
+        religion: String
+        route: String
+        driver_license: String
+        vehicle_number: String
+        phone: String!
+        country: Int!
+        state: Int!
+        city: Int!
+        lga: String
+        blood_group: Int
+    ): Driver @field(resolver: "Driver\\CreateDriverMutator")
+
+    updateDriver(
+        id: ID!
+        first_name: String
+        last_name: String
+        religion: String
+        route: String
+        driver_license: String
+        vehicle_number: String
+        phone: String!
+        country: Int!
+        state: Int!
+        city: Int!
+        lga: String
+        blood_group: Int
+    ): Driver @field(resolver: "Driver\\UpdateDriverMutator")
+}

@@ -1,0 +1,33 @@
+extend type Query {
+    timetables(
+        "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
+        klase_id: Int! @where(operator: "like")
+    ): [Timetable!]! @all
+
+    timetable(id: ID! @where(operator: "like")): Timetable @first
+}
+
+extend type Mutation {
+    createTimetable(
+        monday: String
+        tuesday: String
+        wednesday: String
+        thursday: String
+        friday: String
+        time: String
+        klase_id: Int!
+    ): Timetable @create
+
+    updateTimetable(
+        id: ID!
+        monday: String
+        tuesday: String
+        wednesday: String
+        thursday: String
+        friday: String
+        time: String
+        klase_id: Int!
+    ): Timetable @update
+
+    deleteTimetable(id: ID!): Timetable @delete
+}

@@ -1,0 +1,18 @@
+extend type Query {
+    users: [User!]! @all
+    user(id: ID! @eq): User @first
+    # latestUsers: [Permission!]! @all @orderBy(column: "name", direction: ASC)
+    countries: [Country!]! @all
+    country(id: ID @eq): Country @first
+
+    states: [State!]! @all
+    state(id: ID @eq): State @first
+
+    cities: [City!]! @all
+    city(id: ID @eq): City @first
+
+    guardians: [Guardian!]! @all
+    guardian(id: ID! @eq): Guardian @first
+
+    bloodGroups: [BloodGroup!]! @all
+}

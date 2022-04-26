@@ -1,0 +1,21 @@
+extend type Query {
+    events: [Event!]! @all
+    event(id: ID! @eq): Event @first
+}
+
+extend type Mutation {
+    createEvent(
+        description: String!
+        title: String
+        photo: Upload
+        date: String!
+    ): Event @create
+
+    updateEvent(
+        id: ID!
+        description: String!
+        title: String
+        photo: Upload
+        date: String!
+    ): Event @update
+}

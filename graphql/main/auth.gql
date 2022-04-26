@@ -1,0 +1,19 @@
+extend type Query {
+    #login query
+    me: User @auth(guard: "api")
+}
+
+extend type Mutation {
+    logIn(
+        email: String! @rules(apply: ["required"])
+        password: String! @rules(apply: ["required"])
+    ): AuthResponse @field(resolver: "Auth\\LoginMutator")
+
+    logout: Boolean @field(resolver: "Auth\\LogoutMutator")
+}
+
+# authentification
+type AuthResponse {
+    token: String
+    expires_in: String
+}

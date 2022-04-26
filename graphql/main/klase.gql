@@ -1,0 +1,10 @@
+extend type Query {
+    klases: [Klase!]! @all
+    klase(id: ID! @eq): Klase @first
+}
+
+extend type Mutation {
+    createKlase(name: String!): Klase @create
+
+    updateKlase(id: ID!, name: String!): Klase @update
+}
