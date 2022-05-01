@@ -7,3 +7,4 @@ type Mutation
 
 #import main/index.gql
 #import types.gql
+#import input.gql

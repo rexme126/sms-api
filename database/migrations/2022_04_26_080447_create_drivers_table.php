@@ -23,6 +23,8 @@ class CreateDriversTable extends Migration
             $table->string('slug')->unique()->nullable();
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('photo')->nullable();
+            $table->string('birthday')->nullable();
             $table->string('gender')->nullable();
             $table->string('route')->nullable();
             $table->string('driver_license')->nullable();

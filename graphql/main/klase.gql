@@ -7,4 +7,6 @@ extend type Mutation {
     createKlase(name: String!): Klase @create
 
     updateKlase(id: ID!, name: String!): Klase @update
+
+    deleteKlase(id: ID!): Klase @delete
 }

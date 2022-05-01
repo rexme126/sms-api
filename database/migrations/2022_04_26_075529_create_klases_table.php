@@ -15,7 +15,7 @@ class CreateKlasesTable extends Migration
     {
         Schema::create('klases', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->string('name')->unique()->nullable();
             $table->timestamps();
         });
     }

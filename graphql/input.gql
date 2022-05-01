@@ -1,0 +1,21 @@
+input LibarianUserInput {
+    country: String!
+    state: String!
+    city: String!
+    lga: String @rules(apply: ["required"])
+    bloodGroup: String!
+    religion: String @rules(apply: ["required"])
+}
+
+input LibarianInput {
+    first_name: String! @rules(apply: ["required"])
+    last_name: String! @rules(apply: ["required"])
+    middle_name: String
+    gender: String! @rules(apply: ["required"])
+    email: String!
+    image: Upload
+        @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"])
+    birthday: String
+    phone: String 
+    qualification: String @rules(apply: ["required"])
+}

@@ -4,8 +4,9 @@ extend type Query {
 }
 
 extend type Mutation {
-    createSubject(subject: String!, klase_id: Int!, student: Int): Subject @create
+    createSubject(subject: String!): Subject @create
 
-    updateSubject(id: ID!, subject: String!, klase_id: Int!, student: Int): Subject
-        @update
+    updateSubject(id: ID!, subject: String!): Subject @update
+
+     deleteSubject(id: ID!): Subject @delete
 }

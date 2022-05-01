@@ -15,9 +15,7 @@ class CreateSubjectsTable extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('klase_id')->nullable();
-            $table->unsignedInteger('student_id')->nullable();
-            $table->string('subject')->nullable();
+            $table->string('subject')->unique()->nullable();
             $table->timestamps();
         });
     }
