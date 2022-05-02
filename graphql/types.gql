@@ -100,28 +100,29 @@ type Teacher {
     slug: String
     first_name: String!
     last_name: String!
-    gender: String
+    gender: String!
+    birthday: String
     code: String
     middle_name: String
     photo: String
     phone: String
-    facebook: String
     qualification: String
     user: User @belongsTo
     klases: [Klase] @belongsToMany
+    subjects: [Subject] @belongsToMany
 }
 
 type Accountant {
     id: ID!
-    slug: String!
+    slug: String
     first_name: String!
     last_name: String!
-    code: String
     gender: String!
+    birthday: String
+    code: String
     middle_name: String
     photo: String
     phone: String
-    facebook: String
     qualification: String
     user: User @belongsTo
 }
@@ -131,7 +132,6 @@ type Libarian {
     first_name: String!
     last_name: String!
     gender: String!
-    email: String
     birthday: String
     code: String
     middle_name: String
@@ -174,6 +174,7 @@ type Klase {
 type Subject {
     id: ID!
     subject: String!
+    teachers: [Teacher] @belongsToMany
 }
 type Timetable {
     id: ID!

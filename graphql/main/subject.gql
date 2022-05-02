@@ -8,5 +8,10 @@ extend type Mutation {
 
     updateSubject(id: ID!, subject: String!): Subject @update
 
-     deleteSubject(id: ID!): Subject @delete
+    deleteSubject(id: ID!): Subject
+        @field(resolver: "Subject\\AssignSubjectToTeacher")
+
+    # assign subject
+    assignSubject(subjects: [Int!], teacher: Int!): Subject
+        @field(resolver: "Subject\\AssignSubjectToTeacher")
 }

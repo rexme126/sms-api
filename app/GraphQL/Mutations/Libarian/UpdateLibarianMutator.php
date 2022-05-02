@@ -22,7 +22,6 @@ final class UpdateLibarianMutator
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-    //    $userData = $args['userLib'];
 
         $id= $args['id'];
         $userData =$args['userLib'];
@@ -48,7 +47,7 @@ final class UpdateLibarianMutator
             $libarian->last_name = $libData['last_name'];
             $libarian->middle_name = $libData['middle_name'];
             $libarian->birthday = $libData['birthday'];
-            $libarian->email = $libData['email'];
+         
             $libarian->phone = $libData['phone'];
             $libarian->photo = $name;
             $libarian->qualification = $libData['qualification'];
@@ -61,6 +60,7 @@ final class UpdateLibarianMutator
             $user->blood_group_id = $userData['bloodGroup'];
             $user->city_id = $userData['city'];
             $user->lga = $userData['lga'];
+            $user->email = $userData['email'];
             $user->religion = $userData['religion'];
 
             $user->save();
@@ -73,7 +73,7 @@ final class UpdateLibarianMutator
             $libarian->last_name = $libData['last_name'];
             $libarian->middle_name = $libData['middle_name'];
             $libarian->birthday = $libData['birthday'];
-            $libarian->email = $libData['email'];
+          
             $libarian->phone = $libData['phone'];
             $libarian->qualification = $libData['qualification'];
             $libarian->gender = $libData['gender'];
@@ -83,6 +83,7 @@ final class UpdateLibarianMutator
             $user->blood_group_id = $userData['bloodGroup'];
             $user->city_id = $userData['city'];
             $user->lga = $userData['lga'];
+            $user->email = $userData['email'];
             $user->religion = $userData['religion'];
      
             $user->save();

@@ -23,6 +23,8 @@ final class CreateLibarianMutator
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
         // create user
+
+        info($args['email']);
         $user = User::create([
             'email' => $args['email'],
             'state_id'=> $args['state_id'],
@@ -36,7 +38,7 @@ final class CreateLibarianMutator
         ]);
        
         $file = $args['photo'];
-        info($file);
+     
         
         if($file != null){
             $name=  Str::random(4).$file->getClientOriginalName();
@@ -46,7 +48,6 @@ final class CreateLibarianMutator
             'last_name'=> $args['last_name'],
             'middle_name'=> $args['middle_name'],
             'phone'=> $args['phone'],
-            'email'=> $args['email'],
             'qualification'=> $args['qualification'],
             'gender'=> $args['gender'],
             'user_id' => $user->id,
@@ -60,8 +61,7 @@ final class CreateLibarianMutator
             'first_name'=> $args['first_name'],
             'last_name'=> $args['last_name'],
             'middle_name'=> $args['middle_name'],
-            'phone'=> $args['phone'],
-            'email'=> $args['email'],
+            'phone'=> $args['phone'], 
             'qualification'=> $args['qualification'],
             'gender'=> $args['gender'],
             'user_id' => $user->id,

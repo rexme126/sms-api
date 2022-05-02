@@ -9,6 +9,8 @@ class Teacher extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
       public function country()
     {
         return $this->belongsTo(Country::class);
@@ -32,5 +34,10 @@ class Teacher extends Model
          public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class);
     }
 }

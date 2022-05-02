@@ -5,39 +5,29 @@ extend type Query {
 
 extend type Mutation {
     createAccountant(
-        first_name: String!
-        last_name: String!
-        gender: String!
-        email: String!
-        country: Int!
-        state: Int!
-        city: Int!
-        lga: String
+        first_name: String! @rules(apply: ["required"])
+        last_name: String! @rules(apply: ["required"])
         middle_name: String
+        gender: String! @rules(apply: ["required"])
+        email: String @rules(apply: ["required", "unique:users,email"])
+        country_id: Int!
+        state_id: Int!
+        city_id: Int!
+        lga: String @rules(apply: ["required"])
         photo: Upload
-        phone: String
-        facebook: String
-        qualification: String
-        blood_group: Int
-        religion: String
+            @rules(
+                apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"]
+            )
+        birthday: String
+        phone: String @rules(apply: ["required", "unique:libarians,phone"])
+        qualification: String @rules(apply: ["required"])
+        blood_group_id: Int
+        religion: String @rules(apply: ["required"])
     ): Accountant @field(resolver: "Accountant\\CreateAccountantMutator")
 
     updateAccountant(
         id: ID!
-        first_name: String!
-        last_name: String!
-        gender: String!
-        email: String!
-        country: Int!
-        state: Int!
-        city: Int!
-        lga: String
-        middle_name: String
-        photo: Upload
-        phone: String
-        facebook: String
-        qualification: String
-        blood_group: Int
-        religion: String
+        userLib: LibarianUserInput
+        lib: LibarianInput
     ): Accountant @field(resolver: "Accountant\\UpdateAccountantMutator")
 }

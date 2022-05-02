@@ -9,7 +9,7 @@ extend type Mutation {
         last_name: String! @rules(apply: ["required"])
         middle_name: String
         gender: String! @rules(apply: ["required"])
-        email: String @rules(apply: ["required", "unique:libarians,email"])
+        email: String @rules(apply: ["required", "unique:users,email"])
         country_id: Int!
         state_id: Int!
         city_id: Int!

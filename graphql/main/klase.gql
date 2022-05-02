@@ -1,5 +1,6 @@
 extend type Query {
     klases: [Klase!]! @all
+    klasex: [Klase!]! @all
     klase(id: ID! @eq): Klase @first
 }
 
@@ -8,5 +9,9 @@ extend type Mutation {
 
     updateKlase(id: ID!, name: String!): Klase @update
 
-    deleteKlase(id: ID!): Klase @delete
+    deleteKlase(id: ID!): Klase @field(resolver: "Klase\\AssignKlaseToTeacher")
+
+    # assign class to teacher
+    assignKlaseToTeacher(klase: Int!, teacher: [Int!]): Klase
+        @field(resolver: "Klase\\AssignKlaseToTeacher")
 }
