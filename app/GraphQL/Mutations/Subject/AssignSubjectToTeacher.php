@@ -28,11 +28,11 @@ final class AssignSubjectToTeacher
             $id= $args['id'];
              $subject = Subject::where('id', $id)->first();
             $deleteSubjectsTeacher = $subject->teachers;
-            info($deleteSubjectsTeacher);
+         
              foreach ($deleteSubjectsTeacher as $key => $value) {
                  $subject->teachers()->toggle($value->id);
              }
-             $subject->delete();
+            //  $subject->delete();
         }
     }
 }

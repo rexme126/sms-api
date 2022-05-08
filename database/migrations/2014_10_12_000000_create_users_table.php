@@ -16,9 +16,9 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('blood_group_id')->nullable();
-            $table->unsignedInteger('country_id');
-            $table->unsignedInteger('state_id');
-            $table->unsignedInteger('city_id');
+            $table->unsignedInteger('country_id')->nullable();
+            $table->unsignedInteger('state_id')->nullable();
+            $table->unsignedInteger('city_id')->nullable();
             $table->string('lga')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();

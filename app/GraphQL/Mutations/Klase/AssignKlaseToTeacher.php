@@ -27,7 +27,7 @@ final class AssignKlaseToTeacher
              foreach ($deleteKlaseTeachers as $key => $value) {
                  $klase->teachers()->toggle($value->id);
              }
-             $klase->delete();
+            //  $klase->delete();
         }
   
     }

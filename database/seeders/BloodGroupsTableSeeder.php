@@ -14,7 +14,7 @@ class BloodGroupsTableSeeder extends Seeder
      */
     public function run()
     {
-        $bloodGroups = ['O-','0+','A+','A-','B+','B-','AB'];
+        $bloodGroups = ['O-','O+','A+','A-','B+','B-','AB'];
         foreach ($bloodGroups as $bloodGroup) {
            BloodGroup::create(['name'=>$bloodGroup]);
         }

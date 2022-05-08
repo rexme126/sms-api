@@ -2,7 +2,7 @@ input LibarianUserInput {
     country: String!
     state: String!
     city: String!
-    email: String  @rules(apply: ["required"])
+    email: String @rules(apply: ["required"])
     lga: String @rules(apply: ["required"])
     bloodGroup: String!
     religion: String @rules(apply: ["required"])
@@ -16,6 +16,86 @@ input LibarianInput {
     image: Upload
         @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"])
     birthday: String
-    phone: String 
+    phone: String
     qualification: String @rules(apply: ["required"])
+}
+
+input MarkInput {
+    id: String!
+    ca1: String
+    ca2: String
+    exam: String
+}
+
+input LibarianInput {
+    first_name: String! @rules(apply: ["required"])
+    last_name: String! @rules(apply: ["required"])
+    middle_name: String
+    gender: String! @rules(apply: ["required"])
+    image: Upload
+        @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"])
+    birthday: String
+    phone: String
+    qualification: String @rules(apply: ["required"])
+}
+
+input StudentUserInput {
+    country: String!
+    state: String!
+    city: String!
+    lga: String @rules(apply: ["required"])
+    email: String @rules(apply: ["required", "unique:users,email"])
+    bloodGroup: String!
+    religion: String @rules(apply: ["required"])
+}
+
+input StudentInput {
+    first_name: String! @rules(apply: ["required"])
+    last_name: String! @rules(apply: ["required"])
+    middle_name: String
+    gender: String! @rules(apply: ["required"])
+    birthday: String @rules(apply: ["required"])
+    phone: String @rules(apply: ["required", "unique:libarians,phone"])
+    klase: String @rules(apply: ["required"])
+    address: String @rules(apply: ["required"])
+    photo: Upload
+        @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"])
+    guardian_name: String @rules(apply: ["required"])
+    guardian_no: String @rules(apply: ["required"])
+    guardian_email: String @rules(apply: ["required"])
+    guardian_address: String @rules(apply: ["required"])
+    adm_no: String @rules(apply: ["required"])
+    term: String @rules(apply: ["required"])
+    admitted_year: String @rules(apply: ["required"])
+}
+
+# edit student
+input EditStudentUserInput {
+    country: String!
+    state: String!
+    city: String!
+    lga: String @rules(apply: ["required"])
+    email: String @rules(apply: ["required"])
+    bloodGroup: String!
+    religion: String @rules(apply: ["required"])
+}
+
+input EditStudentInput {
+    first_name: String! @rules(apply: ["required"])
+    last_name: String! @rules(apply: ["required"])
+    middle_name: String
+    gender: String! @rules(apply: ["required"])
+    birthday: String @rules(apply: ["required"])
+    phone: String @rules(apply: ["required"])
+    klase: String @rules(apply: ["required"])
+    address: String @rules(apply: ["required"])
+    image: Upload
+        @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"])
+    guardian_name: String @rules(apply: ["required"])
+    guardian_no: String @rules(apply: ["required"])
+    guardian_email: String @rules(apply: ["required"])
+    guardian_address: String @rules(apply: ["required"])
+    adm_no: String @rules(apply: ["required"])
+    term: String @rules(apply: ["required"])
+    admitted_year: String @rules(apply: ["required"])
 }

@@ -9,7 +9,8 @@ extend type Mutation {
         title: String
         photo: Upload
         date: String!
-    ): Event @create
+    ): Event @field(resolver: "Event\\CreateEventMutator")
+
 
     updateEvent(
         id: ID!

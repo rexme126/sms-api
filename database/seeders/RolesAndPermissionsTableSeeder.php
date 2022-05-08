@@ -48,16 +48,24 @@ class RolesAndPermissionsTableSeeder extends Seeder
                     'assign-admin',
                     'delete',
                     'update',
-                    'create'
+                    
                 ],
             ],
              [
-                'name' => 'admin',
+                'name' => 'main admin',
                 'permissions' => [
                     'assign-admin',
                     'delete',
                     'update',
-                    'create'
+                   
+                ]
+            ],
+             [
+                'name' => 'admin',
+                'permissions' => [
+                    'delete',
+                    'update',
+                    
                 ]
             ],
              [
@@ -73,7 +81,7 @@ class RolesAndPermissionsTableSeeder extends Seeder
                 'permissions' => [
                       'delete',
                     'update',
-                    'create'
+                  
                     
                 ]
             ]
@@ -83,7 +91,7 @@ class RolesAndPermissionsTableSeeder extends Seeder
                 'permissions' => [
                      'delete',
                     'update',
-                    'create'
+                    
                     
                 ]
             ]

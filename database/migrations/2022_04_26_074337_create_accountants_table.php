@@ -24,7 +24,7 @@ class CreateAccountantsTable extends Migration
             $table->string('code');
             $table->string('photo')->nullable();
             $table->string('gender')->nullable();
-            $table->string('facebook')->nullable();
+              $table->string('birthday')->nullable();
             $table->string('qualification')->nullable();
             $table->timestamps();
         });

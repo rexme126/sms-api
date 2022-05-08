@@ -22,6 +22,7 @@ class CreateLibariansTable extends Migration
             $table->string('middle_name')->nullable();
             $table->string('phone')->nullable();
             $table->string('code');
+            $table->string('birthday')->nullable();
             $table->string('photo')->nullable();
             $table->string('gender')->nullable();
             $table->string('qualification')->nullable();

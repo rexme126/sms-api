@@ -1,6 +1,9 @@
 extend type Query {
     users: [User!]! @all
     user(id: ID! @eq): User @first
+    notification(notifiable_id: Int! @eq): Notification @first
+    roles: [Role!]! @all
+    permissions: [Permission!]! @all
     # latestUsers: [Permission!]! @all @orderBy(column: "name", direction: ASC)
     countries: [Country!]! @all
     country(id: ID @eq): Country @first
@@ -15,4 +18,9 @@ extend type Query {
     guardian(id: ID! @eq): Guardian @first
 
     bloodGroups: [BloodGroup!]! @all
+}
+
+extend type Mutation {
+    markAsRead(notifiable_id: Int!): Notification
+        @field(resolver: "User\\MarkAsReadMutator")
 }

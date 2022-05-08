@@ -17,6 +17,7 @@ class CreateStudentsTable extends Migration
             $table->id();
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('klase_id');
+            $table->unsignedInteger('guardian_id');
             $table->string('slug')->unique();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
@@ -25,6 +26,7 @@ class CreateStudentsTable extends Migration
             $table->string('photo')->nullable();
             $table->string('gender')->nullable();
             $table->string('code');
+            $table->string('birthday')->nullable();
             $table->string('adm_no')->nullable();
             $table->boolean('status')->default(1);
             $table->string('address')->nullable();

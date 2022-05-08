@@ -14,24 +14,44 @@ type User {
     created_at: DateTime
     updated_at: DateTime
     # createdAt: DateTime! @rename(attribute: "created_at")
-    rolex: [Role]
     roles: [Role]
-    permissions: [Permission!]
+    permissions: [Permission]
+    notifications: [Notification]
+    unreadNotifications: [UnreadNotification]
     country: Country @belongsTo
     state: State @belongsTo
     city: City @belongsTo
     blood_group: BloodGroup @belongsTo
+    students: [Student] @hasMany
+    teachers: [Teacher] @hasMany
 }
 
 type Role {
     id: Int!
     name: String!
-    permissions: [Permission]
+    permissions: [Permission] @belongsToMany
 }
 
 type Permission {
     id: Int!
     name: String!
+}
+
+# notification
+type Notification {
+    id: ID
+    type: String
+    notifiable_id: Int
+    data: Data
+    read_at: String
+}
+
+type UnreadNotification {
+    type: String
+    read_at: String
+}
+type Data {
+    data: String
 }
 
 type Country {
@@ -69,7 +89,7 @@ type Notice {
     title: String
     photo: String
     date: String!
-     published: Boolean
+    published: Boolean
 }
 type Student {
     id: ID!
@@ -78,6 +98,7 @@ type Student {
     code: String!
     admitted_year: String
     term: String
+    birthday: String
     session: String
     status: Boolean
     first_name: String
@@ -163,6 +184,7 @@ type Guardian {
     id: ID!
     slug: String
     students: [Student] @hasMany
+    user: User @belongsTo
 }
 type Klase {
     id: ID!
@@ -196,4 +218,29 @@ type ExamTimetable {
     time: String
     date: String
     klase_id: Int!
+}
+
+type Mark {
+    id: ID!
+    ca1: Int
+    ca2: Int
+    tca: Int
+    exam: Int
+    exam_total: Int
+    sub_position: Int
+    cum_ave: String
+    session: String
+    cum: Int
+    student: Student @belongsTo
+    subject: Subject @belongsTo
+    klase: Klase @belongsTo
+    grade: Grade @belongsTo
+}
+
+type Grade {
+    id: ID!
+    name: String
+    mark_from: Int
+    mark_to: Int
+    remark: String
 }

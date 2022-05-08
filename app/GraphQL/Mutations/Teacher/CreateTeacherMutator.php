@@ -33,6 +33,8 @@ final class CreateTeacherMutator
             'religion'=> $args['religion'],
             'password'=> Hash::make('destiny12'),
         ]);
+
+        $user->assignRole(4);
        
         $file = $args['photo'];
      

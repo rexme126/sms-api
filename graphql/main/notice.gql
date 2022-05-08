@@ -9,7 +9,7 @@ extend type Mutation {
         title: String
         photo: Upload
         date: String!
-    ): Notice @create
+    ): Notice @field(resolver: "Notice\\CreateNoticeMutator")
 
     updateNotice(
         id: ID!
