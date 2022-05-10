@@ -32,6 +32,7 @@ final class CreateTeacherMutator
             'user_type' => 'teacher',
             'religion'=> $args['religion'],
             'password'=> Hash::make('destiny12'),
+            'first_name'=> $args['first_name'],
         ]);
 
         $user->assignRole(4);

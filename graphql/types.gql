@@ -24,6 +24,7 @@ type User {
     blood_group: BloodGroup @belongsTo
     students: [Student] @hasMany
     teachers: [Teacher] @hasMany
+    libarians: [Libarian] @hasMany
 }
 
 type Role {
@@ -243,4 +244,14 @@ type Grade {
     mark_from: Int
     mark_to: Int
     remark: String
+}
+
+type Term {
+    id: ID!
+    name: String
+}
+
+type Session {
+    id: ID!
+    name: String
 }

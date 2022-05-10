@@ -61,6 +61,7 @@ final class UpdateAccountantMutator
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
+            $user->first_name = $libData['first_name'];
 
             $user->save();
             $accountant->save();
@@ -84,6 +85,7 @@ final class UpdateAccountantMutator
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
+            $user->first_name = $libData['first_name'];
      
             $user->save();
             $accountant->save();

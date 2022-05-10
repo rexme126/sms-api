@@ -32,8 +32,9 @@ final class CreateAccountantMutator
             'user_type' => 'accountant',
             'religion'=> $args['religion'],
             'password'=> Hash::make('destiny12'),
+            'first_name'=> $args['first_name'],
         ]);
-       
+         $user->assignRole(5);
         $file = $args['photo'];
      
         

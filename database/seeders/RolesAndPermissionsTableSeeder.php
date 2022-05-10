@@ -101,6 +101,12 @@ class RolesAndPermissionsTableSeeder extends Seeder
                 'permissions' => [
                     ''        
                 ]
+            ],
+             [
+                'name' => 'guardian',
+                'permissions' => [
+                    ''        
+                ]
             ]
         ];
 
@@ -126,7 +132,7 @@ class RolesAndPermissionsTableSeeder extends Seeder
             'blood_group_id'=> 1,
             'password' => Hash::make('destiny12')
         ]);
-        $user->assignRole(1);
+        $user->assignRole(2);
     
     }
 }

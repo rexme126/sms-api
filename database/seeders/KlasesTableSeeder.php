@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Term;
 use App\Models\Klase;
+use App\Models\Session;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,6 +28,13 @@ class KlasesTableSeeder extends Seeder
         ];
         foreach ($klases as $klase) {
             Klase::create($klase);
+        }
+        $session= Session::create([
+            'name'=> '2022'
+        ]);
+        $terms = ['first-term','second-term','third-term'];
+        foreach ($terms as $term) {
+            Term::create(['name'=> $term]);
         }
     }
 }

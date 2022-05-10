@@ -21,7 +21,7 @@ input LibarianInput {
 }
 
 input MarkInput {
-    id: String!
+    markId: String
     ca1: String
     ca2: String
     exam: String

@@ -34,7 +34,7 @@ final class UpdateTeacherMutator
         $teacher = Teacher::where('id', $id)->first();
         $userId = $teacher->user_id;
         $user = User::where('id', $userId)->first();
-        //     info($user);
+       
         
 
      if($file != null){
@@ -60,6 +60,7 @@ final class UpdateTeacherMutator
             $user->lga = $userData['lga'];
              $user->email = $userData['email'];
             $user->religion = $userData['religion'];
+            $user->first_name = $libData['first_name'];
 
             $user->save();
             $teacher->save();
@@ -83,6 +84,7 @@ final class UpdateTeacherMutator
             $user->city_id = $userData['city'];
             $user->lga = $userData['lga'];
             $user->religion = $userData['religion'];
+            $user->first_name = $libData['first_name'];
      
             $user->save();
             $teacher->save();

@@ -62,6 +62,7 @@ final class UpdateLibarianMutator
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
+            $user->first_name = $libData['first_name'];
 
             $user->save();
             $libarian->save();
@@ -85,6 +86,7 @@ final class UpdateLibarianMutator
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
+            $user->first_name = $libData['first_name'];
      
             $user->save();
             $libarian->save();

@@ -64,6 +64,7 @@ final class UpdateStudentMutator
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
+            $user->first_name = $StudentData['first_name'];
 
             $user->save();
             $student->save();
@@ -95,6 +96,7 @@ final class UpdateStudentMutator
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
+            $user->first_name = $StudentData['first_name'];
      
             $user->save();
             $student->save();

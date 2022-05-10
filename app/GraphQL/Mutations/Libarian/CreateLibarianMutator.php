@@ -24,7 +24,7 @@ final class CreateLibarianMutator
     {
         // create user
 
-        info($args['email']);
+     ;
         $user = User::create([
             'email' => $args['email'],
             'state_id'=> $args['state_id'],
@@ -35,8 +35,9 @@ final class CreateLibarianMutator
             'user_type' => 'libarian',
             'religion'=> $args['religion'],
             'password'=> Hash::make('destiny12'),
+            'first_name'=> $args['first_name'],
         ]);
-       
+        $user->assignRole(6);
         $file = $args['photo'];
      
         

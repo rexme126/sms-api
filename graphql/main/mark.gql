@@ -1,11 +1,18 @@
-extend type Query{
-       marks(
+extend type Query {
+    marks(
         "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
-        klase_id: Int!, subject_id: Int! @where(operator: "like")
+        klase_id: Int!
+        subject_id: Int!
+        session: Int! @where(operator: "like")
     ): [Mark!]! @all
+    terms: [Term!]! @all
+    sessions: [Session!]! @all
 }
 
 extend type Mutation {
+    createQueries(klase: Int!, subject: Int!, term: Int!, session: Int!): Mark
+        @field(resolver: "Mark\\QueryUserMarkMutator")
+
     updateMarks(marks: [MarkInput]): Mark
         @field(resolver: "Mark\\UpdateMarkMutator")
 }
