@@ -4,7 +4,7 @@ namespace App\GraphQL\Mutations\Mark;
 
 use App\Models\Mark;
 use App\Models\Student;
-use Illuminate\Support\Facades\DB;
+use App\Models\ExamRecord;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
@@ -37,6 +37,13 @@ final class QueryUserMarkMutator
             'session' => $session
              ]);
              $a->save();
+            
+             ExamRecord::updateOrCreate([
+                'klase_id'=> $klaseId,
+                'student_id'=> $student,
+                'session_id' => $session,
+                'term_id' => $term
+             ]);
         }
 
         

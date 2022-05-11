@@ -3,8 +3,8 @@ extend type Query {
         "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
         klase_id: Int!
         subject_id: Int!
-        session: Int! @where(operator: "like")
-    ): [Mark!]! @all
+        session: Int!
+    ): Mark @field(resolver: "Mark\\MarkQueries")
     terms: [Term!]! @all
     sessions: [Session!]! @all
 }

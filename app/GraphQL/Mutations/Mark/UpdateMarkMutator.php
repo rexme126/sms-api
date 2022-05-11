@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\Mark;
 
 use App\Models\Mark;
+use App\Models\ExamRecord;
 use Illuminate\Support\Facades\DB;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -85,7 +86,26 @@ final class UpdateMarkMutator
               return $record->getAttributes();
               });
           });
-        
+
+          $stud = DB::table('marks')->get()->pluck('student_id')->unique();
+
+      foreach ($stud as $num) {
+        $stu=  Mark::where('student_id',$num)->get();
+      //  info($stu->sum('exam_total'));
+
+        //  $students = ExamRecord::where('student_id', $stud)->get();
+
+          info($num);
+
+            ExamRecord::where('student_id',$num)->update([
+                'klase_id'=> 1,
+                'student_id'=> $num,
+                'session_id' => 1,
+                'term_id' => 1,
+                'total'=> $stu->sum('exam_total')
+             ]);
+
+      }
 
     }
 }

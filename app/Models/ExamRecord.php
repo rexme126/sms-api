@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Mark extends Model
+class ExamRecord extends Model
 {
     use HasFactory;
 
     protected $guarded= [];
 
-    public function klase()
+       public function klase()
     {
         return $this->belongsTo(Klase::class);
     }
@@ -19,11 +19,6 @@ class Mark extends Model
     public function student()
     {
         return $this->belongsTo(Student::class);
-    }
-
-    public function subject()
-    {
-        return $this->belongsTo(Subject::class);
     }
 
     public function session()
@@ -36,8 +31,5 @@ class Mark extends Model
         return $this->belongsTo(Term::class);
     }
 
-    public function grade()
-    {
-        return $this->belongsTo(Grade::class);
-    }
+
 }

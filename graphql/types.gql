@@ -255,3 +255,19 @@ type Session {
     id: ID!
     name: String
 }
+
+type ExamRecord {
+    id: ID!
+    total: Int
+    avg: String
+    klase_avg: String
+    position: Int
+    af: String
+    ps: String
+    p_comment: String
+    t_comment: String
+    student: Student @belongsTo
+    klase: Klase @belongsTo
+    term: Term @belongsTo
+    session: Session @belongsTo
+}
