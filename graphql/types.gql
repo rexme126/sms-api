@@ -192,6 +192,7 @@ type Klase {
     slug: String
     name: String!
     # subjects: [Subject] @hasMany
+    students: [Student] @hasMany
     teachers: [Teacher] @belongsToMany
 }
 type Subject {
@@ -230,12 +231,13 @@ type Mark {
     exam_total: Int
     sub_position: Int
     cum_ave: String
-    session: String
     cum: Int
     student: Student @belongsTo
     subject: Subject @belongsTo
     klase: Klase @belongsTo
     grade: Grade @belongsTo
+    session: Session @belongsTo
+    term: Term @belongsTo
 }
 
 type Grade {
@@ -266,6 +268,7 @@ type ExamRecord {
     ps: String
     p_comment: String
     t_comment: String
+    subject: Subject @belongsTo
     student: Student @belongsTo
     klase: Klase @belongsTo
     term: Term @belongsTo

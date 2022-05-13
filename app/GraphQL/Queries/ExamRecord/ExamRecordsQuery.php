@@ -1,12 +1,12 @@
 <?php
 
-namespace App\GraphQL\Queries\Mark;
+namespace App\GraphQL\Queries\ExamRecord;
 
-use App\Models\Mark;
+use App\Models\ExamRecord;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-final class MarkQueries
+final class ExamRecordsQuery
 {
     /**
      * Return a value for the field.
@@ -19,10 +19,7 @@ final class MarkQueries
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-     
-      
-     
-      return Mark::where(['klase_id'=>$args['klase_id'],'subject_id'=> $args['subject_id'],
-                        'term_id'=>$args['term_id'],'session_id'=> $args['session_id']])->get();
+         return ExamRecord::where(['klase_id'=>$args['klase_id'],
+                        'session_id'=> $args['session_id']])->get();
     }
 }

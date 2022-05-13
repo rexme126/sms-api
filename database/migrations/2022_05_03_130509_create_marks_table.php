@@ -18,6 +18,8 @@ class CreateMarksTable extends Migration
             $table->unsignedInteger('student_id');
             $table->unsignedInteger('subject_id');
             $table->unsignedInteger('klase_id');
+            $table->unsignedInteger('grade_id')->nullable();
+            $table->unsignedInteger('session_id');
             // $table->unsignedInteger('section_id');
             // $table->unsignedInteger('exam_id');
             $table->integer('ca1')->nullable();
@@ -25,15 +27,9 @@ class CreateMarksTable extends Migration
             $table->integer('tca')->nullable();
             $table->integer('exam')->nullable();
             $table->integer('exam_total')->nullable();
-            // $table->integer('exm')->nullable();
-            // $table->integer('tex1')->nullable();
-            // $table->integer('tex2')->nullable();
-            // $table->integer('tex3')->nullable();
             $table->tinyInteger('sub_position')->nullable();
             $table->integer('cum')->nullable();
             $table->string('cum_ave')->nullable();
-            $table->unsignedInteger('grade_id')->nullable();
-            $table->string('session');
             $table->timestamps();
         });
     }

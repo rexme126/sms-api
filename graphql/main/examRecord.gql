@@ -1,0 +1,15 @@
+extend type Query {
+    examRecords(klase_id: Int!, session_id: Int!): [ExamRecord]
+        @field(resolver: "ExamRecord\\ExamRecordsQuery")
+
+    # tabulation sheet
+    klaseResults(klase_id: Int!, term_id: Int!, session_id: Int!): [ExamRecord]
+        @field(resolver: "ExamRecord\\klaseResultsQuery")
+
+    studentExamResult(
+        klase_id: Int!
+        student_id: Int!
+        term_id: Int!
+        session_id: Int!
+    ): [ExamRecord] @field(resolver: "ExamRecord\\StudentExamResultQuery")
+}

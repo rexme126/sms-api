@@ -20,6 +20,7 @@ input LibarianInput {
     qualification: String @rules(apply: ["required"])
 }
 
+# marks
 input MarkInput {
     markId: String
     ca1: String

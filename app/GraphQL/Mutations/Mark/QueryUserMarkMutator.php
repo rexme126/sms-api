@@ -34,7 +34,8 @@ final class QueryUserMarkMutator
             'klase_id'=> $klaseId,
             'student_id'=> $student,
             'subject_id' => $subject,
-            'session' => $session
+            'session_id' => $session,
+            'term_id' => $term
              ]);
              $a->save();
             

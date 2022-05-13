@@ -12,3 +12,4 @@
 #import timetable.gql
 #import examTimetable.gql
 #import mark.gql
+#import examRecord.gql

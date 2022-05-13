@@ -20,7 +20,10 @@ class ExamRecord extends Model
     {
         return $this->belongsTo(Student::class);
     }
-
+    public function subject()
+    {
+        return $this->belongsTo(Student::class);
+    }
     public function session()
     {
         return $this->belongsTo(Session::class);

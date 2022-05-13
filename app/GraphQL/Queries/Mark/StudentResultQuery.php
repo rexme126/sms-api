@@ -6,7 +6,7 @@ use App\Models\Mark;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-final class MarkQueries
+final class StudentResultQuery
 {
     /**
      * Return a value for the field.
@@ -19,10 +19,8 @@ final class MarkQueries
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-     
-      
-     
-      return Mark::where(['klase_id'=>$args['klase_id'],'subject_id'=> $args['subject_id'],
+        
+      return Mark::where(['klase_id'=>$args['klase_id'],
                         'term_id'=>$args['term_id'],'session_id'=> $args['session_id']])->get();
     }
 }
