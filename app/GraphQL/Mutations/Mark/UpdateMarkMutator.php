@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations\Mark;
 
 use App\Models\Mark;
 use App\Models\Grade;
+use App\Models\Student;
 use App\Models\ExamRecord;
 use Illuminate\Support\Facades\DB;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -81,10 +82,11 @@ final class UpdateMarkMutator
         'session_id'=> $session_id])->get()->pluck('student_id')->unique();
 
       foreach ($stud as $num) {
-        $stu=  Mark::where('student_id',$num)->get();
+        $stu=  Mark::where(['student_id'=>$num,'klase_id'=>$klase_id,'term_id'=> $term_id,
+        'session_id'=> $session_id])->get();
         // info($stu->avg('exam_total'));
 
-        ExamRecord::where('student_id',$num)->update([
+        ExamRecord::where(['student_id'=>$num, 'term_id'=> $term_id, 'session_id'=>$session_id])->update([
           'klase_id'=> $klase_id,
           'student_id'=> $num,
           'session_id' => $session_id,
@@ -93,6 +95,23 @@ final class UpdateMarkMutator
           'avg' => $stu->avg('exam_total')
         ]);
       }
+
+      if($term_id == 3 ){
+        foreach ($stud as $num) {
+          $cumTotal=  Mark::where(['student_id'=>$num,'klase_id'=>$klase_id,
+          'session_id'=> $session_id])->get();
+        
+            ExamRecord::where(['student_id'=>$num,'term_id'=>$term_id,'session_id'=>$session_id])->update([ 
+            'cum_total'=> $cumTotal->sum('exam_total'),
+            'cum_avg' => $cumTotal->avg('exam_total')
+          ]);
+
+            Student::where(['id'=>$num,'session_id'=>$session_id])->update([ 
+            'cum_avg' => $cumTotal->avg('exam_total')
+          ]);
+        
+        }
+     }
 
       // position ranking
       $studentM = ExamRecord::where(['klase_id'=>$klase_id,'term_id'=> $term_id,
@@ -111,28 +130,31 @@ final class UpdateMarkMutator
         });
       });
 
-      // grade
-        // $stud = DB::table('marks')->get()->pluck('exam_total')->unique();
-           $grades = Grade::all();
-         
-          foreach ($grades as $grade) {
-         
-            if($grade->mark_from >= 70 && $grade->mark_to <= 100){
-                Mark::where('exam_total', '>=', 70 )->update([
-                    'grade_id'=> 1
-                  ]);
-            }else if($grade->mark_from >= 60 && $grade->mark_to <= 69){
-               Mark::where('exam_total', '>=',  60, 'and', 'exam_total', '<=',  69)->update([
-                    'grade_id'=> 2
-                  ]);
-            }else if($grade->mark_from >= 50 && $grade->mark_to <= 59){
-        
-               Mark::where('exam_total', '>=', 50,  'and', 'exam_total', '<=',  59)->update([
-                    'grade_id'=> 3
-                  ]);
-                 
-            }
-          }  
+      // grade 
+      $grades = Grade::all();
+      foreach ($grades as $grade) {
+        Mark::where('exam_total', '>=',  $grade->mark_from)->Where('exam_total', '<=',  $grade->mark_to)->update([
+        'grade_id'=> $grade->id
+      ]);
+      }
+     
+      // $b = Grade::where('id',2)->first();
+      // Mark::where('exam_total', '>=',  $b->mark_from)->Where('exam_total', '<=',  $b->mark_to)->update([
+      //   'grade_id'=> $b->id
+      // ]);
+      //  $c = Grade::where('id',3)->first();
+      // Mark::where('exam_total', '>=',  $c->mark_from)->Where('exam_total', '<=',  $c->mark_to)->update([
+      //   'grade_id'=> $c->id
+      // ]);
+      // Mark::where('exam_total', '>=',  45)->Where('exam_total', '<=',  50)->update([
+      //   'grade_id'=> 4
+      // ]);
+      //   Mark::where('exam_total', '>=',  40)->Where('exam_total', '<=',  45)->update([
+      //   'grade_id'=> 5
+      // ]);
+      // Mark::where('exam_total', '>=',  0)->Where('exam_total', '<=',  39)->update([
+      //   'grade_id'=> 6
+      // ]);
 
 
     }
