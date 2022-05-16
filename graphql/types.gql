@@ -98,9 +98,7 @@ type Student {
     adm_no: String
     code: String!
     admitted_year: String
-    term: String
     birthday: String
-    session: String
     status: Boolean
     first_name: String
     last_name: String!
@@ -109,10 +107,13 @@ type Student {
     address: String!
     phone: String
     photo: String
+    cum_avg: Int
     guardian_name: String
     guardian_no: String
     guardian_email: String
     guardian_address: String
+    term: Term @belongsTo
+    session: Session @belongsTo
     klase: Klase @belongsTo
     user: User @belongsTo
     guardian: Guardian @belongsTo
@@ -273,4 +274,18 @@ type ExamRecord {
     klase: Klase @belongsTo
     term: Term @belongsTo
     session: Session @belongsTo
+}
+type SetPromotion {
+    id: ID!
+    name: Int
+}
+
+type Promotion {
+    id: ID!
+    from_class: Int!
+    to_class: Int!
+    from_session: Int!
+    to_session: Int!
+    status: Boolean!
+    student: Student @belongsTo
 }

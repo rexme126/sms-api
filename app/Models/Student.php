@@ -10,34 +10,26 @@ class Student extends Model
     use HasFactory;
 
     protected $guarded= [];
-
-    // public function country()
-    // {
-    //     return $this->belongsTo(Country::class);
-    // }
-    //  public function state()
-    // {
-    //     return $this->belongsTo(State::class);
-    // }
-    //  public function city()
-    // {
-    //     return $this->belongsTo(City::class);
-    // }
-    //  public function blood_group()
-    // {
-    //     return $this->belongsTo(BloodGroup::class);
-    // }
-     public function klase()
+ 
+    public function klase()
     {
         return $this->belongsTo(Klase::class);
     }
-     public function guardian()
+    public function guardian()
     {
         return $this->belongsTo(Guardian::class);
     }
-     public function user()
+    public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function term()
+    {
+        return $this->belongsTo(Term::class);
+    }
+     public function session()
+    {
+        return $this->belongsTo(Session::class);
     }
 
 }

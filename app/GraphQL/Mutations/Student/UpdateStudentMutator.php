@@ -51,7 +51,8 @@ final class UpdateStudentMutator
             $student->guardian_no = $StudentData['guardian_no'];
             $student->guardian_email = $StudentData['guardian_email'];
             $student->guardian_address = $StudentData['guardian_address'];
-            $student->term = $StudentData['term'];
+            $student->term_id = $StudentData['term'];
+            $student->session_id = $StudentData['session'];
             $student->admitted_year = $StudentData['admitted_year'];
 
 
@@ -84,7 +85,8 @@ final class UpdateStudentMutator
             $student->guardian_no = $StudentData['guardian_no'];
             $student->guardian_email = $StudentData['guardian_email'];
             $student->guardian_address = $StudentData['guardian_address'];
-            $student->term = $StudentData['term'];
+            $student->term_id = $StudentData['term'];
+            $student->session_id = $StudentData['session'];
             $student->admitted_year = $StudentData['admitted_year'];
 
             // user data

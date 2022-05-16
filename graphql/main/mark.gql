@@ -21,6 +21,7 @@ extend type Query {
 
     terms: [Term!]! @all
     sessions: [Session!]! @all
+    session(id: Int! @eq): Session @first
 }
 
 extend type Mutation {
@@ -34,4 +35,8 @@ extend type Mutation {
         term_id: Int!
         session_id: Int!
     ): Mark @field(resolver: "Mark\\UpdateMarkMutator")
+
+    # session
+    createSession(name: String!): Session @create
+    updateSession(id: ID!, name: String!): Session @update
 }

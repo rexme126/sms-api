@@ -107,7 +107,8 @@ final class UpdateMarkMutator
           ]);
 
             Student::where(['id'=>$num,'session_id'=>$session_id])->update([ 
-            'cum_avg' => $cumTotal->avg('exam_total')
+            'cum_avg' => $cumTotal->avg('exam_total'),
+            'status' => true
           ]);
         
         }

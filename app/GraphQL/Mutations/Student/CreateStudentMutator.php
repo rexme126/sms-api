@@ -65,7 +65,8 @@ final class CreateStudentMutator
                 'birthday' => $StudentData['birthday'],  
                 'slug'=> Str::slug($StudentData['first_name'].'-'.Str::random(8)),
                 'adm_no' => $StudentData['adm_no'],
-                'term'=> $StudentData['term'],
+                'term_id'=> $StudentData['term'],
+                'session_id'=> $StudentData['session'],
                 'admitted_year'=> $StudentData['admitted_year'],
                 'guardian_id' => $guardian->id,
                 ]);
@@ -120,7 +121,8 @@ final class CreateStudentMutator
                     'birthday' => $StudentData['birthday'],  
                     'slug'=> Str::slug($StudentData['first_name'].'-'.Str::random(8)),
                     'adm_no' => $StudentData['adm_no'],
-                    'term'=> $StudentData['term'],
+                   'term_id'=> $StudentData['term'],
+                    'session_id'=> $StudentData['session'],
                     'admitted_year'=> $StudentData['admitted_year'],
                     'guardian_id' => $guardianStudent->id,
                 ]);
@@ -166,7 +168,8 @@ final class CreateStudentMutator
                     'birthday' => $StudentData['birthday'],  
                     'slug'=> Str::slug($StudentData['first_name'].'-'.Str::random(8)),
                     'adm_no' => $StudentData['adm_no'],
-                    'term'=> $StudentData['term'],
+                    'term_id'=> $StudentData['term'],
+                    'session_id'=> $StudentData['session'],
                     'admitted_year'=> $StudentData['admitted_year'],
                     'guardian_id' => $guardian->id,
                 ]);
@@ -220,7 +223,8 @@ final class CreateStudentMutator
                         'birthday' => $StudentData['birthday'],  
                         'slug'=> Str::slug($StudentData['first_name'].'-'.Str::random(8)),
                         'adm_no' => $StudentData['adm_no'],
-                        'term'=> $StudentData['term'],
+                        'term_id'=> $StudentData['term'],
+                        'session_id'=> $StudentData['session'],
                         'admitted_year'=> $StudentData['admitted_year'],
                         'guardian_id' => $guardianStudent->id,
                     ]);

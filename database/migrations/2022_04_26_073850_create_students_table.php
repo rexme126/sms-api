@@ -18,6 +18,8 @@ class CreateStudentsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('klase_id');
             $table->unsignedInteger('guardian_id');
+            $table->string('term_id')->nullable();
+            $table->string('session_id')->nullable();
             $table->string('slug')->unique();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
@@ -28,15 +30,13 @@ class CreateStudentsTable extends Migration
             $table->string('code');
             $table->string('birthday')->nullable();
             $table->string('adm_no')->nullable();
-            $table->boolean('status')->default(1);
+            $table->boolean('status')->default(false);
             $table->string('address')->nullable();
             $table->string('admitted_year')->nullable();
             $table->string('guardian_name')->nullable();
             $table->string('guardian_no')->nullable();
             $table->string('guardian_address')->nullable();
             $table->string('guardian_email')->nullable();
-            $table->string('term')->nullable();
-            $table->string('session')->nullable();
             $table->timestamps();
         });
     }
