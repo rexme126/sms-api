@@ -135,7 +135,7 @@ final class UpdateMarkMutator
       $grades = Grade::all();
       foreach ($grades as $grade) {
         Mark::where('exam_total', '>=',  $grade->mark_from)->Where('exam_total', '<=',  $grade->mark_to)->update([
-        'grade_id'=> $grade->id
+        'grade_id'=> $grade->id,
       ]);
       }
      

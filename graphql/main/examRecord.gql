@@ -1,4 +1,5 @@
 extend type Query {
+    # admin
     examRecords(klase_id: Int!, session_id: Int!): [ExamRecord]
         @field(resolver: "ExamRecord\\ExamRecordsQuery")
 
@@ -8,8 +9,48 @@ extend type Query {
 
     studentExamResult(
         klase_id: Int!
+        term_id: Int!
+         student_id: Int!
+        session_id: Int!
+    ): [ExamRecord] @field(resolver: "ExamRecord\\StudentExamResultQuery")
+
+      firstTerm(
+        klase_id: Int!
+        term_id: Int!
+        session_id: Int!
+    ): [ExamRecord] @field(resolver: "ExamRecord\\FirstTermExamResultQuery")
+
+     secoundTerm(
+        klase_id: Int!
+        term_id: Int!
+        session_id: Int!
+    ): [ExamRecord] @field(resolver: "ExamRecord\\SecoundTermExamResultQuery")
+
+     thirdTerm(
+        klase_id: Int!
+        term_id: Int!
+        session_id: Int!
+    ): [ExamRecord] @field(resolver: "ExamRecord\\ThirdTermExamResultQuery")
+
+    # publish result
+    publishResult(klase_id: Int!, term_id: Int!, session_id: Int!): ExamRecord @first
+
+    # student
+      mainStudentExamResult(
+        klase_id: Int!
         student_id: Int!
         term_id: Int!
         session_id: Int!
-    ): [ExamRecord] @field(resolver: "ExamRecord\\StudentExamResultQuery")
+        status: String!
+    ): [ExamRecord] @field(resolver: "ExamRecord\\MainStudentExamResultQuery")
+
+}
+
+extend type Mutation {
+    updatePublishResult(
+      status: String!
+        klase_id: Int!
+        term_id: Int!
+        session_id: Int!
+    ): ExamRecord @field(resolver: "ExamRecord\\PublishResultMutator")
 }

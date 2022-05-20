@@ -22,6 +22,14 @@ extend type Query {
     terms: [Term!]! @all
     sessions: [Session!]! @all
     session(id: Int! @eq): Session @first
+
+    # student Result
+    mainStudentMarkResult(
+        klase_id: Int!
+        student_id: Int!
+        term_id: Int!
+        session_id: Int!
+    ): [Mark] @field(resolver: "Mark\\MainStudentExamResultQuery")
 }
 
 extend type Mutation {

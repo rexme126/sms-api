@@ -229,6 +229,7 @@ type Mark {
     ca2: Int
     tca: Int
     exam: Int
+    status: String
     exam_total: Int
     sub_position: Int
     cum_ave: String
@@ -263,8 +264,10 @@ type ExamRecord {
     id: ID!
     total: Int
     avg: String
+    cum_avg: String
     klase_avg: String
     position: Int
+    status: String
     af: String
     ps: String
     p_comment: String
