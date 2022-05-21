@@ -10,45 +10,40 @@ extend type Query {
     studentExamResult(
         klase_id: Int!
         term_id: Int!
-         student_id: Int!
+        student_id: Int!
         session_id: Int!
     ): [ExamRecord] @field(resolver: "ExamRecord\\StudentExamResultQuery")
 
-      firstTerm(
-        klase_id: Int!
-        term_id: Int!
-        session_id: Int!
-    ): [ExamRecord] @field(resolver: "ExamRecord\\FirstTermExamResultQuery")
+    firstTerm(klase_id: Int!, term_id: Int!, session_id: Int!): [ExamRecord]
+        @field(resolver: "ExamRecord\\FirstTermExamResultQuery")
 
-     secoundTerm(
-        klase_id: Int!
-        term_id: Int!
-        session_id: Int!
-    ): [ExamRecord] @field(resolver: "ExamRecord\\SecoundTermExamResultQuery")
+    secoundTerm(klase_id: Int!, term_id: Int!, session_id: Int!): [ExamRecord]
+        @field(resolver: "ExamRecord\\SecoundTermExamResultQuery")
 
-     thirdTerm(
-        klase_id: Int!
-        term_id: Int!
-        session_id: Int!
-    ): [ExamRecord] @field(resolver: "ExamRecord\\ThirdTermExamResultQuery")
+    thirdTerm(klase_id: Int!, term_id: Int!, session_id: Int!): [ExamRecord]
+        @field(resolver: "ExamRecord\\ThirdTermExamResultQuery")
 
     # publish result
-    publishResult(klase_id: Int!, term_id: Int!, session_id: Int!): ExamRecord @first
+    publishResult(
+        klase_id: Int!
+        term_id: Int!
+        session_id: Int!
+        status: String!
+    ): ExamRecord @field(resolver: "ExamRecord\\PublishResultQuery")
 
     # student
-      mainStudentExamResult(
+    mainStudentExamResult(
         klase_id: Int!
         student_id: Int!
         term_id: Int!
         session_id: Int!
         status: String!
     ): [ExamRecord] @field(resolver: "ExamRecord\\MainStudentExamResultQuery")
-
 }
 
 extend type Mutation {
     updatePublishResult(
-      status: String!
+        status: String!
         klase_id: Int!
         term_id: Int!
         session_id: Int!

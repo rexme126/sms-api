@@ -18,16 +18,26 @@ final class PublishResultMutator
        $klase_id= $args['klase_id'];
      
            $status = $args['status'];
-            ExamRecord::where(['klase_id'=> $klase_id, 'term_id'=>$term_id,'session_id'=>$session_id])
-            ->update([
-                'status'=> $status
-            ]);
-            Mark::where(['klase_id'=> $klase_id, 'term_id'=>$term_id,'session_id'=>$session_id])
-            ->update([
-                'status'=> $status
-            ]);
-            return  ExamRecord::where(['klase_id'=> $klase_id, 'term_id'=>$term_id,
+           $examPublished= ExamRecord::where(['klase_id'=> $klase_id, 'term_id'=>$term_id,'session_id'=>$session_id])->get();
+         
+           if(count($examPublished) === 0){
+               return;
+           }else {
+               info('no');
+                ExamRecord::where(['klase_id'=> $klase_id, 'term_id'=>$term_id,'session_id'=>$session_id])
+                    ->update([
+                    'status'=> $status
+                ]);
+                Mark::where(['klase_id'=> $klase_id, 'term_id'=>$term_id,'session_id'=>$session_id])
+                    ->update([
+                        'status'=> $status
+                    ]);
+                return  ExamRecord::where(['klase_id'=> $klase_id, 'term_id'=>$term_id,
                     'session_id'=>$session_id])->first();
+           }
+
+           
+            
        
     }
 }
