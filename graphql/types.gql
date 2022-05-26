@@ -25,6 +25,7 @@ type User {
     students: [Student] @hasMany
     teachers: [Teacher] @hasMany
     libarians: [Libarian] @hasMany
+    guardian: Guardian @hasOne
 }
 
 type Role {
@@ -264,6 +265,7 @@ type ExamRecord {
     id: ID!
     total: Int
     avg: String
+    cum_total: String
     cum_avg: String
     klase_avg: String
     position: Int
@@ -289,6 +291,8 @@ type Promotion {
     to_class: Int!
     from_session: Int!
     to_session: Int!
+    from_term: Int
+    to_term: Int
     status: Boolean!
     student: Student @belongsTo
 }

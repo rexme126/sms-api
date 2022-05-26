@@ -1,6 +1,7 @@
 extend type Query {
     students: [Student!]! @all
     student(slug: String! @eq): Student @first
+    studentsDashboard: [Student!]! @all
 }
 
 extend type Mutation {

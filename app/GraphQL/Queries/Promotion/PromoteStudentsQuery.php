@@ -12,7 +12,7 @@ final class PromoteStudentsQuery
      */
     public function __invoke($_, array $args)
     {
-        return Student::where(['klase_id'=>$args['klase_id'],
+        return Student::where(['klase_id'=>$args['klase_id'], 'prom_term_id' => 3,
                         'status'=>$args['status'],'session_id'=> $args['session_id']])->get();
     }
 }

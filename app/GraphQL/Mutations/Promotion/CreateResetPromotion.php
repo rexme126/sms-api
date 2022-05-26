@@ -22,20 +22,22 @@ final class CreateResetPromotion
     {
         $classId =$args['from_class'];
         $sessionId =$args['from_session'];
+        $termId =$args['from_term'];
         $status = $args['status'];
 
-        $promotions= Promotion::where(['from_class'=> $classId,
+        $promotions= Promotion::where(['from_class'=> $classId, 'from_term'=> $termId,
                     'from_session'=>$sessionId, 'status'=>true])->get()->pluck('student_id');
 
         foreach ($promotions as $studentId) {
             Student::where(['id'=>$studentId,'status'=>false])->update([
                 'klase_id'=> $classId,
                 'session_id'=> $sessionId,
-                'status'=> true
+                'status'=> true,
+                'prom_term_id'=> 3
             ]);
         }
 
-         $p=Promotion::where(['from_class'=> $classId,
+         $p=Promotion::where(['from_class'=> $classId, 'from_term'=> $termId,
                     'from_session'=>$sessionId, 'status'=>true])->get()->pluck('id');
                     Promotion::destroy($p);
     }

@@ -85,5 +85,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Libarian::class);
     }
+    public function guardian()
+    {
+        return $this->hasOne(Guardian::class);
+    }
 
 }

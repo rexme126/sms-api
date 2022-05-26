@@ -15,6 +15,7 @@ extend type Query {
     city(id: ID @eq): City @first
 
     guardians: [Guardian!]! @all
+    guardiansDashboard: [Guardian!]! @all
     guardian(id: ID! @eq): Guardian @first
 
     bloodGroups: [BloodGroup!]! @all

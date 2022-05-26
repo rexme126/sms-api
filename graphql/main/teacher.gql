@@ -1,5 +1,6 @@
 extend type Query {
     teachers: [Teacher!]! @all
+    teachersDashboard: [Teacher!]! @all
     teacher(slug: String! @eq): Teacher @first
 }
 

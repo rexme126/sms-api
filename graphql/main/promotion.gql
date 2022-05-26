@@ -10,6 +10,7 @@ extend type Query {
     resetPromotion(
         status: Boolean!
         from_class: Int!
+        from_term: Int!
         from_session: Int! @eq
     ): [Promotion] @field(resolver: "Promotion\\ResetPromoteQuery")
 
@@ -23,11 +24,13 @@ extend type Mutation {
         klaseTo: Int!
         session_id: Int!
         sessionTo: Int!
+        from_term: Int!
     ): [Student] @field(resolver: "Promotion\\PromoteStudents")
 
     createResetPromote(
         status: Boolean!
         from_class: Int!
         from_session: Int!
+        from_term: Int!
     ): [Promotion] @field(resolver: "Promotion\\CreateResetPromotion")
 }

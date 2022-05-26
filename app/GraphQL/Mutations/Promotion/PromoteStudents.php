@@ -25,6 +25,7 @@ final class PromoteStudents
         $klaseTo = $args['klaseTo'];
         $session_id = $args['session_id'];
         $sessionTo = $args['sessionTo'];
+        $from_term = $args['from_term'];
 
         $setPromotion = SetPromotion::find(1);
         $students= Student::where(['klase_id'=> $klase_id, 'session_id'=>$session_id,
@@ -38,14 +39,16 @@ final class PromoteStudents
                 'to_class'=> $klaseTo,
                 'from_session'=> $session_id,
                 'to_session' => $sessionTo,
-                'status' => true
+                'status' => true,
+                'from_term'=> $from_term
             ]);
 
           $sss = Student::where(['id'=> $student,'klase_id'=> $klase_id, 'session_id'=> $session_id,
             'status'=> true])->update([
                 'klase_id' => $klaseTo,
                 'session_id'=> $sessionTo,
-                'status'=> false
+                'status'=> false,
+                'prom_term_id'=> 0
             ]);
            
 
