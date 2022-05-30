@@ -296,3 +296,30 @@ type Promotion {
     status: Boolean!
     student: Student @belongsTo
 }
+type Payment {
+    id: ID!
+    title: String
+    amount: Int!
+    ref_no: String
+    method: String
+    description: String
+    klase: Klase @belongsTo
+    term: Term @belongsTo
+    session: Session @belongsTo
+}
+
+type PaymentRecord {
+    id: ID!
+    amount: Int!
+    ref_no: String
+    amt_paid: Int
+    balance: Int
+    status: String
+    receipt: Int
+    title: String
+    klase: Klase @belongsTo
+    term: Term @belongsTo
+    session: Session @belongsTo
+    payment: Payment @belongsTo
+    student: Student @belongsTo
+}

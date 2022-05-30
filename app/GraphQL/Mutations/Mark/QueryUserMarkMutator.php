@@ -38,23 +38,23 @@ final class QueryUserMarkMutator
             return;
         }else{
             foreach ($students as $student) {
-                        // get student class
+                    // get student class
                 $a = Mark::firstOrNew([
                     'klase_id'=> $currnetClassId,
                     'student_id'=> $student,
                     'subject_id' => $subject,
                     'session_id' => $currentSessionId,
                     'term_id' => $term
-                    ]);
-                    $a->save();
+                ]);
+                $a->save();
                     
-                    ExamRecord::updateOrCreate([
-                        'klase_id'=> $currnetClassId,
-                        'student_id'=> $student,
-                        'session_id' => $currentSessionId,
-                        'term_id' => $term
-                    ]);
-                }
+                ExamRecord::updateOrCreate([
+                    'klase_id'=> $currnetClassId,
+                    'student_id'=> $student,
+                    'session_id' => $currentSessionId,
+                    'term_id' => $term
+                ]);
+            }
         }
        
 

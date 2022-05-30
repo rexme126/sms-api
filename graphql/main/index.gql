@@ -14,3 +14,4 @@
 #import mark.gql
 #import examRecord.gql
 #import promotion.gql
+#import payment/payment.gql
