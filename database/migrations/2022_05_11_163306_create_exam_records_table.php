@@ -24,7 +24,7 @@ class CreateExamRecordsTable extends Migration
             $table->string('cum_avg')->nullable();
             $table->string('klase_avg')->nullable();
             $table->integer('position')->nullable();
-            $table->integer('status')->default('unpublished');
+            $table->string('status')->default('unpublished');
             $table->string('af')->nullable();
             $table->string('ps')->nullable();
             $table->string('p_comment')->nullable();

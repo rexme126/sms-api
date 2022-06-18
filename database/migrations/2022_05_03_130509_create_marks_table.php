@@ -26,7 +26,7 @@ class CreateMarksTable extends Migration
             $table->integer('ca2')->nullable();
             $table->integer('tca')->nullable();
             $table->integer('exam')->nullable();
-            $table->integer('status')->default('unpublished');
+            $table->string('status')->default('unpublished');
             $table->integer('exam_total')->nullable();
             $table->tinyInteger('sub_position')->nullable();
             $table->integer('cum')->nullable();

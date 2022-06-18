@@ -21,9 +21,9 @@ class CreatePaymentRecordsTable extends Migration
             $table->unsignedInteger('term_id');
             $table->unsignedInteger('session_id');
             $table->string('ref_no', 100)->unique()->nullable();
-            $table->string('title', 50)->unique()->default('School Fee Payment');
+            $table->string('title', 50)->default('School Fee Payment');
             $table->string('status', 20)->default('Due');
-            $table->integer('receipt', 20)->unique()->nullable();
+            $table->integer('receipt')->unique()->nullable();
             $table->integer('amt_paid')->nullable();
             $table->integer('balance')->nullable();
             $table->string('paid')->default('Due');
