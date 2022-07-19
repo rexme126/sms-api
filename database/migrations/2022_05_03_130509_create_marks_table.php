@@ -18,6 +18,8 @@ class CreateMarksTable extends Migration
             $table->unsignedInteger('student_id');
             $table->unsignedInteger('subject_id');
             $table->unsignedInteger('klase_id');
+            $table->unsignedInteger('section_id');
+            $table->unsignedInteger('term_id');
             $table->unsignedInteger('grade_id')->nullable();
             $table->unsignedInteger('session_id');
             // $table->unsignedInteger('section_id');

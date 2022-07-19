@@ -2,7 +2,8 @@ extend type Query {
     promoteStudents(
         status: Boolean!
         klase_id: Int!
-        session_id: Int! @eq
+        session_id: Int!
+        section_id: Int! @eq
     ): [Student] @field(resolver: "Promotion\\PromoteStudentsQuery")
 
     resetKlase(id: ID! @eq): Klase @first

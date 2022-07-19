@@ -19,7 +19,9 @@ final class ExamRecordsQuery
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-         return ExamRecord::where(['klase_id'=>$args['klase_id'],
-                        'session_id'=> $args['session_id']])->get();
+        return ExamRecord::where([
+            'klase_id' => $args['klase_id'],
+            'session_id' => $args['session_id'], 'section_id' => $args['section_id']
+        ])->get();
     }
 }

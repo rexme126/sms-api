@@ -30,4 +30,9 @@ extend type Mutation {
         userLib: LibarianUserInput
         lib: LibarianInput
     ): Accountant @field(resolver: "Accountant\\UpdateAccountantMutator")
+
+
+        deleteAccountant(
+        id: Int! @rules(apply: ["exists:accountants"])
+    ): Boolean @field(resolver: "Accountant\\DeleteAccountantMutator")
 }

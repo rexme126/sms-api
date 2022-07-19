@@ -1,0 +1,9 @@
+extend type Query {
+    sections: [Section!]! @all
+    section(id: Int! @eq): Section @first
+}
+
+extend type Mutation {
+    createSection(name: String!): Section @create
+    updateSection(id: ID!, name: String!): Section @update
+}

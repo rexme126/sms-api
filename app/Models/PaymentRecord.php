@@ -19,6 +19,7 @@ class PaymentRecord extends Model
     {
         return $this->belongsTo(Session::class);
     }
+    
     public function klase()
     {
         return $this->belongsTo(Klase::class);

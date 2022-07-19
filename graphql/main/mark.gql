@@ -4,9 +4,10 @@ extend type Query {
         subject_id: Int!
         term_id: Int!
         session_id: Int!
+        section_id: Int!
     ): [Mark] @field(resolver: "Mark\\MarkQueries")
 
-    # klaseResult(klase_id: Int!, term_id: Int!, session_id: Int!): [Mark]
+    # klaseResult(klase_id: Int!, term_id: Int!, session_id: Int!, section_id: Int!): [Mark]
     #     @field(resolver: "Mark\\StudentResultQuery")
 
     # tabulation sheet
@@ -17,6 +18,7 @@ extend type Query {
         student_id: Int!
         term_id: Int!
         session_id: Int!
+        section_id: Int!
     ): [Mark] @field(resolver: "Mark\\StudentExamResultQuery")
 
     terms: [Term!]! @all
@@ -29,12 +31,18 @@ extend type Query {
         student_id: Int!
         term_id: Int!
         session_id: Int!
+        section_id: Int!
     ): [Mark] @field(resolver: "Mark\\MainStudentExamResultQuery")
 }
 
 extend type Mutation {
-    createQueries(klase: Int!, subject: Int!, term: Int!, session: Int!): Mark
-        @field(resolver: "Mark\\QueryUserMarkMutator")
+    createQueries(
+        klase: Int!
+        subject: Int!
+        term: Int!
+        session: Int!
+        section: Int!
+    ): Mark @field(resolver: "Mark\\QueryUserMarkMutator")
 
     updateMarks(
         marks: [MarkInput]
@@ -42,6 +50,7 @@ extend type Mutation {
         subject_id: Int!
         term_id: Int!
         session_id: Int!
+        section_id: Int!
     ): Mark @field(resolver: "Mark\\UpdateMarkMutator")
 
     # session

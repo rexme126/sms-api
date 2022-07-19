@@ -31,4 +31,9 @@ extend type Mutation {
         userLib: LibarianUserInput
         lib: LibarianInput
     ): Teacher @field(resolver: "Teacher\\UpdateTeacherMutator")
+
+        deleteTeacher(
+        id: Int! @rules(apply: ["exists:teachers"])
+    ): Boolean @field(resolver: "Teacher\\DeleteTeacherMutator")
+
 }

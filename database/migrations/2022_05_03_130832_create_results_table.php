@@ -18,7 +18,8 @@ class CreateResultsTable extends Migration
             // $table->unsignedInteger('exam_id');
             $table->unsignedInteger('student_id');
             $table->unsignedInteger('klase_id');
-            // $table->unsignedInteger('section_id');
+            $table->unsignedInteger('session_id');
+            $table->unsignedInteger('section_id');
             $table->integer('total')->nullable();
             $table->string('ave')->nullable();
             $table->string('klase_ave')->nullable();
@@ -27,7 +28,6 @@ class CreateResultsTable extends Migration
             $table->string('ps')->nullable();
             $table->string('p_comment')->nullable();
             $table->string('t_comment')->nullable();
-            $table->string('session');
             $table->timestamps();
         });
     }
