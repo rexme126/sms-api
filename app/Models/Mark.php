@@ -40,4 +40,8 @@ class Mark extends Model
     {
         return $this->belongsTo(Grade::class);
     }
+    public function section()
+    {
+        return $this->belongsTo(Section::class);
+    }
 }

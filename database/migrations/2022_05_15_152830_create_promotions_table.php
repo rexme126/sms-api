@@ -17,10 +17,12 @@ class CreatePromotionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('from_class');
+            $table->string('from_session');
+            $table->unsignedBigInteger('from_term');
             // $table->unsignedInteger('from_section');
             $table->unsignedBigInteger('to_class');
+            $table->unsignedBigInteger('to_term')->default(1);
             // $table->unsignedInteger('to_section');
-            $table->string('from_session');
             $table->string('to_session');
             $table->boolean('status')->default(false);
             $table->timestamps();
@@ -28,8 +30,6 @@ class CreatePromotionsTable extends Migration
             $table->foreign('from_class')->references('id')->on('klases');
             $table->foreign('to_class')->references('id')->on('klases');
         });
-
-         
     }
 
     /**

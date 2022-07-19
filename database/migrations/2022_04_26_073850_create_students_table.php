@@ -18,8 +18,11 @@ class CreateStudentsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('klase_id');
             $table->unsignedInteger('guardian_id');
-            $table->string('term_id')->nullable();
-            $table->string('session_id')->nullable();
+            $table->unsignedInteger('section_id')->nullable();
+            $table->unsignedInteger('session_id')->nullable();
+            $table->unsignedInteger('term_id')->nullable();
+            $table->integer('promotion_term_id')->default(3);
+            $table->integer('cum_avg')->nullable();
             $table->string('slug')->unique();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();

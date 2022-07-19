@@ -15,4 +15,8 @@ extend type Mutation {
         studentUser: EditStudentUserInput
         student: EditStudentInput
     ): Student @field(resolver: "Student\\UpdateStudentMutator")
+
+     deleteStudent(
+        id: Int! @rules(apply: ["exists:students"])
+    ): Boolean @field(resolver: "Student\\DeleteStudentMutator")
 }

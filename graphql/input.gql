@@ -67,6 +67,7 @@ input StudentInput {
     guardian_address: String @rules(apply: ["required"])
     adm_no: String @rules(apply: ["required"])
     term: String @rules(apply: ["required"])
+    section: String @rules(apply: ["required"])
     session: String @rules(apply: ["required"])
     admitted_year: String @rules(apply: ["required"])
 }
@@ -99,6 +100,7 @@ input EditStudentInput {
     guardian_address: String @rules(apply: ["required"])
     adm_no: String @rules(apply: ["required"])
     term: String @rules(apply: ["required"])
+    section: String @rules(apply: ["required"])
     session: String @rules(apply: ["required"])
     admitted_year: String @rules(apply: ["required"])
 }

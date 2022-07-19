@@ -33,7 +33,7 @@ final class CreateResetPromotion
                 'klase_id'=> $classId,
                 'session_id'=> $sessionId,
                 'status'=> true,
-                'prom_term_id'=> 3
+                'promotion_term_id'=> 3
             ]);
         }
 

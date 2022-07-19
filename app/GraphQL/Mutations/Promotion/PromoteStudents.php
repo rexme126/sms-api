@@ -48,7 +48,7 @@ final class PromoteStudents
                 'klase_id' => $klaseTo,
                 'session_id'=> $sessionTo,
                 'status'=> false,
-                'prom_term_id'=> 0
+                'promotion_term_id'=> 0
             ]);
            
 

@@ -33,6 +33,10 @@ class ExamRecord extends Model
     {
         return $this->belongsTo(Term::class);
     }
+    public function section()
+    {
+        return $this->belongsTo(Section::class);
+    }
 
 
 }

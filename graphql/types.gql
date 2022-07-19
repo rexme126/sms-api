@@ -109,12 +109,14 @@ type Student {
     phone: String
     photo: String
     cum_avg: Int
+    promotion_term_id: Int
     guardian_name: String
     guardian_no: String
     guardian_email: String
     guardian_address: String
     term: Term @belongsTo
     session: Session @belongsTo
+    section: Section @belongsTo
     klase: Klase @belongsTo
     user: User @belongsTo
     guardian: Guardian @belongsTo
@@ -239,6 +241,7 @@ type Mark {
     subject: Subject @belongsTo
     klase: Klase @belongsTo
     grade: Grade @belongsTo
+    section: Section @belongsTo
     session: Session @belongsTo
     term: Term @belongsTo
 }
@@ -260,6 +263,10 @@ type Session {
     id: ID!
     name: String
 }
+type Section {
+    id: ID!
+    name: String!
+}
 
 type ExamRecord {
     id: ID!
@@ -279,6 +286,7 @@ type ExamRecord {
     klase: Klase @belongsTo
     term: Term @belongsTo
     session: Session @belongsTo
+    section: Section @belongsTo
 }
 type SetPromotion {
     id: ID!

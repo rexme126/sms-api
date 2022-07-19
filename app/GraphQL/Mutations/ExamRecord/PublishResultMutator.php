@@ -15,26 +15,37 @@ final class PublishResultMutator
     {
         $term_id = $args['term_id'];
         $session_id = $args['session_id'];
-        $klase_id= $args['klase_id'];
+        $section_id = $args['section_id'];
+        $klase_id = $args['klase_id'];
         $status = $args['status'];
-        
-        $examPublished= ExamRecord::where(['klase_id'=> $klase_id, 'term_id'=>$term_id,'session_id'=>$session_id])->get();
-        
-        if(count($examPublished) === 0){
+
+        $examPublished = ExamRecord::where([
+            'klase_id' => $klase_id, 'term_id' => $term_id, 'session_id' => $session_id,
+            'section_id' => $section_id
+        ])->get();
+
+        if (count($examPublished) === 0) {
             return;
-        }else {
+        } else {
             info('no');
-                ExamRecord::where(['klase_id'=> $klase_id, 'term_id'=>$term_id,'session_id'=>$session_id])
-                    ->update([
-                    'status'=> $status
+            ExamRecord::where([
+                'klase_id' => $klase_id, 'term_id' => $term_id, 'session_id' => $session_id,
+                'section_id' => $section_id
+            ])
+                ->update([
+                    'status' => $status
                 ]);
-                Mark::where(['klase_id'=> $klase_id, 'term_id'=>$term_id,'session_id'=>$session_id])
-                    ->update([
-                        'status'=> $status
-                    ]);
-                return  ExamRecord::where(['klase_id'=> $klase_id, 'term_id'=>$term_id,
-                    'session_id'=>$session_id])->first();
+            Mark::where([
+                'klase_id' => $klase_id, 'term_id' => $term_id, 'session_id' => $session_id,
+                'section_id' => $section_id
+            ])
+                ->update([
+                    'status' => $status
+                ]);
+            return  ExamRecord::where([
+                'klase_id' => $klase_id, 'term_id' => $term_id,
+                'session_id' => $session_id, 'section_id' => $section_id
+            ])->first();
         }
-       
     }
 }
