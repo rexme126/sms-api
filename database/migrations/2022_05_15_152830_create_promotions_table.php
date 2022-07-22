@@ -15,6 +15,8 @@ class CreatePromotionsTable extends Migration
     {
         Schema::create('promotions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('workspace_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('from_class');
             $table->string('from_session');

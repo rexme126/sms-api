@@ -16,3 +16,4 @@
 #import promotion.gql
 #import payment/payment.gql
 #import section.gql
+#import session.gql

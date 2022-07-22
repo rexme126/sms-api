@@ -16,6 +16,8 @@ class CreateResultsTable extends Migration
         Schema::create('results', function (Blueprint $table) {
             $table->id();
             // $table->unsignedInteger('exam_id');
+            $table->unsignedBigInteger('workspace_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedInteger('student_id');
             $table->unsignedInteger('klase_id');
             $table->unsignedInteger('session_id');

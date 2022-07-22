@@ -15,7 +15,8 @@ class CreateAccountantsTable extends Migration
     {
         Schema::create('accountants', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('workspace_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('slug')->unique();
             $table->string('first_name');
             $table->string('last_name');

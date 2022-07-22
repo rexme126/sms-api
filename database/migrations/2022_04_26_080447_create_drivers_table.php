@@ -15,6 +15,8 @@ class CreateDriversTable extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('workspace_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedInteger('blood_group_id');
             $table->unsignedInteger('country_id');
             $table->unsignedInteger('state_id');

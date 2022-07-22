@@ -1,12 +1,15 @@
 extend type Query {
-    subjects: [Subject!]! @all
-    subject(id: ID! @eq): Subject @first
+    subjects(slug: String): [Subject] @field(resolver: "Subject\\SubjectsQuery")
+    subject(id: ID!, slug: String @eq): Subject
+        @field(resolver: "Subject\\SubjectQuery")
 }
 
 extend type Mutation {
-    createSubject(subject: String!): Subject @create
+    createSubject(subject: String!, workspace: String): Subject
+        @field(resolver: "Subject\\CreateSubjectMutator")
 
-    updateSubject(id: ID!, subject: String!): Subject @update
+    updateSubject(id: ID!, subject: String!, workspace: String): Subject
+        @field(resolver: "Subject\\UpdateSubjectMutator")
 
     deleteSubject(id: ID!): Subject
         @field(resolver: "Subject\\AssignSubjectToTeacher")

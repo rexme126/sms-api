@@ -15,6 +15,8 @@ class CreateExamTimetablesTable extends Migration
     {
         Schema::create('exam_timetables', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('workspace_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedInteger('klase_id');
             $table->string('monday')->nullable();
             $table->string('tuesday')->nullable();
