@@ -1,13 +1,16 @@
 extend type Query {
-    klases: [Klase!]! @all
+    klases(slug: String): [Klase] @field(resolver: "Klase\\KlasesQuery")
     klasex: [Klase!]! @all
-    klase(id: ID! @eq): Klase @first
+    klase(id: ID!, slug: String @eq): Klase
+        @field(resolver: "Klase\\KlaseQuery")
 }
 
 extend type Mutation {
-    createKlase(name: String!): Klase @create
+    createKlase(name: String!, workspace: String): Klase
+        @field(resolver: "Klase\\CreateKlaseMutator")
 
-    updateKlase(id: ID!, name: String!): Klase @update
+    updateKlase(id: ID!, name: String!, workspace: String): Klase
+        @field(resolver: "Klase\\UpdateKlaseMutator")
 
     deleteKlase(id: ID!): Klase @field(resolver: "Klase\\AssignKlaseToTeacher")
 

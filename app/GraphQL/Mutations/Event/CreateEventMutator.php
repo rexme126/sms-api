@@ -21,14 +21,20 @@ final class CreateEventMutator
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-         $event = Event::create([
-            'description'=> $args['description'],
+        $user = auth()->user();
+        $workspace = $user->workspace()->where('slug', $args['workspace'])->first();
+
+        $event = Event::create([
+            'user_id' => $user->id,
+            'workspace_id' => $workspace->id,
+            'description' => $args['description'],
             'date' => $args['date']
         ]);
         $users = User::all();
         foreach ($users as $user) {
-             $user->notify(new SchoolEvent($event));
+            $user->notify(new SchoolEvent($event));
         }
+        return $event;
 
     }
 }

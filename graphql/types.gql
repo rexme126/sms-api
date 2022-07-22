@@ -26,6 +26,7 @@ type User {
     teachers: [Teacher] @hasMany
     libarians: [Libarian] @hasMany
     guardian: Guardian @hasOne
+    workspace: Workspace
 }
 
 type Role {
@@ -330,4 +331,11 @@ type PaymentRecord {
     session: Session @belongsTo
     payment: Payment @belongsTo
     student: Student @belongsTo
+}
+
+type Workspace {
+    id: ID!
+    slug: String!
+    name: String!
+    logo: String
 }
