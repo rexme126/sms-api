@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\Timetable;
 
 use App\Models\Timetable;
+use App\Models\Workspace;
 
 final class CreateTimetableMutator
 {
@@ -12,11 +13,8 @@ final class CreateTimetableMutator
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['workspace'])->first();
-
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $timetable = new Timetable();
-        $timetable->user_id = $user->id;
         $timetable->workspace_id = $workspace->id;
         $timetable->monday = $args['monday'];
         $timetable->tuesday = $args['tuesday'];

@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations\Event;
 
 use App\Models\User;
 use App\Models\Event;
+use App\Models\Workspace;
 use App\Notifications\SchoolEvent;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -21,11 +22,10 @@ final class CreateEventMutator
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['workspace'])->first();
+
+        $workspace = Workspace::where('slug', $args['workspace'])->first();
 
         $event = Event::create([
-            'user_id' => $user->id,
             'workspace_id' => $workspace->id,
             'description' => $args['description'],
             'date' => $args['date']
@@ -35,6 +35,5 @@ final class CreateEventMutator
             $user->notify(new SchoolEvent($event));
         }
         return $event;
-
     }
 }

@@ -26,33 +26,43 @@ final class PromoteStudents
         $session_id = $args['session_id'];
         $sessionTo = $args['sessionTo'];
         $from_term = $args['from_term'];
+        $workspaceId = $args['workspaceId'];
 
         $setPromotion = SetPromotion::find(1);
-        $students= Student::where(['klase_id'=> $klase_id, 'session_id'=>$session_id,
-                    'status'=>true])->where('cum_avg','>=', $setPromotion->name)->get()->pluck('id');
+        $students = Student::where([
+            'workspace_id' => $workspaceId, 'klase_id' => $klase_id,
+            'session_id' => $session_id,
+            'status' => true
+        ])->where('cum_avg', '>=', $setPromotion->name)->get()->pluck('id');
 
 
         foreach ($students as $student) {
             Promotion::updateOrCreate([
                 'student_id' => $student,
-                'from_class'=> $klase_id,
-                'to_class'=> $klaseTo,
-                'from_session'=> $session_id,
+                'from_class' => $klase_id,
+                'to_class' => $klaseTo,
+                'from_session' => $session_id,
                 'to_session' => $sessionTo,
                 'status' => true,
-                'from_term'=> $from_term
+                'from_term' => $from_term,
+                'workspace_id' => $workspaceId
             ]);
 
-          $sss = Student::where(['id'=> $student,'klase_id'=> $klase_id, 'session_id'=> $session_id,
-            'status'=> true])->update([
+            $sss = Student::where([
+                'id' => $student, 'klase_id' => $klase_id, 'session_id' => $session_id,
+                'status' => true,
+                'workspace_id' => $workspaceId
+            ])->update([
                 'klase_id' => $klaseTo,
-                'session_id'=> $sessionTo,
-                'status'=> false,
-                'promotion_term_id'=> 0
+                'session_id' => $sessionTo,
+                'status' => false,
+                'promotion_term_id' => 0,
+                'workspace_id' => $workspaceId
             ]);
-           
-
         }
-        return Student::where(['klase_id'=>$klase_id, 'status'=> true])->get();       
+        return Student::where([
+            'workspace_id' => $workspaceId, 'klase_id' => $klase_id,
+            'status' => true
+        ])->get();
     }
 }

@@ -130,7 +130,8 @@ class RolesAndPermissionsTableSeeder extends Seeder
             'city_id'=>1,
             'lga'=> 'Obio-Akpor',
             'blood_group_id'=> 1,
-            'password' => Hash::make('destiny12')
+            'password' => Hash::make('destiny12'),
+            'workspace_id'=> 1
         ]);
         $user->assignRole(2);
     

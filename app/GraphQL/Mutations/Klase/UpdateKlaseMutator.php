@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Mutations\Klase;
 
+use App\Models\Workspace;
+
 final class UpdateKlaseMutator
 {
     /**
@@ -10,8 +12,7 @@ final class UpdateKlaseMutator
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['workspace'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $klase = $workspace->klases()->findOrFail($args['id']);
 
         $klase->name = $args['name'];

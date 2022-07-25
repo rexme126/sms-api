@@ -2,7 +2,9 @@
 
 namespace App\GraphQL\Queries\Session;
 
-final class SessionswQuery
+use App\Models\Workspace;
+
+final class SessionsQuery
 {
     /**
      * @param  null  $_
@@ -10,8 +12,7 @@ final class SessionswQuery
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['slug'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $sessions = $workspace->sessions;
         return $sessions;
     }

@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Mutations\Section;
 
+use App\Models\Workspace;
+
 final class UpdateSectionMutator
 {
     /**
@@ -10,6 +12,12 @@ final class UpdateSectionMutator
      */
     public function __invoke($_, array $args)
     {
-        // TODO implement the resolver
+        $workspace = Workspace::findOrFail($args['workspaceId']);
+        $section = $workspace->sections()->findOrFail($args['id']);
+
+        $section->name = $args['name'];
+
+        $section->save();
+        return $section;
     }
 }

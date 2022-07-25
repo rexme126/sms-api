@@ -1,14 +1,14 @@
 extend type Query {
-    sessionsw(slug: String @eq): [Session!]!
-        @field(resolver: "Session\\SessionswQuery")
+    sessions(workspaceId: Int @eq): [Session!]!
+        @field(resolver: "Session\\SessionsQuery")
 
-    sessionw(id: Int!, slug: String @eq): Session
-        @field(resolver: "Session\\SessionwQuery")
+    session(id: Int!, workspaceId: Int @eq): Session
+        @field(resolver: "Session\\SessionQuery")
 }
 
 extend type Mutation {
-    createSessionw(name: String!, workspace: String): Session
+    createSessionw(name: String!, workspaceId: Int): Session
         @field(resolver: "Session\\CreateSessionMutator")
-    updateSessionw(id: ID!, name: String!, workspace: String): Session
+    updateSessionw(id: ID!, name: String!, workspaceId: Int): Session
         @field(resolver: "Session\\UpdateSessionMutator")
 }

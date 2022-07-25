@@ -1,39 +1,27 @@
 extend type Query {
-    teachers: [Teacher!]! @all
+    teachers(workspaceId: Int): [Teacher!]!
+        @field(resolver: "Teacher\\TeachersQuery")
     teachersDashboard: [Teacher!]! @all
-    teacher(slug: String! @eq): Teacher @first
+    teacher(id: Int!, workspaceId: Int @eq): Teacher
+        @field(resolver: "Teacher\\TeacherQuery")
 }
 
 extend type Mutation {
     createTeacher(
-        first_name: String! @rules(apply: ["required"])
-        last_name: String! @rules(apply: ["required"])
-        middle_name: String
-        gender: String! @rules(apply: ["required"])
-        email: String @rules(apply: ["required", "unique:users,email"])
-        country_id: Int!
-        state_id: Int!
-        city_id: Int!
-        lga: String @rules(apply: ["required"])
-        photo: Upload
-            @rules(
-                apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"]
-            )
-        birthday: String
-        phone: String @rules(apply: ["required", "unique:libarians,phone"])
-        qualification: String @rules(apply: ["required"])
-        blood_group_id: Int
-        religion: String @rules(apply: ["required"])
+        workspaceId: Int
+        userTable: UsersInput
+        teacherTable: WorkersInput
     ): Teacher @field(resolver: "Teacher\\CreateTeacherMutator")
 
     updateTeacher(
         id: ID!
-        userLib: LibarianUserInput
-        lib: LibarianInput
+        workspaceId: Int
+        userTable: UsersInput
+        teacherTable: WorkersInput
     ): Teacher @field(resolver: "Teacher\\UpdateTeacherMutator")
 
-        deleteTeacher(
+    deleteTeacher(
         id: Int! @rules(apply: ["exists:teachers"])
+        workspaceId: Int
     ): Boolean @field(resolver: "Teacher\\DeleteTeacherMutator")
-
 }

@@ -3,6 +3,7 @@ extend type Query {
         status: Boolean!
         klase_id: Int!
         session_id: Int!
+        workspaceId: Int
         section_id: Int! @eq
     ): [Student] @field(resolver: "Promotion\\PromoteStudentsQuery")
 
@@ -12,20 +13,25 @@ extend type Query {
         status: Boolean!
         from_class: Int!
         from_term: Int!
+        workspaceId: Int
         from_session: Int! @eq
     ): [Promotion] @field(resolver: "Promotion\\ResetPromoteQuery")
 
-    setPromotion: [SetPromotion] @all
+    setPromotion(workspaceId: Int): SetPromotion
+        @field(resolver: "Promotion\\setPromotionQuery")
 }
 
 extend type Mutation {
-    CreateSetPromotion(id: ID!, name: Int!): SetPromotion @update
+    CreateSetPromotion(name: Int!, workspaceId: Int): SetPromotion
+        @field(resolver: "SetPromotion\\setPromotionMutator")
+
     createPromoteStudents(
         klase_id: Int!
         klaseTo: Int!
         session_id: Int!
         sessionTo: Int!
         from_term: Int!
+        workspaceId: Int
     ): [Student] @field(resolver: "Promotion\\PromoteStudents")
 
     createResetPromote(
@@ -33,5 +39,6 @@ extend type Mutation {
         from_class: Int!
         from_session: Int!
         from_term: Int!
+        workspaceId: Int
     ): [Promotion] @field(resolver: "Promotion\\CreateResetPromotion")
 }

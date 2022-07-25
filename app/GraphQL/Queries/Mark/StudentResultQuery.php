@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries\Mark;
 
 use App\Models\Mark;
+use App\Models\Workspace;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
@@ -19,11 +20,14 @@ final class StudentResultQuery
    */
   public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
   {
-
-    return Mark::where([
+    $workspace = Workspace::findOrFail($args['workspaceId']);
+        
+    $marks = $workspace->marks()->where([
       'klase_id' => $args['klase_id'],
       'term_id' => $args['term_id'], 'session_id' => $args['session_id'],
       'section_id' => $args['section_id']
     ])->get();
+
+    return $marks;
   }
 }

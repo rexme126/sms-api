@@ -5,6 +5,7 @@ extend type Query {
         term_id: Int!
         session_id: Int!
         section_id: Int!
+        workspaceId: Int
     ): [Mark] @field(resolver: "Mark\\MarkQueries")
 
     # klaseResult(klase_id: Int!, term_id: Int!, session_id: Int!, section_id: Int!): [Mark]
@@ -19,11 +20,12 @@ extend type Query {
         term_id: Int!
         session_id: Int!
         section_id: Int!
+        workspaceId: Int
     ): [Mark] @field(resolver: "Mark\\StudentExamResultQuery")
 
     terms: [Term!]! @all
-    sessions: [Session!]! @all
-    session(id: Int! @eq): Session @first
+    # sessions: [Session!]! @all
+    # session(id: Int! @eq): Session @first
 
     # student Result
     mainStudentMarkResult(
@@ -32,6 +34,7 @@ extend type Query {
         term_id: Int!
         session_id: Int!
         section_id: Int!
+        workspaceId: Int
     ): [Mark] @field(resolver: "Mark\\MainStudentExamResultQuery")
 }
 
@@ -42,6 +45,7 @@ extend type Mutation {
         term: Int!
         session: Int!
         section: Int!
+        workspaceId: Int
     ): Mark @field(resolver: "Mark\\QueryUserMarkMutator")
 
     updateMarks(
@@ -51,9 +55,10 @@ extend type Mutation {
         term_id: Int!
         session_id: Int!
         section_id: Int!
+        workspaceId: Int
     ): Mark @field(resolver: "Mark\\UpdateMarkMutator")
 
     # session
-    createSession(name: String!): Session @create
-    updateSession(id: ID!, name: String!): Session @update
+    # createSession(name: String!): Session @create
+    # updateSession(id: ID!, name: String!): Session @update
 }

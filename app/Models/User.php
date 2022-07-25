@@ -91,7 +91,7 @@ class User extends Authenticatable implements JWTSubject
     }
     public function workspace()
     {
-        return $this->hasOne(Workspace::class);
+        return $this->belongsTo(Workspace::class);
     }
 
 }

@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries\Promotion;
 
 use App\Models\Promotion;
+use App\Models\Workspace;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
@@ -19,7 +20,14 @@ final class ResetPromoteQuery
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-       return Promotion::where(['from_class'=>$args['from_class'], 'from_term'=>$args['from_term'],
-                        'status'=>$args['status'],'from_session'=> $args['from_session']])->get();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
+
+        $promotions = $workspace->promotions()->where([
+            'from_class' => $args['from_class'],
+            'from_term' => $args['from_term'],
+            'status' => $args['status'], 'from_session' => $args['from_session']
+        ])->get();
+
+        return $promotions;
     }
 }

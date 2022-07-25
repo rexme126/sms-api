@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Queries\Section;
 
+use App\Models\Workspace;
+
 final class SectionsQuery
 {
     /**
@@ -10,8 +12,7 @@ final class SectionsQuery
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['slug'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $sections = $workspace->sections;
         return $sections;
     }

@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\Section;
 
 use App\Models\Section;
+use App\Models\Workspace;
 
 final class CreateSectionMutator
 {
@@ -12,11 +13,9 @@ final class CreateSectionMutator
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['workspace'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
 
         $section = new Section();
-        $section->user_id = $user->id;
         $section->workspace_id = $workspace->id;
         $section->name = $args['name'];
         $section->save();

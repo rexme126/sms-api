@@ -14,8 +14,9 @@ final class DeleteTeacherMutator
      */
     public function __invoke($_, array $args)
     {
+     
        $userId =Teacher::find($args['id']);
-       Storage::delete('public/teacher/' . $userId->photo);
+       Storage::delete('public/'. $args['workspaceId'] . '/teachers' .'/' . $userId->photo);
        $id = $userId->user_id;
        User::find($id)->delete();
        return Teacher::find($args['id'])->delete();

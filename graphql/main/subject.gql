@@ -1,14 +1,14 @@
 extend type Query {
-    subjects(slug: String): [Subject] @field(resolver: "Subject\\SubjectsQuery")
-    subject(id: ID!, slug: String @eq): Subject
+    subjects(workspaceId: Int): [Subject] @field(resolver: "Subject\\SubjectsQuery")
+    subject(id: ID!, workspaceId: Int @eq): Subject
         @field(resolver: "Subject\\SubjectQuery")
 }
 
 extend type Mutation {
-    createSubject(subject: String!, workspace: String): Subject
+    createSubject(subject: String!, workspaceId: Int): Subject
         @field(resolver: "Subject\\CreateSubjectMutator")
 
-    updateSubject(id: ID!, subject: String!, workspace: String): Subject
+    updateSubject(id: ID!, subject: String!, workspaceId: Int): Subject
         @field(resolver: "Subject\\UpdateSubjectMutator")
 
     deleteSubject(id: ID!): Subject

@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Queries\Klase;
 
+use App\Models\Workspace;
+
 final class KlaseQuery
 {
     /**
@@ -10,8 +12,7 @@ final class KlaseQuery
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['slug'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $klase = $workspace->klases()->findOrFail($args['id']);
         return $klase;
     }

@@ -4,6 +4,7 @@ extend type Query {
         klase_id: Int!
         session_id: Int!
         section_id: Int!
+        workspaceId: Int
     ): [ExamRecord] @field(resolver: "ExamRecord\\ExamRecordsQuery")
 
     # tabulation sheet
@@ -12,6 +13,7 @@ extend type Query {
         term_id: Int!
         session_id: Int!
         section_id: Int!
+        workspaceId: Int
     ): [ExamRecord] @field(resolver: "ExamRecord\\klaseResultsQuery")
 
     studentExamResult(
@@ -20,6 +22,7 @@ extend type Query {
         student_id: Int!
         session_id: Int!
         section_id: Int!
+        workspaceId: Int
     ): [ExamRecord] @field(resolver: "ExamRecord\\StudentExamResultQuery")
 
     firstTerm(
@@ -27,6 +30,7 @@ extend type Query {
         term_id: Int!
         session_id: Int!
         section_id: Int!
+        workspaceId: Int
     ): [ExamRecord] @field(resolver: "ExamRecord\\FirstTermExamResultQuery")
 
     secoundTerm(
@@ -34,6 +38,7 @@ extend type Query {
         term_id: Int!
         session_id: Int!
         section_id: Int!
+        workspaceId: Int
     ): [ExamRecord] @field(resolver: "ExamRecord\\SecoundTermExamResultQuery")
 
     thirdTerm(
@@ -41,6 +46,7 @@ extend type Query {
         term_id: Int!
         session_id: Int!
         section_id: Int!
+        workspaceId: Int
     ): [ExamRecord] @field(resolver: "ExamRecord\\ThirdTermExamResultQuery")
 
     # publish result
@@ -50,6 +56,7 @@ extend type Query {
         session_id: Int!
         section_id: Int!
         status: String!
+        workspaceId: Int
     ): ExamRecord @field(resolver: "ExamRecord\\PublishResultQuery")
 
     # student
@@ -60,6 +67,7 @@ extend type Query {
         session_id: Int!
         section_id: Int!
         status: String!
+        workspaceId: Int
     ): [ExamRecord] @field(resolver: "ExamRecord\\MainStudentExamResultQuery")
 }
 
@@ -70,5 +78,6 @@ extend type Mutation {
         term_id: Int!
         session_id: Int!
         section_id: Int!
+        workspaceId: Int
     ): ExamRecord @field(resolver: "ExamRecord\\PublishResultMutator")
 }

@@ -18,7 +18,6 @@ class WorkspacesSeederTable extends Seeder
         $w = new Workspace();
         $w->name = 'defaultWorkspace';
         $w->slug= Str::slug('defaultWorkspace');
-        $w->user_id = 1;
         $w->save();
     }
 }

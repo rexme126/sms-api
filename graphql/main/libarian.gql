@@ -1,37 +1,26 @@
 extend type Query {
-    libarians: [Libarian!]! @all
-    libarian(slug: String! @eq): Libarian @first
+    libarians(workspaceId: Int): [Libarian!]!
+        @field(resolver: "Libarian\\LibariansQuery")
+    libarian(id: Int!, workspaceId: Int @eq): Libarian
+        @field(resolver: "Libarian\\LibarianQuery")
 }
 
 extend type Mutation {
     createLibarian(
-        first_name: String! @rules(apply: ["required"])
-        last_name: String! @rules(apply: ["required"])
-        middle_name: String
-        gender: String! @rules(apply: ["required"])
-        email: String @rules(apply: ["required", "unique:users,email"])
-        country_id: Int!
-        state_id: Int!
-        city_id: Int!
-        lga: String @rules(apply: ["required"])
-        photo: Upload
-            @rules(
-                apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"]
-            )
-        birthday: String
-        phone: String @rules(apply: ["required", "unique:libarians,phone"])
-        qualification: String @rules(apply: ["required"])
-        blood_group_id: Int
-        religion: String @rules(apply: ["required"])
+        workspaceId: Int
+        userTable: UsersInput
+        teacherTable: WorkersInput
     ): Libarian @field(resolver: "Libarian\\CreateLibarianMutator")
 
     updateLibarian(
         id: ID!
-        userLib: LibarianUserInput
-        lib: LibarianInput
+        workspaceId: Int
+        userTable: UsersInput
+        teacherTable: WorkersInput
     ): Libarian @field(resolver: "Libarian\\UpdateLibarianMutator")
 
-     deleteLibarian(
+    deleteLibarian(
         id: Int! @rules(apply: ["exists:libarians"])
+        workspaceId: Int
     ): Boolean @field(resolver: "Libarian\\DeleteLibarianMutator")
 }

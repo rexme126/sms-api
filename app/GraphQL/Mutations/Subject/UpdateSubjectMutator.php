@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Mutations\Subject;
 
+use App\Models\Workspace;
+
 final class UpdateSubjectMutator
 {
     /**
@@ -10,8 +12,8 @@ final class UpdateSubjectMutator
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['workspace'])->first();
+        
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $subject = $workspace->subjects()->findOrFail($args['id']);
 
         $subject->subject = $args['subject'];

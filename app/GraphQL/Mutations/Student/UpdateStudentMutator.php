@@ -35,8 +35,9 @@ final class UpdateStudentMutator
 
      if($file != null){
             $name=  Str::random(4).$file->getClientOriginalName();
-            $path = $file->storePubliclyAs('public/student', $name);
-            Storage::delete('public/student/'.$student->photo);
+            $path = $file->storePubliclyAs('public/' . $args['workspaceId'] . '/students', $name);
+         
+            Storage::delete('public/'. $args['workspaceId'] . '/students' .'/' . $student->photo);
 
             $student->first_name = $StudentData['first_name'];
             $student->last_name = $StudentData['last_name'];

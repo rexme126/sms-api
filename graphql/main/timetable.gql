@@ -4,10 +4,10 @@ extend type Query {
     #   klase_id: Int! @where(operator: "like")
     # ): [Timetable!]! @all
 
-    timetables(klase_id: Int!, slug: String @eq): [Timetable!]!
+    timetables(klase_id: Int!, workspaceId: Int @eq): [Timetable!]!
         @field(resolver: "Timetable\\TimetablesQuery")
 
-    timetable(id: Int!, slug: String @eq): Timetable
+    timetable(id: Int!, workspaceId: Int @eq): Timetable
         @field(resolver: "Timetable\\TimetableQuery")
 
     #timetable(id: ID! @where(operator: "like")): Timetable @first
@@ -22,7 +22,7 @@ extend type Mutation {
         friday: String
         time: String
         klase_id: Int!
-        workspace: String
+        workspaceId: Int
     ): Timetable @field(resolver: "Timetable\\CreateTimetableMutator")
 
     updateTimetable(
@@ -34,9 +34,9 @@ extend type Mutation {
         friday: String
         time: String
         klase_id: Int!
-        workspace: String
+        workspaceId: Int
     ): Timetable @field(resolver: "Timetable\\UpdateTimetableMutator")
 
-    deleteTimetable(id: Int!, workspace: String): Timetable
+    deleteTimetable(id: Int!, workspaceId: Int): Timetable
         @field(resolver: "Timetable\\DeleteTimetableMutator")
 }

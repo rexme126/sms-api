@@ -1,22 +1,29 @@
 extend type Query {
-    students: [Student!]! @all
-    student(slug: String! @eq): Student @first
     studentsDashboard: [Student!]! @all
+
+    students(workspaceId: Int): [Student!]!
+        @field(resolver: "Student\\StudentsQuery")
+
+    student(id: Int!, workspaceId: Int @eq): Student
+        @field(resolver: "Student\\StudentQuery")
 }
 
 extend type Mutation {
     createStudent(
+        workspaceId: Int
         studentUser: StudentUserInput
         student: StudentInput
     ): Student @field(resolver: "Student\\CreateStudentMutator")
 
     updateStudent(
         id: ID!
+        workspaceId: Int
         studentUser: EditStudentUserInput
         student: EditStudentInput
     ): Student @field(resolver: "Student\\UpdateStudentMutator")
 
-     deleteStudent(
+    deleteStudent(
         id: Int! @rules(apply: ["exists:students"])
+        workspaceId: Int
     ): Boolean @field(resolver: "Student\\DeleteStudentMutator")
 }

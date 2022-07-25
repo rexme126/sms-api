@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Mutations\Event;
 
+use App\Models\Workspace;
+
 final class DeleteEventMutator
 {
     /**
@@ -10,8 +12,7 @@ final class DeleteEventMutator
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['workspace'])->first();
+        $workspace = Workspace::where('slug', $args['workspace'])->first();
         $workspace->events()->findOrFail($args['id'])->delete();
     }
 }

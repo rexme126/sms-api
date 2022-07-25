@@ -22,12 +22,11 @@ final class UpdateLibarianMutator
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
+        $id = $args['id'];
+        $userData = $args['userTable'];
+        $libarianData =  $args['teacherTable'];
 
-        $id= $args['id'];
-        $userData =$args['userLib'];
-        $libData =  $args['lib'];
-         
-         $file = $libData['image'];
+        $file = $libarianData['photo'];
       
     //    libarian
     
@@ -40,18 +39,19 @@ final class UpdateLibarianMutator
 
      if($file != null){
             $name=  Str::random(4).$file->getClientOriginalName();
-            $path = $file->storePubliclyAs('public/libarian', $name);
-            Storage::delete('public/libarian/'.$libarian->photo);
+            $path = $file->storePubliclyAs('public/' . $args['workspaceId'] . '/libarians', $name);
 
-            $libarian->first_name = $libData['first_name'];
-            $libarian->last_name = $libData['last_name'];
-            $libarian->middle_name = $libData['middle_name'];
-            $libarian->birthday = $libData['birthday'];
+            Storage::delete('public/' . $args['workspaceId'] . '/libarians' . '/' . $libarian->photo);
+
+            $libarian->first_name = $libarianData['first_name'];
+            $libarian->last_name = $libarianData['last_name'];
+            $libarian->middle_name = $libarianData['middle_name'];
+            $libarian->birthday = $libarianData['birthday'];
          
-            $libarian->phone = $libData['phone'];
+            $libarian->phone = $libarianData['phone'];
             $libarian->photo = $name;
-            $libarian->qualification = $libData['qualification'];
-            $libarian->gender = $libData['gender'];
+            $libarian->qualification = $libarianData['qualification'];
+            $libarian->gender = $libarianData['gender'];
 
             // user
 
@@ -62,7 +62,7 @@ final class UpdateLibarianMutator
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
-            $user->first_name = $libData['first_name'];
+            $user->first_name = $libarianData['first_name'];
 
             $user->save();
             $libarian->save();
@@ -70,14 +70,14 @@ final class UpdateLibarianMutator
           
         
         }else{
-            $libarian->first_name = $libData['first_name'];
-            $libarian->last_name = $libData['last_name'];
-            $libarian->middle_name = $libData['middle_name'];
-            $libarian->birthday = $libData['birthday'];
+            $libarian->first_name = $libarianData['first_name'];
+            $libarian->last_name = $libarianData['last_name'];
+            $libarian->middle_name = $libarianData['middle_name'];
+            $libarian->birthday = $libarianData['birthday'];
           
-            $libarian->phone = $libData['phone'];
-            $libarian->qualification = $libData['qualification'];
-            $libarian->gender = $libData['gender'];
+            $libarian->phone = $libarianData['phone'];
+            $libarian->qualification = $libarianData['qualification'];
+            $libarian->gender = $libarianData['gender'];
         
             $user->state_id = $userData['state'];
             $user->country_id = $userData['country'];
@@ -86,7 +86,7 @@ final class UpdateLibarianMutator
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
-            $user->first_name = $libData['first_name'];
+            $user->first_name = $libarianData['first_name'];
      
             $user->save();
             $libarian->save();

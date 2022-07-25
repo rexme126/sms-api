@@ -30,6 +30,7 @@ final class UpdateMarkMutator
     $term_id = $args['term_id'];
     $session_id = $args['session_id'];
     $section_id = $args['section_id'];
+    $workspaceId = $args['workspaceId'];
 
 
 
@@ -49,12 +50,13 @@ final class UpdateMarkMutator
       $examTotall = $examTotal;
 
       if (!empty($id)) {
-        Mark::where('id', $id)->update([
+        Mark::where(['id' => $id, 'workspace_id' => $workspaceId])->update([
           'ca1' => $caa1,
           'ca2' => $caa2,
           'exam' => $examm,
           'tca' => $tca,
-          'exam_total' => $examTotall
+          'exam_total' => $examTotall,
+          'workspace_id' => $workspaceId
         ]);
       }
     }
@@ -62,7 +64,7 @@ final class UpdateMarkMutator
     // subject ranking
     $studentMarks = Mark::where([
       'klase_id' => $klase_id, 'term_id' => $term_id,
-      'session_id' => $session_id, 'section_id' => $section_id
+      'session_id' => $session_id, 'section_id' => $section_id, 'workspace_id' => $workspaceId
     ])->get()->groupBy('subject_id')->map(function ($subject) {
       $rank = 0;
       $score = -1;
@@ -83,24 +85,28 @@ final class UpdateMarkMutator
 
     $stud = DB::table('marks')->where([
       'klase_id' => $klase_id, 'term_id' => $term_id,
-      'session_id' => $session_id, 'section_id' => $section_id
+      'session_id' => $session_id, 'section_id' => $section_id, 'workspace_id' => $workspaceId
     ])->get()->pluck('student_id')->unique();
 
     foreach ($stud as $num) {
       $stu =  Mark::where([
         'student_id' => $num, 'klase_id' => $klase_id, 'term_id' => $term_id,
-        'session_id' => $session_id, 'section_id' => $section_id
+        'session_id' => $session_id, 'section_id' => $section_id, 'workspace_id' => $workspaceId
       ])->get();
 
       // info($stu->avg('exam_total'));
-      ExamRecord::where(['student_id' => $num, 'term_id' => $term_id, 'session_id' => $session_id])->update([
+      ExamRecord::where([
+        'student_id' => $num, 'term_id' => $term_id, 'session_id' => $session_id,
+        'workspace_id' => $workspaceId
+      ])->update([
         'klase_id' => $klase_id,
         'student_id' => $num,
         'session_id' => $session_id,
         'section_id' => $section_id,
         'term_id' => $term_id,
         'total' => $stu->sum('exam_total'),
-        'avg' => $stu->avg('exam_total')
+        'avg' => $stu->avg('exam_total'),
+        'workspace_id' => $workspaceId
       ]);
     }
 
@@ -110,33 +116,37 @@ final class UpdateMarkMutator
       foreach ($stud as $num) {
         $cumTotal =  ExamRecord::where([
           'student_id' => $num, 'klase_id' => $klase_id,
-          'session_id' => $session_id, 'section_id' => $section_id
+          'session_id' => $session_id, 'section_id' => $section_id, 'workspace_id' => $workspaceId
         ])->get();
 
         ExamRecord::where([
           'student_id' => $num, 'term_id' => $term_id, 'session_id' => $session_id,
-          'section_id' => $section_id
+          'section_id' => $section_id, 'workspace_id' => $workspaceId
         ])->update([
           'cum_total' => $cumTotal->sum('total'),
-          'cum_avg' => $cumTotal->avg('total')
+          'cum_avg' => $cumTotal->avg('total'),
+          'workspace_id' => $workspaceId
         ]);
 
-        Student::where(['id' => $num, 'session_id' => $session_id, 'section_id' => $section_id])->update([
+        Student::where([
+          'id' => $num, 'session_id' => $session_id, 'section_id' => $section_id,
+          'workspace_id' => $workspaceId
+        ])->update([
           'cum_avg' => $cumTotal->avg('total'),
           'status' => true,
-          'promotion_term_id' => 3
+          'promotion_term_id' => 3,
         ]);
-        $setP = SetPromotion::find(1);
+        $setP = SetPromotion::where('workspace_Id', $args['workspaceId'])->first();
         ExamRecord::where([
           'student_id' => $num, 'term_id' => $term_id, 'session_id' => $session_id,
-          'section_id' => $section_id
+          'section_id' => $section_id, 'workspace_id' => $workspaceId
         ])->where('cum_avg', '>=', $setP->name)
           ->update([
             'ps' => 'Promoted'
           ]);
         ExamRecord::where([
           'student_id' => $num, 'term_id' => $term_id, 'session_id' => $session_id,
-          'section_id' => $section_id
+          'section_id' => $section_id, 'workspace_id' => $workspaceId
         ])->where('cum_avg', '<', $setP->name)
           ->update([
             'ps' => 'Failed'
@@ -148,7 +158,8 @@ final class UpdateMarkMutator
     $studentM = ExamRecord::where([
       'klase_id' => $klase_id, 'term_id' => $term_id,
       'session_id' => $session_id,
-      'section_id' => $section_id
+      'section_id' => $section_id,
+      'workspace_id' => $workspaceId
     ])->get()->groupBy('klase_id')->map(function ($subject) {
       $rank = 0;
       $score = -1;
@@ -168,7 +179,8 @@ final class UpdateMarkMutator
     // grade 
     $grades = Grade::all();
     foreach ($grades as $grade) {
-      Mark::where('exam_total', '>=',  $grade->mark_from)->Where('exam_total', '<=',  $grade->mark_to)
+      Mark::where('workspace_id', $workspaceId)->where('exam_total', '>=',  $grade->mark_from)
+        ->Where('exam_total', '<=',  $grade->mark_to)
         ->update([
           'grade_id' => $grade->id,
         ]);

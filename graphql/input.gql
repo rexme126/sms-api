@@ -1,4 +1,4 @@
-input LibarianUserInput {
+input UsersInput {
     country: String!
     state: String!
     city: String!
@@ -8,17 +8,21 @@ input LibarianUserInput {
     religion: String @rules(apply: ["required"])
 }
 
-input LibarianInput {
+input WorkersInput {
     first_name: String! @rules(apply: ["required"])
     last_name: String! @rules(apply: ["required"])
     middle_name: String
     gender: String! @rules(apply: ["required"])
+    photo: Upload
+        @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"])
+    birthday: String
     image: Upload
         @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"])
     birthday: String
     phone: String
     qualification: String @rules(apply: ["required"])
 }
+
 
 # marks
 input MarkInput {
@@ -28,17 +32,6 @@ input MarkInput {
     exam: String
 }
 
-input LibarianInput {
-    first_name: String! @rules(apply: ["required"])
-    last_name: String! @rules(apply: ["required"])
-    middle_name: String
-    gender: String! @rules(apply: ["required"])
-    image: Upload
-        @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"])
-    birthday: String
-    phone: String
-    qualification: String @rules(apply: ["required"])
-}
 # student
 input StudentUserInput {
     country: String!

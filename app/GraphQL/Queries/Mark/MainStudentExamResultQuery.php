@@ -22,7 +22,8 @@ final class MainStudentExamResultQuery
     return Mark::where([
       'klase_id' => $args['klase_id'], 'student_id' =>
       $args['student_id'], 'term_id' => $args['term_id'], 'status' => $args['status'],
-      'session_id' => $args['session_id'], 'section_id' => $args['section_id']
+      'session_id' => $args['session_id'], 'section_id' => $args['section_id'],
+      'workspace_id' => $args['workspaceId']
     ])->get();
   }
 }

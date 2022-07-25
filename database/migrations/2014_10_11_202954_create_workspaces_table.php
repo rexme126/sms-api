@@ -18,10 +18,7 @@ class CreateWorkspacesTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('logo')->nullable();
-            $table->unsignedBigInteger('user_id');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -22,52 +22,64 @@ final class CreateAccountantMutator
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-         $user = User::create([
-            'email' => $args['email'],
-            'state_id'=> $args['state_id'],
-            'city_id'=> $args['city_id'],
-            'country_id'=> $args['country_id'],
-            'blood_group_id'=> $args['blood_group_id'],
-            'lga'=> $args['lga'],
-            'user_type' => 'accountant',
-            'religion'=> $args['religion'],
-            'password'=> Hash::make('destiny12'),
-            'first_name'=> $args['first_name'],
+       
+        $userData = $args['userTable'];
+        $teacherData =  $args['teacherTable'];
+        $file = $teacherData['photo'];
+
+
+        $user = User::create([
+            'email' => $userData['email'],
+            'state_id' => $userData['state'],
+            'city_id' => $userData['city'],
+            'country_id' => $userData['country'],
+            'blood_group_id' => $userData['bloodGroup'],
+            'lga' => $userData['lga'],
+            'user_type' => 'student',
+            'religion' => $userData['religion'],
+            'password' => Hash::make('destiny12'),
+            'first_name' => $teacherData['first_name'],
+            'workspace_id' => $args['workspaceId']
         ]);
-         $user->assignRole(5);
-        $file = $args['photo'];
-     
-        
-        if($file != null){
-            $name=  Str::random(4).$file->getClientOriginalName();
-            $path = $file->storePubliclyAs('public/accountant',$name);
+
+
+        $user->assignRole(4);
+
+        // $file = $args['photo'];
+
+
+        if ($file != null) {
+            $name =  Str::random(4) . $file->getClientOriginalName();
+            $path = $file->storePubliclyAs('public/' . $args['workspaceId'] . '/accountants', $name);
             Accountant::create([
-            'first_name'=> $args['first_name'],
-            'last_name'=> $args['last_name'],
-            'middle_name'=> $args['middle_name'],
-            'phone'=> $args['phone'],
-            'qualification'=> $args['qualification'],
-            'gender'=> $args['gender'],
-            'user_id' => $user->id,
-            'photo' => $name,
-            'code' => strtoupper(Str::random(8)),
-            'birthday' => $args['birthday'],  
-            'slug'=> Str::slug($args['first_name'].Str::random(8))
-        ]);
-        }else{
-          return  Accountant::create([
-            'first_name'=> $args['first_name'],
-            'last_name'=> $args['last_name'],
-            'middle_name'=> $args['middle_name'],
-            'phone'=> $args['phone'],
-            'qualification'=> $args['qualification'],
-            'gender'=> $args['gender'],
-            'user_id' => $user->id,
-            'code' => strtoupper(Str::random(8)),
-            'birthday' => $args['birthday'],  
-            'slug'=> Str::slug($args['first_name'].Str::random(8))
+                'first_name' => $teacherData['first_name'],
+                'last_name' => $teacherData['last_name'],
+                'middle_name' => $teacherData['middle_name'],
+                'phone' => $teacherData['phone'],
+                'qualification' => $teacherData['qualification'],
+                'gender' => $teacherData['gender'],
+                'user_id' => $user->id,
+                'photo' => $name,
+                'code' => strtoupper(Str::random(8)),
+                'birthday' => $teacherData['birthday'],
+                'slug' => Str::slug($teacherData['first_name'] . Str::random(8)),
+                'workspace_id' => $args['workspaceId']
+            ]);
+        } else {
+            return  Accountant::create([
+                'first_name' => $teacherData['first_name'],
+                'last_name' => $teacherData['last_name'],
+                'middle_name' => $teacherData['middle_name'],
+                'phone' => $teacherData['phone'],
+                'qualification' => $teacherData['qualification'],
+                'gender' => $teacherData['gender'],
+                'user_id' => $user->id,
+                'code' => strtoupper(Str::random(8)),
+                'birthday' => $teacherData['birthday'],
+                'slug' => Str::slug($teacherData['first_name'] . Str::random(8)),
+                'workspace_id' => $args['workspaceId']
+
             ]);
         }
-
     }
 }

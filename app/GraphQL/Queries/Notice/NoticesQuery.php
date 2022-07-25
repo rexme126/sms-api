@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Queries\Notice;
 
+use App\Models\Workspace;
+
 final class NoticesQuery
 {
     /**
@@ -10,8 +12,7 @@ final class NoticesQuery
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace= $user->workspace()->where('slug','defaultworkspace')->first();
+        $workspace = Workspace::where('slug', $args['slug'])->first();
         $notices = $workspace->notices;
         return $notices;
     }

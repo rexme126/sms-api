@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\Session;
 
 use App\Models\Session;
+use App\Models\Workspace;
 
 final class CreateSessionMutator
 {
@@ -13,11 +14,9 @@ final class CreateSessionMutator
     public function __invoke($_, array $args)
     {
 
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['workspace'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
 
         $session = new Session;
-        $session->user_id = $user->id;
         $session->workspace_id = $workspace->id;
         $session->name = $args['name'];
         $session->save();
