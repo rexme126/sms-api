@@ -28,11 +28,13 @@ final class CreateStudentMutator
         $file = $StudentData['photo'];
 
 
-
         if ($file == null) {
 
             // check if guardian exist
-            $guardian = Guardian::where('email', $StudentData['guardian_email'])->first();
+            $guardian = Guardian::where([
+                'workspace_id' => $args['workspaceId'],
+                'email' => $StudentData['guardian_email']
+            ])->first();
             if ($guardian) {
                 $user = User::create([
                     'email' => $userData['email'],
@@ -45,6 +47,7 @@ final class CreateStudentMutator
                     'religion' => $userData['religion'],
                     'password' => Hash::make('destiny12'),
                     'first_name' => $StudentData['first_name'],
+                    'workspace_id' => $args['workspaceId']
                 ]);
                 $user->assignRole(7);
 
@@ -70,6 +73,7 @@ final class CreateStudentMutator
                     'session_id' => $StudentData['session'],
                     'admitted_year' => $StudentData['admitted_year'],
                     'guardian_id' => $guardian->id,
+                    'workspace_id' => $args['workspaceId']
                 ]);
             } else {
                 // if guardian does not exit, create guardian on user table
@@ -78,6 +82,7 @@ final class CreateStudentMutator
                     'user_type' => 'guardian',
                     'password' => Hash::make('destiny12'),
                     'first_name' => $StudentData['guardian_name'],
+                    'workspace_id' => $args['workspaceId']
                 ]);
 
                 $userGuardian->assignRole(8);
@@ -87,6 +92,7 @@ final class CreateStudentMutator
                     'slug' => Str::slug($StudentData['guardian_name'] . '-' . Str::random(8)),
                     'user_id' => $userGuardian->id,
                     'email' => $StudentData['guardian_email'],
+                    'workspace_id' => $args['workspaceId']
                 ]);
 
 
@@ -101,6 +107,7 @@ final class CreateStudentMutator
                     'religion' => $userData['religion'],
                     'password' => Hash::make('destiny12'),
                     'first_name' => $StudentData['first_name'],
+                    'workspace_id' => $args['workspaceId']
                 ]);
                 // assign role to student
                 $user->assignRole(7);
@@ -127,13 +134,17 @@ final class CreateStudentMutator
                     'session_id' => $StudentData['session'],
                     'admitted_year' => $StudentData['admitted_year'],
                     'guardian_id' => $guardianStudent->id,
+                    'workspace_id' => $args['workspaceId']
                 ]);
             }
         } else {
             $name =  Str::random(4) . $file->getClientOriginalName();
 
-            $path = $file->storePubliclyAs('public/student', $name);
-            $guardian = Guardian::where('email', $StudentData['guardian_email'])->first();
+            $path = $file->storePubliclyAs('public/' . $args['workspaceId'] . '/students', $name);
+            $guardian = Guardian::where([
+                'workspace_id' => $args['workspaceId'],
+                'email' => $StudentData['guardian_email']
+            ])->first();
             if ($guardian) {
                 $user = User::create([
                     'email' => $userData['email'],
@@ -146,6 +157,7 @@ final class CreateStudentMutator
                     'religion' => $userData['religion'],
                     'password' => Hash::make('destiny12'),
                     'first_name' => $StudentData['first_name'],
+                    'workspace_id' => $args['workspaceId']
                 ]);
                 $user->assignRole(7);
 
@@ -172,6 +184,7 @@ final class CreateStudentMutator
                     'session_id' => $StudentData['session'],
                     'admitted_year' => $StudentData['admitted_year'],
                     'guardian_id' => $guardian->id,
+                    'workspace_id' => $args['workspaceId']
                 ]);
             } else {
                 $userGuardian = User::create([
@@ -179,16 +192,18 @@ final class CreateStudentMutator
                     'user_type' => 'guardian',
                     'password' => Hash::make('destiny12'),
                     'first_name' => $StudentData['guardian_name'],
+                    'workspace_id' => $args['workspaceId']
                 ]);
                 $userGuardian->assignRole(8);
                 $guardianStudent = Guardian::create([
                     'slug' => Str::slug($StudentData['guardian_name'] . '-' . Str::random(8)),
                     'user_id' => $userGuardian->id,
                     'email' => $StudentData['guardian_email'],
+                    'workspace_id' => $args['workspaceId']
                 ]);
 
                 $name =  Str::random(4) . $file->getClientOriginalName();
-                $path = $file->storePubliclyAs('public/student', $name);
+                $path = $file->storePubliclyAs('public/' . $args['workspaceId'] . '/students', $name);
 
                 if ($guardianStudent) {
                     $user = User::create([
@@ -202,6 +217,7 @@ final class CreateStudentMutator
                         'religion' => $userData['religion'],
                         'password' => Hash::make('destiny12'),
                         'first_name' => $StudentData['first_name'],
+                        'workspace_id' => $args['workspaceId']
                     ]);
                     $user->assignRole(7);
 
@@ -228,6 +244,7 @@ final class CreateStudentMutator
                         'session_id' => $StudentData['session'],
                         'admitted_year' => $StudentData['admitted_year'],
                         'guardian_id' => $guardianStudent->id,
+                        'workspace_id' => $args['workspaceId']
                     ]);
                 }
             }

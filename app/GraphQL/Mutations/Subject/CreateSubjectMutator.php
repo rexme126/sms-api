@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\Subject;
 
 use App\Models\Subject;
+use App\Models\Workspace;
 
 final class CreateSubjectMutator
 {
@@ -12,11 +13,9 @@ final class CreateSubjectMutator
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['workspace'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
 
         $subject = new Subject();
-        $subject->user_id = $user->id;
         $subject->workspace_id = $workspace->id;
         $subject->subject = $args['subject'];
         $subject->save();

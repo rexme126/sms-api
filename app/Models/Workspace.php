@@ -42,4 +42,40 @@ class Workspace extends Model
     {
         return $this->hasMany(Timetable::class);
     }
+    public function teachers()
+    {
+        return $this->hasMany(Teacher::class);
+    }
+    public function accountants()
+    {
+        return $this->hasMany(Accountant::class);
+    }
+    public function libarians()
+    {
+        return $this->hasMany(Libarian::class);
+    }
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
+    public function guardians()
+    {
+        return $this->hasMany(Guardian::class);
+    }
+    public function marks()
+    {
+        return $this->hasMany(Mark::class);
+    }
+    public function examRecords()
+    {
+        return $this->hasMany(ExamRecord::class);
+    }
+    public function promotions()
+    {
+        return $this->hasMany(Promotion::class);
+    }
+    public function setPromotions()
+    {
+        return $this->hasMany(SetPromotion::class);
+    }
 }

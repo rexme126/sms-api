@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Mutations\Notice;
 
+use App\Models\Workspace;
+
 final class UpdateNoticeMutator
 {
     /**
@@ -10,8 +12,7 @@ final class UpdateNoticeMutator
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['workspace'])->first();
+        $workspace = Workspace::where('slug', $args['workspace'])->first();
         $notice = $workspace->notices()->findOrFail($args['id']);
 
         $notice->description = $args['description'];

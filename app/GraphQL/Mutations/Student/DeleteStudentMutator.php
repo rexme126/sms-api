@@ -18,7 +18,7 @@ final class DeleteStudentMutator
         $userId = Student::find($args['id']);
         $guardian = Guardian::where('email', $userId->guardian_email)->first();
 
-        Storage::delete('public/student/' . $userId->photo);
+        Storage::delete('public/'. $args['workspaceId'] . '/students' .'/' . $userId->photo);
         $id = $userId->user_id;
         User::find($guardian->user_id)->delete();
         User::find($id)->delete();

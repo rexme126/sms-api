@@ -22,62 +22,41 @@ final class UpdateAccountantMutator
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        
-        $id= $args['id'];
-        $userData =$args['userLib'];
-        $libData =  $args['lib'];
-         
-         $file = $libData['image'];
-      
-    //    accountant
-    
+
+        $id = $args['id'];
+        $userData = $args['userTable'];
+        $accountantData =  $args['teacherTable'];
+
+        $file = $accountantData['photo'];
+
+
+        //    accountant
+
 
         $accountant = Accountant::where('id', $id)->first();
         $userId = $accountant->user_id;
         $user = User::where('id', $userId)->first();
         //     info($user);
-        
 
-     if($file != null){
-            $name=  Str::random(4).$file->getClientOriginalName();
-            $path = $file->storePubliclyAs('public/accountant', $name);
-            Storage::delete('public/accountant/'.$accountant->photo);
 
-            $accountant->first_name = $libData['first_name'];
-            $accountant->last_name = $libData['last_name'];
-            $accountant->middle_name = $libData['middle_name'];
-            $accountant->birthday = $libData['birthday'];
-            $accountant->phone = $libData['phone'];
+        if ($file != null) {
+            $name =  Str::random(4) . $file->getClientOriginalName();
+            $path = $file->storePubliclyAs('public/' . $args['workspaceId'] . '/accountants', $name);
+
+            Storage::delete('public/' . $args['workspaceId'] . '/accountants' . '/' . $accountant->photo);
+
+
+            $accountant->first_name = $accountantData['first_name'];
+            $accountant->last_name = $accountantData['last_name'];
+            $accountant->middle_name = $accountantData['middle_name'];
+            $accountant->birthday = $accountantData['birthday'];
+            $accountant->phone = $accountantData['phone'];
             $accountant->photo = $name;
-            $accountant->qualification = $libData['qualification'];
-            $accountant->gender = $libData['gender'];
+            $accountant->qualification = $accountantData['qualification'];
+            $accountant->gender = $accountantData['gender'];
 
             // user
 
-             $user->state_id = $userData['state'];
-            $user->country_id = $userData['country'];
-            $user->blood_group_id = $userData['bloodGroup'];
-            $user->city_id = $userData['city'];
-            $user->lga = $userData['lga'];
-            $user->email = $userData['email'];
-            $user->religion = $userData['religion'];
-            $user->first_name = $libData['first_name'];
-
-            $user->save();
-            $accountant->save();
-            return $accountant;
-          
-        
-        }else{
-            $accountant->first_name = $libData['first_name'];
-            $accountant->last_name = $libData['last_name'];
-            $accountant->middle_name = $libData['middle_name'];
-            $accountant->birthday = $libData['birthday'];
-          
-            $accountant->phone = $libData['phone'];
-            $accountant->qualification = $libData['qualification'];
-            $accountant->gender = $libData['gender'];
-        
             $user->state_id = $userData['state'];
             $user->country_id = $userData['country'];
             $user->blood_group_id = $userData['bloodGroup'];
@@ -85,14 +64,33 @@ final class UpdateAccountantMutator
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
-            $user->first_name = $libData['first_name'];
-     
+            $user->first_name = $accountantData['first_name'];
+
             $user->save();
             $accountant->save();
             return $accountant;
-            
-         
+        } else {
+            $accountant->first_name = $accountantData['first_name'];
+            $accountant->last_name = $accountantData['last_name'];
+            $accountant->middle_name = $accountantData['middle_name'];
+            $accountant->birthday = $accountantData['birthday'];
+
+            $accountant->phone = $accountantData['phone'];
+            $accountant->qualification = $accountantData['qualification'];
+            $accountant->gender = $accountantData['gender'];
+
+            $user->state_id = $userData['state'];
+            $user->country_id = $userData['country'];
+            $user->blood_group_id = $userData['bloodGroup'];
+            $user->city_id = $userData['city'];
+            $user->lga = $userData['lga'];
+            $user->email = $userData['email'];
+            $user->religion = $userData['religion'];
+            $user->first_name = $accountantData['first_name'];
+
+            $user->save();
+            $accountant->save();
+            return $accountant;
         }
-      
     }
 }

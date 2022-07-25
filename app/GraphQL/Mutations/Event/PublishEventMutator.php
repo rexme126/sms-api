@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Mutations\Event;
 
+use App\Models\Workspace;
+
 final class PublishEventMutator
 {
     /**
@@ -10,8 +12,7 @@ final class PublishEventMutator
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['workspace'])->first();
+        $workspace = Workspace::where('slug', $args['workspace'])->first();
         $event = $workspace->events()->findOrFail($args['id']);
         $event->published =  !$event->published;
         $event->save();

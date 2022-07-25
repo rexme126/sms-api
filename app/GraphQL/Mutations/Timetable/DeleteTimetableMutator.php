@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Mutations\Timetable;
 
+use App\Models\Workspace;
+
 final class DeleteTimetableMutator
 {
     /**
@@ -10,8 +12,7 @@ final class DeleteTimetableMutator
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['workspace'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $workspace->timetables()->findOrFail($args['id'])->delete();
 
     }

@@ -17,7 +17,7 @@ final class DeleteAccountantMutator
         $userId =Accountant::find($args['id']);
         $id = $userId->user_id;
         User::find($id)->delete();
-        Storage::delete('public/accountant/'.$userId->photo);
+        Storage::delete('public/'. $args['workspaceId'] . '/accountants' .'/' . $userId->photo);
         return Accountant::find($args['id'])->delete();
     }
 }

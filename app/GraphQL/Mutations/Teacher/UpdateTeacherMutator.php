@@ -22,34 +22,33 @@ final class UpdateTeacherMutator
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-       $id= $args['id'];
-        $userData =$args['userLib'];
-        $libData =  $args['lib'];
-         
-         $file = $libData['image'];
-      
-    //    teacher
-    
+        $id = $args['id'];
+        $userData = $args['userTable'];
+        $teacherData =  $args['teacherTable'];
+        // $file = $teacherData['photo'];
+
+        $file = $teacherData['photo'];
+
+        //    teacher
 
         $teacher = Teacher::where('id', $id)->first();
         $userId = $teacher->user_id;
         $user = User::where('id', $userId)->first();
-       
-        
 
-     if($file != null){
-            $name=  Str::random(4).$file->getClientOriginalName();
-            $path = $file->storePubliclyAs('public/teacher', $name);
-            Storage::delete('public/teacher/'.$teacher->photo);
+        if ($file != null) {
+            $name =  Str::random(4) . $file->getClientOriginalName();
+            $path = $file->storePubliclyAs('public/' . $args['workspaceId'] . '/teachers', $name);
+           
+            Storage::delete('public/'. $args['workspaceId'] . '/teachers' .'/' . $teacher->photo);
 
-            $teacher->first_name = $libData['first_name'];
-            $teacher->last_name = $libData['last_name'];
-            $teacher->middle_name = $libData['middle_name'];
-            $teacher->birthday = $libData['birthday'];
-            $teacher->phone = $libData['phone'];
+            $teacher->first_name = $teacherData['first_name'];
+            $teacher->last_name = $teacherData['last_name'];
+            $teacher->middle_name = $teacherData['middle_name'];
+            $teacher->birthday = $teacherData['birthday'];
+            $teacher->phone = $teacherData['phone'];
             $teacher->photo = $name;
-            $teacher->qualification = $libData['qualification'];
-            $teacher->gender = $libData['gender'];
+            $teacher->qualification = $teacherData['qualification'];
+            $teacher->gender = $teacherData['gender'];
 
             // user
 
@@ -58,25 +57,23 @@ final class UpdateTeacherMutator
             $user->blood_group_id = $userData['bloodGroup'];
             $user->city_id = $userData['city'];
             $user->lga = $userData['lga'];
-             $user->email = $userData['email'];
+            $user->email = $userData['email'];
             $user->religion = $userData['religion'];
-            $user->first_name = $libData['first_name'];
+            $user->first_name = $teacherData['first_name'];
 
             $user->save();
             $teacher->save();
             return $teacher;
-          
-        
-        }else{
-            $teacher->first_name = $libData['first_name'];
-            $teacher->last_name = $libData['last_name'];
-            $teacher->middle_name = $libData['middle_name'];
-            $teacher->birthday = $libData['birthday'];
-          
-            $teacher->phone = $libData['phone'];
-            $teacher->qualification = $libData['qualification'];
-            $teacher->gender = $libData['gender'];
-        
+        } else {
+            $teacher->first_name = $teacherData['first_name'];
+            $teacher->last_name = $teacherData['last_name'];
+            $teacher->middle_name = $teacherData['middle_name'];
+            $teacher->birthday = $teacherData['birthday'];
+
+            $teacher->phone = $teacherData['phone'];
+            $teacher->qualification = $teacherData['qualification'];
+            $teacher->gender = $teacherData['gender'];
+
             $user->state_id = $userData['state'];
             $user->email = $userData['email'];
             $user->country_id = $userData['country'];
@@ -84,13 +81,11 @@ final class UpdateTeacherMutator
             $user->city_id = $userData['city'];
             $user->lga = $userData['lga'];
             $user->religion = $userData['religion'];
-            $user->first_name = $libData['first_name'];
-     
+            $user->first_name = $teacherData['first_name'];
+
             $user->save();
             $teacher->save();
             return $teacher;
-            
-         
         }
     }
 }

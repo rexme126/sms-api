@@ -15,9 +15,10 @@ final class DeleteLibarianMutator
     public function __invoke($_, array $args)
     {
         $userId =Libarian::find($args['id']);
-        Storage::delete('public/libarian/' . $userId->photo);
+        Storage::delete('public/'. $args['workspaceId'] . '/libarians' .'/' . $userId->photo);
         $id = $userId->user_id;
         User::find($id)->delete();
+        
         return Libarian::find($args['id'])->delete();
     }
 }

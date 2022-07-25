@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Queries\Subject;
 
+use App\Models\Workspace;
+
 final class SubjectQuery
 {
     /**
@@ -10,8 +12,7 @@ final class SubjectQuery
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['slug'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $subject = $workspace->subjects()->findOrFail($args['id']);
         return $subject;
     }

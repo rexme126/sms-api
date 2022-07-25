@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Queries\Event;
 
+use App\Models\Workspace;
+
 final class EventsQuery
 {
     /**
@@ -10,8 +12,7 @@ final class EventsQuery
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['slug'])->first();
+        $workspace = Workspace::where('slug', $args['slug'])->first();
         $events = $workspace->events;
         return $events;
     }

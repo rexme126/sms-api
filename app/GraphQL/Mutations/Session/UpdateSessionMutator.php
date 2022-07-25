@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Mutations\Session;
 
+use App\Models\Workspace;
+
 final class UpdateSessionMutator
 {
     /**
@@ -10,8 +12,7 @@ final class UpdateSessionMutator
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['workspace'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $session = $workspace->sessions()->findOrFail($args['id']);
 
         $session->name = $args['name'];

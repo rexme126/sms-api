@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\ExamRecord;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use App\Models\IntegrationType;
 
 final class QueryUserMarkMutator
 {
@@ -26,16 +27,25 @@ final class QueryUserMarkMutator
         $term = $args['term'];
         $session = $args['session'];
         $section = $args['section'];
+        $workspaceId = $args['workspaceId'];
 
 
 
         $students = Student::where([
             'klase_id' => $klaseId, 'session_id' => $session,
-            'section_id' => $section
+            'section_id' => $section, 'workspace_id' => $workspaceId
         ])->get()->pluck('id');
 
-        $currentClass = Student::where(['klase_id' => $klaseId, 'section_id'=> $section])->get()->pluck('klase_id')->take(1);
-        $currentSession = Student::where(['klase_id'=> $klaseId, 'section_id'=> $section])->get()->pluck('session_id')->take(1);
+        $currentClass = Student::where([
+            'klase_id' => $klaseId, 'section_id' => $section,
+            'workspace_id' => $workspaceId
+        ])->get()->pluck('klase_id')->take(1);
+
+        $currentSession = Student::where([
+            'klase_id' => $klaseId, 'section_id' => $section,
+            'workspace_id' => $workspaceId
+        ])->get()->pluck('session_id')->take(1);
+
         $currnetClassId = $currentClass[0];
         $currentSessionId = $currentSession[0];
         if (count($students) == 0) {
@@ -49,7 +59,8 @@ final class QueryUserMarkMutator
                     'subject_id' => $subject,
                     'session_id' => $currentSessionId,
                     'term_id' => $term,
-                    'section_id' => $section
+                    'section_id' => $section,
+                    'workspace_id'=> $workspaceId
                 ]);
                 $a->save();
 
@@ -58,7 +69,8 @@ final class QueryUserMarkMutator
                     'student_id' => $student,
                     'session_id' => $currentSessionId,
                     'term_id' => $term,
-                    'section_id' => $section
+                    'section_id' => $section,
+                    'workspace_id'=> $workspaceId
                 ]);
             }
         }

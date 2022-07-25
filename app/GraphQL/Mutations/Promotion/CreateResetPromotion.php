@@ -20,25 +20,32 @@ final class CreateResetPromotion
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $classId =$args['from_class'];
-        $sessionId =$args['from_session'];
-        $termId =$args['from_term'];
+        $classId = $args['from_class'];
+        $sessionId = $args['from_session'];
+        $termId = $args['from_term'];
         $status = $args['status'];
+        $workspaceId = $args['workspaceId'];
 
-        $promotions= Promotion::where(['from_class'=> $classId, 'from_term'=> $termId,
-                    'from_session'=>$sessionId, 'status'=>true])->get()->pluck('student_id');
+        $promotions = Promotion::where([
+            'from_class' => $classId, 'from_term' => $termId,
+            'from_session' => $sessionId, 'status' => true, 'workspace_id' => $workspaceId
+        ])->get()->pluck('student_id');
 
         foreach ($promotions as $studentId) {
-            Student::where(['id'=>$studentId,'status'=>false])->update([
-                'klase_id'=> $classId,
-                'session_id'=> $sessionId,
-                'status'=> true,
-                'promotion_term_id'=> 3
-            ]);
+            Student::where(['id' => $studentId, 'status' => false,  'workspace_id' => $workspaceId])
+                ->update([
+                    'klase_id' => $classId,
+                    'session_id' => $sessionId,
+                    'status' => true,
+                    'promotion_term_id' => 3,
+                    'workspace_id' => $workspaceId
+                ]);
         }
 
-         $p=Promotion::where(['from_class'=> $classId, 'from_term'=> $termId,
-                    'from_session'=>$sessionId, 'status'=>true])->get()->pluck('id');
-                    Promotion::destroy($p);
+        $p = Promotion::where([
+            'from_class' => $classId, 'from_term' => $termId,
+            'from_session' => $sessionId, 'status' => true, 'workspace_id' => $workspaceId
+        ])->get()->pluck('id');
+        Promotion::destroy($p);
     }
 }

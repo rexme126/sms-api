@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations\Notice;
 
 use App\Models\User;
 use App\Models\Notice;
+use App\Models\Workspace;
 use Illuminate\Support\Str;
 use App\Notifications\SchoolNotice;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -23,11 +24,9 @@ final class CreateNoticeMutator
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
 
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['workspace'])->first();
+        $workspace = Workspace::where('slug', $args['workspace'])->first();
 
         $notice = Notice::create([
-            'user_id' => $user->id,
             'workspace_id' => $workspace->id,
             'description' => $args['description'],
             'date' => $args['date']

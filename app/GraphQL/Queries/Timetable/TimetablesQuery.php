@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Queries\Timetable;
 
+use App\Models\Workspace;
+
 final class TimetablesQuery
 {
     /**
@@ -10,8 +12,8 @@ final class TimetablesQuery
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $workspace = $user->workspace()->where('slug', $args['slug'])->first();
+       
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $timetables = $workspace->timetables()->where('klase_id', $args['klase_id'])->get();
         return $timetables;
     }

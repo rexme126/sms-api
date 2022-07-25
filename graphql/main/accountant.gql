@@ -1,38 +1,26 @@
 extend type Query {
-    accountants: [Accountant!]! @all
-    accountant(slug: String! @eq): Accountant @first
+    accountants(workspaceId: Int): [Accountant!]!
+        @field(resolver: "Accountant\\AccountantsQuery")
+    accountant(id: Int!, workspaceId: Int @eq): Accountant
+        @field(resolver: "Accountant\\AccountantQuery")
 }
 
 extend type Mutation {
     createAccountant(
-        first_name: String! @rules(apply: ["required"])
-        last_name: String! @rules(apply: ["required"])
-        middle_name: String
-        gender: String! @rules(apply: ["required"])
-        email: String @rules(apply: ["required", "unique:users,email"])
-        country_id: Int!
-        state_id: Int!
-        city_id: Int!
-        lga: String @rules(apply: ["required"])
-        photo: Upload
-            @rules(
-                apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"]
-            )
-        birthday: String
-        phone: String @rules(apply: ["required", "unique:libarians,phone"])
-        qualification: String @rules(apply: ["required"])
-        blood_group_id: Int
-        religion: String @rules(apply: ["required"])
+        workspaceId: Int
+        userTable: UsersInput
+        teacherTable: WorkersInput
     ): Accountant @field(resolver: "Accountant\\CreateAccountantMutator")
 
     updateAccountant(
         id: ID!
-        userLib: LibarianUserInput
-        lib: LibarianInput
+        workspaceId: Int
+        userTable: UsersInput
+        teacherTable: WorkersInput
     ): Accountant @field(resolver: "Accountant\\UpdateAccountantMutator")
 
-
-        deleteAccountant(
+    deleteAccountant(
         id: Int! @rules(apply: ["exists:accountants"])
+        workspaceId: Int
     ): Boolean @field(resolver: "Accountant\\DeleteAccountantMutator")
 }

@@ -17,7 +17,10 @@ extend type Query {
     city(id: ID @eq): City @first
 
     guardians: [Guardian!]! @all
-    guardiansDashboard: [Guardian!]! @all
+
+    guardiansDashboard(workspaceId: Int): [Guardian!]!
+        @field(resolver: "Guardian\\GuardianDashboardQuery")
+        
     guardian(id: ID! @eq): Guardian @first
 
     bloodGroups: [BloodGroup!]! @all

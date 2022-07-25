@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries\ExamRecord;
 
 use App\Models\ExamRecord;
+use App\Models\Workspace;
 
 final class PublishResultQuery
 {
@@ -12,10 +13,14 @@ final class PublishResultQuery
      */
     public function __invoke($_, array $args)
     {
-        return ExamRecord::where([
+        $workspace = Workspace::findOrFail($args['workspaceId']);
+        
+        $examRecords = $workspace->examRecords()->where([
             'klase_id' => $args['klase_id'], 'term_id' => $args['term_id'],
             'status' => $args['status'], 'session_id' => $args['session_id'],
             'section_id' => $args['section_id']
         ])->first();
+
+        return $examRecords;
     }
 }

@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('workspace_id');
             $table->unsignedInteger('blood_group_id')->nullable();
             $table->unsignedInteger('country_id')->nullable();
             $table->unsignedInteger('state_id')->nullable();
@@ -31,6 +32,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            // $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 
