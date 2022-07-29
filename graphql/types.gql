@@ -26,6 +26,7 @@ type User {
     teachers: [Teacher] @hasMany
     libarians: [Libarian] @hasMany
     guardian: Guardian @hasOne
+    accountant: Accountant @hasOne
     workspace: Workspace
 }
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\GraphQL\Queries\Guardian;
+namespace App\GraphQL\Mutations\ExamTimetable;
 
 use App\Models\Workspace;
 
-final class GuardianDashboardQuery
+final class DeleteExamTimetableMutator
 {
     /**
      * @param  null  $_
@@ -13,9 +13,6 @@ final class GuardianDashboardQuery
     public function __invoke($_, array $args)
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
-        
-        $guardians = $workspace->guardians;
-       
-        return $guardians;
+        $workspace->examTimetables()->findOrFail($args['id'])->delete();
     }
 }

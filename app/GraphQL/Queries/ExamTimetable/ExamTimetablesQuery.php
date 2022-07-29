@@ -1,10 +1,10 @@
 <?php
 
-namespace App\GraphQL\Queries\Guardian;
+namespace App\GraphQL\Queries\ExamTimetable;
 
 use App\Models\Workspace;
 
-final class GuardianDashboardQuery
+final class ExamTimetablesQuery
 {
     /**
      * @param  null  $_
@@ -13,9 +13,7 @@ final class GuardianDashboardQuery
     public function __invoke($_, array $args)
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
-        
-        $guardians = $workspace->guardians;
-       
-        return $guardians;
+        $timetables = $workspace->examTimetables()->where('klase_id', $args['klase_id'])->get();
+        return $timetables;
     }
 }

@@ -1,18 +1,22 @@
 extend type Query {
-    payments: [Payment!]! @field(resolver: "Payment\\PaymentsQuery")
-    payment(id: ID! @eq): Payment @first
+    payments(workspaceId: Int): [Payment!]!
+        @field(resolver: "Payment\\PaymentsQuery")
+    payment(id: ID!, workspaceId: Int @eq): Payment
+        @field(resolver: "Payment\\PaymentQuery")
 
     # paymentRecord query
     paymentRecords(
         klase_id: Int!
         session_id: Int!
         term_id: Int!
+        workspaceId: Int
     ): [PaymentRecord!]! @field(resolver: "Payment\\PaymentRecordsQuery")
 
     paidPaymentRecords(
         klase_id: Int!
         session_id: Int!
         term_id: Int!
+        workspaceId: Int
     ): [PaymentRecord!]! @field(resolver: "Payment\\PaidPaymentRecordsQuery")
 
     # student
@@ -21,8 +25,24 @@ extend type Query {
         student_id: Int!
         session_id: Int!
         term_id: Int!
+        workspaceId: Int
         status: String! @eq
     ): PaymentRecord @first
+
+    allDuePaymentRecords(
+        workspaceId: Int
+        search: String @rules(apply: ["nullable"])
+    ): [PaymentRecord!]!
+    @paginate(builder: "App\\GraphQL\\Queries\\Payment\\AllDuePaymentRecordsQuery@payments")
+
+    # studentPaymentRecords(
+      #  student_id: Int!
+      #  session_id: Int!
+      #  term_id: Int!
+      #  klase_id: Int!
+      #  workspaceId: Int
+     #   status: String! @eq
+   # ): PaymentRecord @field(resolver: "Payment\\DueStudentPaymentRecords")
 }
 
 extend type Mutation {
@@ -31,16 +51,23 @@ extend type Mutation {
         klase: String!
         term_id: Int!
         session_id: Int!
+        workspaceId: Int
     ): Payment @field(resolver: "Payment\\CreatePaymentMutator")
 
-    updatePayment(id: ID!, amount: Int @rules(apply: ["required"])): Payment
-        @field(resolver: "Payment\\UpdatePaymentMutator")
+    updatePayment(
+        id: ID!
+        workspaceId: Int
+        amount: Int @rules(apply: ["required"])
+    ): Payment @field(resolver: "Payment\\UpdatePaymentMutator")
 
     # paymentRecord
-    createPaymentRecord(id: ID!, amt_paid: Int!): PaymentRecord
-        @field(resolver: "Payment\\CreatePaymentRecordMutator")
+    createPaymentRecord(
+        id: ID!
+        workspaceId: Int
+        amt_paid: Int!
+    ): PaymentRecord @field(resolver: "Payment\\CreatePaymentRecordMutator")
 
-    resetPaymentRecord(id: ID!): PaymentRecord
+    resetPaymentRecord(id: ID!, workspaceId: Int): PaymentRecord
         @field(resolver: "Payment\\ResetPaymentRecordMutator")
 
     CreateStudentPayment(
@@ -48,5 +75,6 @@ extend type Mutation {
         session_id: Int!
         term_id: Int!
         amt_paid: Int!
+        workspaceId: Int
     ): PaymentRecord @field(resolver: "Payment\\StudentPaymentMutator")
 }

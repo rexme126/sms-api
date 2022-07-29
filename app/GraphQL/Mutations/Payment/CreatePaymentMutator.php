@@ -22,67 +22,77 @@ final class CreatePaymentMutator
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $termId= $args['term_id'];
-        $sessionId= $args['session_id'];
-        $klase= $args['klase'];
-        $amount= $args['amount'];
-        $currentyear= now()->year;
-    
+        $termId = $args['term_id'];
+        $sessionId = $args['session_id'];
+        $klase = $args['klase'];
+        $amount = $args['amount'];
+        $currentyear = now()->year;
+        $workspaceId = $args['workspaceId'];
+
 
         // first write to payment table
-        
-        
-     
-        $students= Student::where(['klase_id'=>$klase,'session_id'=>$sessionId])->get()->pluck('id');
-        if(count($students)>0){
 
-            $pa = PaymentRecord::where(['klase_id'=>$klase,'session_id'=>$sessionId,
-            'term_id'=>$termId])->first();
-        
-            if($pa == null){
-                $payment= Payment::create([
-                'term_id'=> $termId,
-                'session_id'=> $sessionId,
-                'amount'=> $amount,
-                'title'=> 'School Fee',
-                'method'=> 'cash or online',
-                'klase_id'=> $klase
-            ]);
+
+
+        $students = Student::where([
+            'klase_id' => $klase, 'session_id' => $sessionId,
+            'workspace_id' => $workspaceId
+        ])->get()->pluck('id');
+        if (count($students) > 0) {
+
+            $pa = PaymentRecord::where([
+                'klase_id' => $klase, 'session_id' => $sessionId,
+                'term_id' => $termId,
+                'workspace_id' => $workspaceId
+            ])->first();
+
+            if ($pa == null) {
+                $payment = Payment::create([
+                    'term_id' => $termId,
+                    'session_id' => $sessionId,
+                    'amount' => $amount,
+                    'title' => 'School Fee',
+                    'method' => 'cash or online',
+                    'klase_id' => $klase,
+                    'workspace_id' => $workspaceId
+                ]);
                 $payment->save();
-        
-            }else {
+            } else {
                 return;
             }
-            
+
             foreach ($students as $student) {
 
-                $a = PaymentRecord::where(['klase_id'=>$klase,'session_id'=>$sessionId,
-                'student_id'=>$student,'term_id'=>$termId])->get();
-                if(count($a) == 0){     
-                        
+                $a = PaymentRecord::where([
+                    'klase_id' => $klase, 'session_id' => $sessionId,
+                    'student_id' => $student, 'term_id' => $termId, 'workspace_id' => $workspaceId
+                ])->get();
+                if (count($a) == 0) {
+
                     // write to payment-record table
-                    $paymentRecord= PaymentRecord::updateOrCreate([
-                        'student_id'=> $student,
-                        'payment_id'=> $payment->id,
-                        'klase_id'=> $klase,
-                        'term_id'=> $termId,
-                        'session_id'=> $sessionId,
-                        'amount'=> $amount,
-                        'balance' =>$amount,
-                        'ref_no' => strtoupper($currentyear.'/'.Str::random(10)),
+                    $paymentRecord = PaymentRecord::updateOrCreate([
+                        'student_id' => $student,
+                        'payment_id' => $payment->id,
+                        'klase_id' => $klase,
+                        'term_id' => $termId,
+                        'session_id' => $sessionId,
+                        'amount' => $amount,
+                        'balance' => $amount,
+                        'ref_no' => strtoupper($currentyear . '/' . Str::random(10)),
+                        'workspace_id' => $workspaceId
                     ]);
                 } else {
                     return;
-                }  
+                }
             }
-             
-
-        }else{
+        } else {
             return;
         }
-          
-       return Payment::where(['klase_id'=>$klase,'session_id'=>$sessionId,
-        'term_id'=>$termId])->first();
-       
+
+        return Payment::where([
+            'klase_id' => $klase, 'session_id' => $sessionId,
+            'term_id' => $termId,
+            'workspace_id' => $workspaceId
+        ])->first();
     }
 }

@@ -27,6 +27,7 @@ class CreatePaymentRecordsTable extends Migration
             $table->string('status', 20)->default('Due');
             $table->integer('receipt')->unique()->nullable();
             $table->integer('amt_paid')->nullable();
+            $table->integer('amount')->nullable();
             $table->integer('balance')->nullable();
             $table->string('paid')->default('Due');
             $table->timestamps();

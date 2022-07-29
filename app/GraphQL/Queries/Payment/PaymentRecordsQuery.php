@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries\Payment;
 
 use App\Models\PaymentRecord;
+use App\Models\Workspace;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
@@ -19,7 +20,12 @@ final class PaymentRecordsQuery
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        return PaymentRecord::where(['klase_id'=>$args['klase_id'],'term_id'=>$args['term_id'],
-            'session_id'=>$args['session_id'],'status'=>'Due'])->get();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
+        $paymentRecords = $workspace->paymentRecords()->where([
+            'klase_id' => $args['klase_id'], 'term_id' => $args['term_id'],
+            'session_id' => $args['session_id'], 'status' => 'Due'
+        ])->get();
+
+        return $paymentRecords;
     }
 }

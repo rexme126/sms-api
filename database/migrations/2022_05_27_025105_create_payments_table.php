@@ -21,6 +21,7 @@ class CreatePaymentsTable extends Migration
             $table->unsignedInteger('term_id')->nullable();
             $table->unsignedInteger('session_id')->nullable();
             $table->string('title')->nullable();
+            $table->string('status', 20)->default('Due');
             $table->integer('amount')->nullable();
             $table->string('method', 100)->default('cash');
             $table->string('description')->nullable();

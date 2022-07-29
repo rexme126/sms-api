@@ -77,15 +77,3 @@ final class QueryUserMarkMutator
     }
 }
 
-// foreach ($types as $type) {
-//     // if (!IntegrationType::where('platform', $type['platform'])->where('account_type', $type['account_type'])
-//     // ->where('platform_type', $type['platform_type'])->exists()) {
-//     //     IntegrationType::insert($type);
-//     // }
-//     $a = IntegrationType::firstOrNew([
-//         'platform' => $type['platform'], 
-//         'account_type' => $type['account_type'],
-//         'platform_type' => $type['platform_type'],
-//     ], $type);
-//     $a->save();
-// }

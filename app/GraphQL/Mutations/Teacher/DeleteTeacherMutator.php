@@ -14,11 +14,13 @@ final class DeleteTeacherMutator
      */
     public function __invoke($_, array $args)
     {
-     
-       $userId =Teacher::find($args['id']);
-       Storage::delete('public/'. $args['workspaceId'] . '/teachers' .'/' . $userId->photo);
-       $id = $userId->user_id;
-       User::find($id)->delete();
-       return Teacher::find($args['id'])->delete();
+
+        $teacher = Teacher::find($args['id']);
+        Storage::delete('public/' . $args['workspaceId'] . '/teachers' . '/' . $teacher->photo);
+        $userId = $teacher->user_id;
+        $user = User::find($userId);
+        $user->removeRole(4);
+        $user->delete();
+        return Teacher::find($args['id'])->delete();
     }
 }

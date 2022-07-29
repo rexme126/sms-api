@@ -1,11 +1,12 @@
 extend type Query {
-    studentsDashboard: [Student!]! @all
-
     students(workspaceId: Int): [Student!]!
         @field(resolver: "Student\\StudentsQuery")
 
     student(id: Int!, workspaceId: Int @eq): Student
         @field(resolver: "Student\\StudentQuery")
+
+    studentsDashboard(workspaceId: Int): [Student!]!
+        @field(resolver: "Student\\StudentDashboardQuery")
 }
 
 extend type Mutation {

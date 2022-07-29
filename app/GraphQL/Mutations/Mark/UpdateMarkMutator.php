@@ -37,29 +37,49 @@ final class UpdateMarkMutator
     // marks
     foreach ($marks as $mark) {
       $markid = $mark['markId'];
-      $ca1 = $mark['ca1'];
-      $ca2 = $mark['ca2'];
-      $exam = $mark['exam'];
-      $tca = $ca1 + $ca2;
-      $examTotal = $ca1 + $ca2 + $exam;
+      // $ca1 = $mark['ca1'];
+      // $ca2 = $mark['ca2'];
+      // $exam = $mark['exam'];
+      // $tca = $ca1 + $ca2;
+      // $examTotal = $ca1 + $ca2 + $exam;
 
-      $id =  $markid;
-      $caa1 =  $ca1;
-      $caa2 =  $ca2;
-      $examm = $exam;
-      $examTotall = $examTotal;
+      // $id =  $markid;
+      // $caa1 =  $ca1;
+      // $caa2 =  $ca2;
+      // $examm = $exam;
+      // $examTotall = $examTotal;
 
-      if (!empty($id)) {
-        Mark::where(['id' => $id, 'workspace_id' => $workspaceId])->update([
-          'ca1' => $caa1,
-          'ca2' => $caa2,
-          'exam' => $examm,
-          'tca' => $tca,
-          'exam_total' => $examTotall,
-          'workspace_id' => $workspaceId
-        ]);
+      // public function getExamTotalAttribute()
+      // {
+      //   return $this->ca1 + $this->ca2 + $this->exam
+      // }
+
+      // $mark->exam_total;
+
+
+      $update = $mark;
+      // return;
+      unset($update['markId']);
+
+
+      if (!empty($markid)) {
+        $markModel = Mark::findOrFail($markid);
+
+        $markModel->update($update);
       }
     }
+
+    $marks =Mark::where([
+      'klase_id' => $klase_id, 'term_id' => $term_id,
+      'session_id' => $session_id, 'section_id' => $section_id, 'workspace_id' => $workspaceId
+    ])->get();
+
+    foreach ($marks as  $mark) {
+      $mark->tca = $mark->ca1 + $mark->ca2;
+      $mark->exam_total = $mark->ca1 + $mark->ca2 + $mark->exam;
+      $mark->save();
+    }
+
 
     // subject ranking
     $studentMarks = Mark::where([

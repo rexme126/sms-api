@@ -1,10 +1,10 @@
 <?php
 
-namespace App\GraphQL\Queries\Guardian;
+namespace App\GraphQL\Queries\Student;
 
 use App\Models\Workspace;
 
-final class GuardianDashboardQuery
+final class StudentDashboardQuery
 {
     /**
      * @param  null  $_
@@ -14,8 +14,8 @@ final class GuardianDashboardQuery
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
         
-        $guardians = $workspace->guardians;
+        $students = $workspace->students;
        
-        return $guardians;
+        return $students;
     }
 }

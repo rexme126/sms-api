@@ -134,6 +134,20 @@ class RolesAndPermissionsTableSeeder extends Seeder
             'workspace_id'=> 1
         ]);
         $user->assignRole(2);
+
+        $user1= User::create([
+            'first_name'=> 'Ronazon',
+            'email'=> 'ronazon.ltd@gmail.com',
+            'country_id'=> 1,
+            'state_id'=> 1,
+            'city_id'=>1,
+            'lga'=> 'Obio-Akpor',
+            'blood_group_id'=> 1,
+            'password' => Hash::make('ronazon12'),
+            'workspace_id'=> 1
+        ]);
+
+        $user1->assignRole(2);
     
     }
 }
