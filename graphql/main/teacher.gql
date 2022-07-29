@@ -1,9 +1,12 @@
 extend type Query {
     teachers(workspaceId: Int): [Teacher!]!
         @field(resolver: "Teacher\\TeachersQuery")
-    teachersDashboard: [Teacher!]! @all
+
     teacher(id: Int!, workspaceId: Int @eq): Teacher
         @field(resolver: "Teacher\\TeacherQuery")
+
+    teachersDashboard(workspaceId: Int): [Teacher!]!
+        @field(resolver: "Teacher\\TeacherDashboardQuery")
 }
 
 extend type Mutation {

@@ -14,11 +14,13 @@ final class DeleteLibarianMutator
      */
     public function __invoke($_, array $args)
     {
-        $userId =Libarian::find($args['id']);
-        Storage::delete('public/'. $args['workspaceId'] . '/libarians' .'/' . $userId->photo);
-        $id = $userId->user_id;
-        User::find($id)->delete();
-        
+        $libarianId = Libarian::find($args['id']);
+        Storage::delete('public/' . $args['workspaceId'] . '/libarians' . '/' . $libarianId->photo);
+        $id = $libarianId->user_id;
+        $userId = User::find($id);
+        $userId->removeRole(6);
+        $userId->delete();
+
         return Libarian::find($args['id'])->delete();
     }
 }

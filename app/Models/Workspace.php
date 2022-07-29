@@ -78,4 +78,16 @@ class Workspace extends Model
     {
         return $this->hasMany(SetPromotion::class);
     }
+    public function examTimetables()
+    {
+        return $this->hasMany(ExamTimetable::class);
+    }
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+    public function paymentRecords()
+    {
+        return $this->hasMany(PaymentRecord::class);
+    }
 }

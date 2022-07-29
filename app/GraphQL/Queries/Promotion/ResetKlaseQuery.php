@@ -1,10 +1,10 @@
 <?php
 
-namespace App\GraphQL\Queries\Guardian;
+namespace App\GraphQL\Queries\Promotion;
 
 use App\Models\Workspace;
 
-final class GuardianDashboardQuery
+final class ResetKlaseQuery
 {
     /**
      * @param  null  $_
@@ -13,9 +13,10 @@ final class GuardianDashboardQuery
     public function __invoke($_, array $args)
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
-        
-        $guardians = $workspace->guardians;
-       
-        return $guardians;
+
+        $promotionKlase = $workspace->klases()->findorFail($args['id']);
+        info($promotionKlase);
+
+        return $promotionKlase;
     }
 }

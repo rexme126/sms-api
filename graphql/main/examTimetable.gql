@@ -1,10 +1,9 @@
 extend type Query {
-    examTimetables(
-        "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
-        klase_id: Int! @where(operator: "like")
-    ): [ExamTimetable!]! @all
+    examTimetables(klase_id: Int!, workspaceId: Int): [ExamTimetable!]!
+        @field(resolver: "ExamTimetable\\ExamTimetablesQuery")
 
-    examTimetable(id: ID! @where(operator: "like")): ExamTimetable @first
+    examTimetable(id: ID!, workspaceId: Int): ExamTimetable
+        @field(resolver: "ExamTimetable\\ExamTimetableQuery")
 }
 
 extend type Mutation {
@@ -17,7 +16,9 @@ extend type Mutation {
         time: String
         date: String
         klase_id: Int!
-    ): ExamTimetable @create
+        workspaceId: Int
+    ): ExamTimetable
+        @field(resolver: "ExamTimetable\\CreateExamTimetableMutator")
 
     updateExamTimetable(
         id: ID!
@@ -29,7 +30,10 @@ extend type Mutation {
         time: String
         date: String
         klase_id: Int!
-    ): ExamTimetable @update
+        workspaceId: Int
+    ): ExamTimetable
+        @field(resolver: "ExamTimetable\\UpdateExamTimetableMutator")
 
-    deleteExamTimetable(id: ID!): ExamTimetable @delete
+    deleteExamTimetable(id: ID!, workspaceId: Int): ExamTimetable
+        @field(resolver: "ExamTimetable\\DeleteExamTimetableMutator")
 }

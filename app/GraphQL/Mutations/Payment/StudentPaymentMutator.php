@@ -22,65 +22,89 @@ final class StudentPaymentMutator
         $student_id = $args['student_id'];
         $term_id = $args['term_id'];
         $session_id = $args['session_id'];
-        $amtPaid= $args['amt_paid']/100;
-        info($amtPaid);
+        $amtPaid = $args['amt_paid'] / 100;
+        $workspaceId = $args['workspaceId'];
 
-        
-        $paymentRecord = PaymentRecord::where(['student_id'=>$student_id,'term_id'=>$term_id,
-        'session_id'=>$session_id])->first();
-        info($paymentRecord);
-        if($paymentRecord->amt_paid == 0){
+
+        $paymentRecord = PaymentRecord::where([
+            'student_id' => $student_id, 'term_id' => $term_id,
+            'session_id' => $session_id,  'workspace_id' => $workspaceId
+        ])->first();
+
+        if ($paymentRecord->amt_paid == 0) {
             $paymentRecord->amt_paid = $amtPaid;
-            $paymentRecord->receipt= \mt_rand(1,999999999);
+            $paymentRecord->receipt = \mt_rand(1, 999999999);
+            $paymentRecord->workspace_id = $workspaceId;
             $paymentRecord->save();
 
-            $pRecord =  PaymentRecord::where(['student_id'=>$student_id,'term_id'=>$term_id,
-                        'session_id'=>$session_id])->first();
+            $pRecord =  PaymentRecord::where([
+                'student_id' => $student_id, 'term_id' => $term_id,
+                'session_id' => $session_id, 'workspace_id' => $workspaceId
+            ])->first();
 
-            if($amtPaid != $paymentRecord->amount){
-                $balance= $pRecord->amount - $amtPaid;
+            if ($amtPaid != $paymentRecord->amount) {
+                $balance = $pRecord->amount - $amtPaid;
                 $pRecord->balance = $balance;
-                $pRecord->save(); 
-                return PaymentRecord::where(['student_id'=>$student_id,' term_id'=>$term_id,
-                'session_id'=>$session_id])->first();
-            }else {
-                $balance= $pRecord->amount - $amtPaid;
-                $pRecord->balance =$balance;
-                $pRecord->status = 'Paid';
-                $pRecord->save(); 
-                return PaymentRecord::where(['student_id'=>$student_id,'term_id'=>$term_id,
-                'session_id'=>$session_id])->first();
-            }
-        }elseif ($paymentRecord->amt_paid != $paymentRecord->amount  ) {
-            $oldAmt_paid = $paymentRecord->amt_paid + $amtPaid;
-        
-
-            if($paymentRecord->amount == $oldAmt_paid){
-                $pRecord =  PaymentRecord::where(['student_id'=>$student_id,'term_id'=>$term_id,
-                    'session_id'=>$session_id])->first();
-
-                $pRecord->amt_paid =  $oldAmt_paid;
-                $pRecord->balance= $pRecord->amount -  $oldAmt_paid;
-                $pRecord->status = 'Paid';
-                $pRecord->receipt= \mt_rand(1,999999999);
-                $pRecord->save(); 
-                return PaymentRecord::where(['student_id'=>$student_id,'
-                term_id'=>$term_id,'session_id'=>$session_id])->first();
-            }else {
-                $pRecord =  PaymentRecord::where(['student_id'=>$student_id,'term_id'=>$term_id,
-                    'session_id'=>$session_id])->first();
-                $pRecord->amt_paid =  $oldAmt_paid;
-                $pRecord->balance= $pRecord->amount -  $oldAmt_paid;
-                $pRecord->receipt= \mt_rand(1,999999999);
+                $paymentRecord->workspace_id = $workspaceId;
                 $pRecord->save();
-                return PaymentRecord::where(['student_id'=>$student_id,'term_id'=>$term_id,
-                'session_id'=>$session_id])->first();
+                return PaymentRecord::where([
+                    'student_id' => $student_id, ' term_id' => $term_id,
+                    'session_id' => $session_id, 'workspace_id' => $workspaceId
+                ])->first();
+            } else {
+                $balance = $pRecord->amount - $amtPaid;
+                $pRecord->balance = $balance;
+                $paymentRecord->workspace_id = $workspaceId;
+                $pRecord->status = 'Paid';
+                $pRecord->save();
+                return PaymentRecord::where([
+                    'student_id' => $student_id, 'term_id' => $term_id,
+                    'session_id' => $session_id, 'workspace_id' => $workspaceId
+                ])->first();
+            }
+        } elseif ($paymentRecord->amt_paid != $paymentRecord->amount) {
+            $oldAmt_paid = $paymentRecord->amt_paid + $amtPaid;
+
+
+            if ($paymentRecord->amount == $oldAmt_paid) {
+                $pRecord =  PaymentRecord::where([
+                    'student_id' => $student_id, 'term_id' => $term_id,
+                    'session_id' => $session_id, 'workspace_id' => $workspaceId
+                ])->first();
+
+                $pRecord->amt_paid =  $oldAmt_paid;
+                $pRecord->balance = $pRecord->amount -  $oldAmt_paid;
+                $pRecord->status = 'Paid';
+                $paymentRecord->workspace_id = $workspaceId;
+                $pRecord->receipt = \mt_rand(1, 999999999);
+                $pRecord->save();
+
+                return PaymentRecord::where([
+                    'student_id' => $student_id, 'term_id' => $term_id,
+                    'workspace_id' => $workspaceId, 'session_id' => $session_id
+                ])->first();
+            } else {
+                $pRecord =  PaymentRecord::where([
+                    'student_id' => $student_id, 'term_id' => $term_id,
+                    'session_id' => $session_id, 'workspace_id' => $workspaceId
+                ])->first();
+                $pRecord->amt_paid =  $oldAmt_paid;
+                $pRecord->balance = $pRecord->amount -  $oldAmt_paid;
+                $pRecord->receipt = \mt_rand(1, 999999999);
+                $paymentRecord->workspace_id = $workspaceId;
+                $pRecord->save();
+
+                return PaymentRecord::where([
+                    'student_id' => $student_id, 'term_id' => $term_id,
+                    'session_id' => $session_id, 'workspace_id' => $workspaceId
+                ])->first();
             }
 
-                return PaymentRecord::where(['student_id'=>$student_id,'term_id'=>$term_id,
-                'session_id'=>$session_id])->first();
-
-        }else{
+            return PaymentRecord::where([
+                'student_id' => $student_id, 'term_id' => $term_id,
+                'session_id' => $session_id, 'workspace_id' => $workspaceId
+            ])->first();
+        } else {
             return;
         }
     }

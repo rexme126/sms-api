@@ -2,12 +2,11 @@
 
 namespace App\GraphQL\Queries\Payment;
 
-use App\Models\PaymentRecord;
 use App\Models\Workspace;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-final class PaidPaymentRecordsQuery
+final class AllDuePaymentRecordsQuery
 {
     /**
      * Return a value for the field.
@@ -18,14 +17,17 @@ final class PaidPaymentRecordsQuery
      * @param  \GraphQL\Type\Definition\ResolveInfo  $resolveInfo Metadata for advanced query resolution.
      * @return mixed
      */
-    public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
+    public function payments($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
-        $paymentRecords = $workspace->paymentRecords()->where([
-            'klase_id' => $args['klase_id'], 'term_id' => $args['term_id'],
-            'session_id' => $args['session_id'], 'status' => 'Paid'
-        ])->get();
+        $duePaymentRecords = $workspace->paymentRecords()->where('status', 'Due');
 
-        return $paymentRecords;
+        if (isset($args['search'])) {
+            $duePaymentRecords->where('klase_id', 'like', "%{$args['search']}%")
+                ->OrWhere('session_id', 'like', "%{$args['search']}%")
+                ->OrWhere('term_id', 'like', "%{$args['search']}%");
+        }
+
+        return $duePaymentRecords;
     }
 }

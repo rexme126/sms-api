@@ -44,7 +44,7 @@ final class CreateLibarianMutator
         ]);
 
 
-        $user->assignRole(4);
+        $user->assignRole(6);
 
         // $file = $args['photo'];
 

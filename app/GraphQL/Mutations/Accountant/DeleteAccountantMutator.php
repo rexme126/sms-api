@@ -14,10 +14,13 @@ final class DeleteAccountantMutator
      */
     public function __invoke($_, array $args)
     {
-        $userId =Accountant::find($args['id']);
-        $id = $userId->user_id;
-        User::find($id)->delete();
-        Storage::delete('public/'. $args['workspaceId'] . '/accountants' .'/' . $userId->photo);
+        $accountantId = Accountant::find($args['id']);
+        $userId = $accountantId->user_id;
+
+        $user =  User::find($userId);
+        $user->removeRole(5);
+        $user->delete();
+        Storage::delete('public/' . $args['workspaceId'] . '/accountants' . '/' . $accountantId->photo);
         return Accountant::find($args['id'])->delete();
     }
 }

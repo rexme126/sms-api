@@ -1,10 +1,10 @@
 <?php
 
-namespace App\GraphQL\Queries\Guardian;
+namespace App\GraphQL\Queries\Payment;
 
 use App\Models\Workspace;
 
-final class GuardianDashboardQuery
+final class PaymentQuery
 {
     /**
      * @param  null  $_
@@ -13,9 +13,8 @@ final class GuardianDashboardQuery
     public function __invoke($_, array $args)
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
-        
-        $guardians = $workspace->guardians;
-       
-        return $guardians;
+        $payment = $workspace->payments()->findOrFail($args['id']);
+
+        return $payment;
     }
 }

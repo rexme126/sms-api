@@ -20,11 +20,13 @@ final class ResetPaymentRecordMutator
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
         $id = $args['id'];
+        $workspaceId = $args['workspaceId'];
 
         $resetP = PaymentRecord::findOrfail($id);
         $resetP->amt_paid = 0;
         $resetP->balance = $resetP->amount;
         $resetP->receipt = null;
+        $resetP->workspace_id = $workspaceId;
         $resetP->save();
         return PaymentRecord::where('id',$id)->first();
     }

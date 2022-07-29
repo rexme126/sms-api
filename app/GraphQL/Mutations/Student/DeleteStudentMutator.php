@@ -18,10 +18,14 @@ final class DeleteStudentMutator
         $userId = Student::find($args['id']);
         $guardian = Guardian::where('email', $userId->guardian_email)->first();
 
-        Storage::delete('public/'. $args['workspaceId'] . '/students' .'/' . $userId->photo);
+        Storage::delete('public/' . $args['workspaceId'] . '/students' . '/' . $userId->photo);
         $id = $userId->user_id;
-        User::find($guardian->user_id)->delete();
-        User::find($id)->delete();
+        $gUserId = User::find($guardian->user_id);
+        $gUserId->removeRole(8);
+        $gUserId->delete();
+        $StudentUser = User::find($id);
+        $StudentUser->removerole(7);
+        $StudentUser->delete();
         $guardian->delete();
         return Student::find($args['id'])->delete();
     }

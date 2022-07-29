@@ -15,9 +15,23 @@ class WorkspacesSeederTable extends Seeder
      */
     public function run()
     {
-        $w = new Workspace();
-        $w->name = 'defaultWorkspace';
-        $w->slug= Str::slug('defaultWorkspace');
-        $w->save();
+        $worksapces = [
+            [
+                'name' => 'defaultWorkspace',
+                'slug' => Str::slug('defaultWorkspace')
+            ],
+            [
+                'name' => 'ronazonWorkspace',
+                'slug' => Str::slug('ronazonWorkspace')
+            ],
+        ];
+        foreach ($worksapces as $worksapce) {
+           $wp=  Workspace::firstOrNew([
+                'name' => $worksapce['name'],
+                'slug' => $worksapce['slug'],
+            ]);
+            $wp->save();
+
+        }
     }
 }

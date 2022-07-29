@@ -21,15 +21,21 @@ final class UpdatePaymentMutator
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
         $id = $args['id'];
-        $amount= $args['amount'];
+        $amount = $args['amount'];
+        $workspaceId = $args['workspaceId'];
 
-        $payment= Payment::findorFail($id);
+        $payment = Payment::findorFail($id);
         $payment->amount = $amount;
+        $payment->workspace_id = $workspaceId;
         $payment->save();
 
-        $paymentRecords = PaymentRecord::where('payment_id',$payment->id)->update([
-            'amount'=> $amount
+        $paymentRecords = PaymentRecord::where([
+            'payment_id' => $payment->id,
+            'workspace_id' => $workspaceId
+        ])->update([
+            'amount' => $amount,
+            'balance'=> $amount
         ]);
-        return Payment::where('id',$id)->first();
+        return Payment::where(['id' => $id, 'workspace_id' => $workspaceId])->first();
     }
 }
