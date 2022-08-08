@@ -56,7 +56,8 @@ class SchoolNotice extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'data'=> $this->notice->description
+            'data'=> $this->notice->description,
+            'workspace_id'=> 1
         ];
     }
 }

@@ -12,10 +12,11 @@ final class PublishEventMutator
      */
     public function __invoke($_, array $args)
     {
-        $workspace = Workspace::where('slug', $args['workspace'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $event = $workspace->events()->findOrFail($args['id']);
         $event->published =  !$event->published;
         $event->save();
+        
         return $event;
     }
 }

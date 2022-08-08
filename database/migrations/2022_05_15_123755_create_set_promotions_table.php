@@ -16,7 +16,6 @@ class CreateSetPromotionsTable extends Migration
         Schema::create('set_promotions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('workspace_id')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
             $table->integer('name')->nullable();
             $table->timestamps();
         });

@@ -12,7 +12,7 @@ final class EventsQuery
      */
     public function __invoke($_, array $args)
     {
-        $workspace = Workspace::where('slug', $args['slug'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $events = $workspace->events;
         return $events;
     }

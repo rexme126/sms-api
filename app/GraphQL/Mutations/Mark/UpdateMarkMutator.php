@@ -37,25 +37,6 @@ final class UpdateMarkMutator
     // marks
     foreach ($marks as $mark) {
       $markid = $mark['markId'];
-      // $ca1 = $mark['ca1'];
-      // $ca2 = $mark['ca2'];
-      // $exam = $mark['exam'];
-      // $tca = $ca1 + $ca2;
-      // $examTotal = $ca1 + $ca2 + $exam;
-
-      // $id =  $markid;
-      // $caa1 =  $ca1;
-      // $caa2 =  $ca2;
-      // $examm = $exam;
-      // $examTotall = $examTotal;
-
-      // public function getExamTotalAttribute()
-      // {
-      //   return $this->ca1 + $this->ca2 + $this->exam
-      // }
-
-      // $mark->exam_total;
-
 
       $update = $mark;
       // return;
@@ -69,15 +50,19 @@ final class UpdateMarkMutator
       }
     }
 
-    $marks =Mark::where([
+    $marks = Mark::where([
       'klase_id' => $klase_id, 'term_id' => $term_id,
       'session_id' => $session_id, 'section_id' => $section_id, 'workspace_id' => $workspaceId
     ])->get();
 
     foreach ($marks as  $mark) {
-      $mark->tca = $mark->ca1 + $mark->ca2;
-      $mark->exam_total = $mark->ca1 + $mark->ca2 + $mark->exam;
-      $mark->save();
+      if ($mark->ca1 == null && $mark->ca2 == null && $mark->exam == null) {
+        continue;
+      } else {
+        $mark->tca = $mark->ca1 + $mark->ca2;
+        $mark->exam_total = $mark->ca1 + $mark->ca2 + $mark->exam;
+        $mark->save();
+      }
     }
 
 
@@ -124,8 +109,8 @@ final class UpdateMarkMutator
         'session_id' => $session_id,
         'section_id' => $section_id,
         'term_id' => $term_id,
-        'total' => $stu->sum('exam_total'),
-        'avg' => $stu->avg('exam_total'),
+        'total' => round($stu->sum('exam_total'), 0),
+        'avg' => round($stu->avg('exam_total'), 0),
         'workspace_id' => $workspaceId
       ]);
     }
@@ -143,8 +128,8 @@ final class UpdateMarkMutator
           'student_id' => $num, 'term_id' => $term_id, 'session_id' => $session_id,
           'section_id' => $section_id, 'workspace_id' => $workspaceId
         ])->update([
-          'cum_total' => $cumTotal->sum('total'),
-          'cum_avg' => $cumTotal->avg('total'),
+          'cum_total' => round($cumTotal->sum('total', 0)),
+          'cum_avg' => round($cumTotal->avg('total'), 0),
           'workspace_id' => $workspaceId
         ]);
 
@@ -197,7 +182,8 @@ final class UpdateMarkMutator
     });
 
     // grade 
-    $grades = Grade::all();
+    // $grades = Grade::all();
+    $grades = Grade::where('workspace_id', $workspaceId)->get();
     foreach ($grades as $grade) {
       Mark::where('workspace_id', $workspaceId)->where('exam_total', '>=',  $grade->mark_from)
         ->Where('exam_total', '<=',  $grade->mark_to)

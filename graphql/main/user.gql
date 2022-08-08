@@ -20,7 +20,7 @@ extend type Query {
 
     guardiansDashboard(workspaceId: Int): [Guardian!]!
         @field(resolver: "Guardian\\GuardianDashboardQuery")
-        
+
     guardian(id: ID! @eq): Guardian @first
 
     bloodGroups: [BloodGroup!]! @all
@@ -29,4 +29,7 @@ extend type Query {
 extend type Mutation {
     markAsRead(notifiable_id: Int!): Notification
         @field(resolver: "User\\MarkAsReadMutator")
+
+    updateUserPassword(id: Int!, confirmPassword: String!): Boolean
+        @field(resolver: "User\\UpdateUserPasswordMutator")
 }

@@ -21,13 +21,6 @@ extend type Query {
 
     # student
 
-    studentPaymentRecords(
-        student_id: Int!
-        session_id: Int!
-        term_id: Int!
-        workspaceId: Int
-        status: String! @eq
-    ): PaymentRecord @first
 
     allDuePaymentRecords(
         workspaceId: Int
@@ -35,14 +28,14 @@ extend type Query {
     ): [PaymentRecord!]!
     @paginate(builder: "App\\GraphQL\\Queries\\Payment\\AllDuePaymentRecordsQuery@payments")
 
-    # studentPaymentRecords(
-      #  student_id: Int!
-      #  session_id: Int!
-      #  term_id: Int!
-      #  klase_id: Int!
-      #  workspaceId: Int
-     #   status: String! @eq
-   # ): PaymentRecord @field(resolver: "Payment\\DueStudentPaymentRecords")
+    studentPaymentRecords(
+      student_id: Int
+       session_id: Int!
+        term_id: Int!
+        klase_id: Int
+        workspaceId: Int
+        status: String! @eq
+    ): PaymentRecord @field(resolver: "Payment\\DueStudentPaymentRecords")
 }
 
 extend type Mutation {

@@ -36,17 +36,28 @@ final class QueryUserMarkMutator
             'section_id' => $section, 'workspace_id' => $workspaceId
         ])->get()->pluck('id');
 
+
         $currentClass = Student::where([
             'klase_id' => $klaseId, 'section_id' => $section,
             'workspace_id' => $workspaceId
         ])->get()->pluck('klase_id')->take(1);
+
 
         $currentSession = Student::where([
             'klase_id' => $klaseId, 'section_id' => $section,
             'workspace_id' => $workspaceId
         ])->get()->pluck('session_id')->take(1);
 
+        if (count($currentClass) == 0) {
+            return;
+        }
+        if (count($currentSession) == 0) {
+            return;
+        }
+
         $currnetClassId = $currentClass[0];
+
+
         $currentSessionId = $currentSession[0];
         if (count($students) == 0) {
             return;
@@ -60,7 +71,7 @@ final class QueryUserMarkMutator
                     'session_id' => $currentSessionId,
                     'term_id' => $term,
                     'section_id' => $section,
-                    'workspace_id'=> $workspaceId
+                    'workspace_id' => $workspaceId
                 ]);
                 $a->save();
 
@@ -70,10 +81,9 @@ final class QueryUserMarkMutator
                     'session_id' => $currentSessionId,
                     'term_id' => $term,
                     'section_id' => $section,
-                    'workspace_id'=> $workspaceId
+                    'workspace_id' => $workspaceId
                 ]);
             }
         }
     }
 }
-

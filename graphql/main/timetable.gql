@@ -4,7 +4,7 @@ extend type Query {
     #   klase_id: Int! @where(operator: "like")
     # ): [Timetable!]! @all
 
-    timetables(klase_id: Int!, workspaceId: Int @eq): [Timetable!]!
+    timetables(klase_id: Int!, workspaceId: Int): [Timetable!]!
         @field(resolver: "Timetable\\TimetablesQuery")
 
     timetable(id: Int!, workspaceId: Int @eq): Timetable

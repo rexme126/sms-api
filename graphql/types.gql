@@ -23,7 +23,7 @@ type User {
     city: City @belongsTo
     blood_group: BloodGroup @belongsTo
     students: [Student] @hasMany
-    teachers: [Teacher] @hasMany
+    teacher: Teacher @hasOne
     libarians: [Libarian] @hasMany
     guardian: Guardian @hasOne
     accountant: Accountant @hasOne
@@ -205,6 +205,7 @@ type Subject {
     id: ID!
     subject: String!
     teachers: [Teacher] @belongsToMany
+    klase: Klase @belongsTo
 }
 type Timetable {
     id: ID!
@@ -336,7 +337,20 @@ type PaymentRecord {
 
 type Workspace {
     id: ID!
-    slug: String!
+    slug: String
+    email: String!
     name: String!
     logo: String
+    stamp: String
+    status: Int
+    paystack_secret_key: String
+    user: User @hasOne
+}
+
+type Package {
+    id: ID!
+    payment_method: Int
+    workspace: Workspace @belongsTo
+    created_at: DateTime
+    updated_at: DateTime
 }

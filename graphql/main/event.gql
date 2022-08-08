@@ -1,5 +1,5 @@
 extend type Query {
-    events(slug: String @eq): [Event!]! @field(resolver: "Event\\EventsQuery")
+    events(workspaceId: Int! @eq): [Event!]! @field(resolver: "Event\\EventsQuery")
 
     event(id: ID! @eq): Event @find
 }
@@ -10,7 +10,7 @@ extend type Mutation {
         title: String
         photo: Upload
         date: String!
-        workspace: String
+        workspaceId: Int!
     ): Event @field(resolver: "Event\\CreateEventMutator")
 
     updateEvent(
@@ -19,12 +19,12 @@ extend type Mutation {
         title: String
         photo: Upload
         date: String!
-        workspace: String
+        workspaceId: Int!
     ): Event @field(resolver: "Event\\UpdateEventMutator")
 
-    deleteEvent(id: Int!, workspace: String!): Event
+    deleteEvent(id: Int!, workspaceId: Int!): Event
         @field(resolver: "Event\\DeleteEventMutator")
 
-    publishEvent(id: Int!, workspace: String!): Event
+    publishEvent(id: Int!, workspaceId: Int!): Event
         @field(resolver: "Event\\PublishEventMutator")
 }

@@ -12,7 +12,7 @@ final class PublishNoticeMutator
      */
     public function __invoke($_, array $args)
     {
-        $workspace = Workspace::where('slug', $args['workspace'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $notice = $workspace->notices()->findOrFail($args['id']);
         $notice->published =  !$notice->published;
         $notice->save();

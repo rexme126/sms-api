@@ -11,7 +11,7 @@ class Workspace extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(User::class);
     }
 
     public function notices()
@@ -89,5 +89,9 @@ class Workspace extends Model
     public function paymentRecords()
     {
         return $this->hasMany(PaymentRecord::class);
+    }
+    public function grades()
+    {
+        return $this->hasMany(Grade::class);
     }
 }

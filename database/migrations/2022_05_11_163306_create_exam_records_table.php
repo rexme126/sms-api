@@ -16,7 +16,6 @@ class CreateExamRecordsTable extends Migration
         Schema::create('exam_records', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('workspace_id')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedInteger('student_id');
             $table->unsignedInteger('klase_id');
             $table->unsignedInteger('term_id');

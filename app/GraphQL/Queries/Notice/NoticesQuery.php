@@ -12,7 +12,7 @@ final class NoticesQuery
      */
     public function __invoke($_, array $args)
     {
-        $workspace = Workspace::where('slug', $args['slug'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $notices = $workspace->notices;
         return $notices;
     }

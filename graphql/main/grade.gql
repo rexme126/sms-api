@@ -1,0 +1,23 @@
+extend type Query {
+    grades(workspaceId: Int!): [Grade] @field(resolver: "Grade\\GradesQuery")
+    grade(workspaceId: Int!): [Grade] @field(resolver: "Grade\\GradeQuery")
+}
+
+extend type Mutation {
+    createGrade(
+        name: String!
+        mark_from: Int!
+        mark_to: Int!
+        remark: String!
+        workspace_id: Int!
+    ): Grade @create
+
+    updateGrade(
+        id: Int!
+        name: String!
+        mark_from: Int!
+        mark_to: Int!
+        remark: String!
+        workspace_id: Int!
+    ): Grade @update
+}
