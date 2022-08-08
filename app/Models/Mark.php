@@ -11,10 +11,10 @@ class Mark extends Model
 
     protected $guarded= [];
 
-     public function getExamTotalAttribute()
-      {
-        return $this->ca1 + $this->ca2 + $this->exam;
-      }
+    //  public function getExamTotalAttribute()
+    //   {
+    //     // return $this->ca1 + $this->ca2 + $this->exam;
+    //   }
 
     public function klase()
     {

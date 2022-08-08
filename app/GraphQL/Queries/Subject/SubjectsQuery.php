@@ -12,8 +12,12 @@ final class SubjectsQuery
      */
     public function __invoke($_, array $args)
     {
+        info($args['klase_id']);
         $workspace = Workspace::findOrFail($args['workspaceId']);
-        $subjects = $workspace->subjects;
+        $subjects = $workspace->subjects()->where([
+            'klase_id' => $args['klase_id'],
+            'section_id' => $args['section_id']
+        ])->get();
         return $subjects;
     }
 }

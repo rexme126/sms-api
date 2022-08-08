@@ -12,12 +12,13 @@ final class UpdateEventMutator
      */
     public function __invoke($_, array $args)
     {
-        $workspace = Workspace::where('slug', $args['workspace'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $event = $workspace->events()->findOrFail($args['id']);
 
         $event->description = $args['description'];
         $event->date = $args['date'];
         $event->save();
+        
         return $event;
     }
 }

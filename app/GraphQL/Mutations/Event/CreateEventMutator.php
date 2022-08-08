@@ -23,7 +23,7 @@ final class CreateEventMutator
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
 
-        $workspace = Workspace::where('slug', $args['workspace'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
 
         $event = Event::create([
             'workspace_id' => $workspace->id,

@@ -12,7 +12,7 @@ final class DeleteNoticeMutator
      */
     public function __invoke($_, array $args)
     {
-        $workspace = Workspace::where('slug', $args['workspace'])->first();
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $workspace->notices()->findOrFail($args['id'])->delete();
     }
 }

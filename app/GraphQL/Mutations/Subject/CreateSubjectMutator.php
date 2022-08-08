@@ -18,6 +18,8 @@ final class CreateSubjectMutator
         $subject = new Subject();
         $subject->workspace_id = $workspace->id;
         $subject->subject = $args['subject'];
+        $subject->klase_id = $args['klase_id'];
+        $subject->section_id = $args['section_id'];
         $subject->save();
 
         return $subject;

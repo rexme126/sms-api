@@ -17,3 +17,6 @@
 #import payment/payment.gql
 #import section.gql
 #import session.gql
+#import grade.gql
+#import workspace.gql
+#import package.gql

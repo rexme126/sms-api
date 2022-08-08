@@ -17,7 +17,11 @@ class CreateWorkspacesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->string('logo')->nullable();
+            $table->string('email')->nullable()->unique();
+            $table->string('stamp')->nullable();
+            $table->string('logo')->nullable(); 
+            $table->string('paystack_secret_key')->nullable()->unique();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

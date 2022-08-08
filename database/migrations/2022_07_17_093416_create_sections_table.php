@@ -16,7 +16,6 @@ class CreateSectionsTable extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('workspace_id')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('name')->nullable();
             $table->timestamps();
         });

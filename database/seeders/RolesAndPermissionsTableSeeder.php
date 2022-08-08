@@ -133,7 +133,7 @@ class RolesAndPermissionsTableSeeder extends Seeder
             'password' => Hash::make('destiny12'),
             'workspace_id'=> 1
         ]);
-        $user->assignRole(2);
+        $user->assignRole(1);
 
         $user1= User::create([
             'first_name'=> 'Ronazon',
@@ -144,7 +144,7 @@ class RolesAndPermissionsTableSeeder extends Seeder
             'lga'=> 'Obio-Akpor',
             'blood_group_id'=> 1,
             'password' => Hash::make('ronazon12'),
-            'workspace_id'=> 1
+            'workspace_id'=> 2
         ]);
 
         $user1->assignRole(2);

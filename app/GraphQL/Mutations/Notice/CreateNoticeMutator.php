@@ -23,15 +23,13 @@ final class CreateNoticeMutator
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-
-        $workspace = Workspace::where('slug', $args['workspace'])->first();
-
+        $workspace = Workspace::findOrFail($args['workspaceId']);
         $notice = Notice::create([
             'workspace_id' => $workspace->id,
             'description' => $args['description'],
             'date' => $args['date']
         ]);
-        $users = User::all();
+        $users = User::where('workspace_id', $args['workspaceId'])->get();
         foreach ($users as $user) {
             $user->notify(new SchoolNotice($notice));
         }
