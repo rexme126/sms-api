@@ -1,7 +1,9 @@
 extend type Query {
     # admin
     examRecords(
-        klase_id: Int!
+         klase_id: Int!
+        term_id: Int!
+        student_id: Int!
         session_id: Int!
         section_id: Int!
         workspaceId: Int

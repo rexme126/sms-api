@@ -13,6 +13,11 @@ extend type Mutation {
         workspaceId: Int!
     ): Event @field(resolver: "Event\\CreateEventMutator")
 
+     bulkDeleteEvent(
+        workspaceId: Int!, 
+        ids: [String!]
+    ): Boolean @field(resolver: "Event\\BulkDeleteEventMutator")
+
     updateEvent(
         id: ID!
         description: String!

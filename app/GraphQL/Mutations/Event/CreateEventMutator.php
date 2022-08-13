@@ -28,7 +28,8 @@ final class CreateEventMutator
         $event = Event::create([
             'workspace_id' => $workspace->id,
             'description' => $args['description'],
-            'date' => $args['date']
+            'date' => $args['date'],
+            'published'=> false,
         ]);
         $users = User::all();
         foreach ($users as $user) {

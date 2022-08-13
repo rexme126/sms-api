@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\Otp;
+use App\Models\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -21,25 +22,30 @@ class OtpEmail
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $otp= rand(10000, 99999);
-        $email= $args['email'];
-        $checkOtp= new Otp;
-        info($checkOtp);
-        $checkOtp->email = $email;
-        $checkOtp->otp = $otp;
-        $checkOtp->save();
-        return [
-            'email' => $email
-        ];
-    //    $checkOtp =[
-    //        'otp'   => $otp,
-    //        'email' => $args['email']
-    //    ];
+        $checkEmail = User::where('email', $args['email'])->first();
+        if ($checkEmail->email !== $args['email']) {
+            return $checkEmail;
+        }
+        if (count($checkEmail) > 0) {
+            $otp = rand(10000, 99999);
+            $email = $args['email'];
+            $checkOtp = new Otp();
+            info($checkOtp);
+            $checkOtp->email = $email;
+            $checkOtp->otp = $otp;
+            $checkOtp->save();
+            return [
+                'email' => $email
+            ];
+            //    $checkOtp =[
+            //        'otp'   => $otp,
+            //        'email' => $args['email']
+            //    ];
 
-    //   Mail::to($email)->send(new \App\Mail\Otp($otp));
-    //     return [ Otp::create($checkOtp),
-    //     'email' => $email
-    // ];
+            //   Mail::to($email)->send(new \App\Mail\Otp($otp));
+            //     return [ Otp::create($checkOtp),
+            //     'email' => $email
+            // ];
+        }
     }
-    
 }
