@@ -32,4 +32,12 @@ extend type Mutation {
 
     updateUserPassword(id: Int!, confirmPassword: String!): Boolean
         @field(resolver: "User\\UpdateUserPasswordMutator")
+
+    otpPasswordReset(id: Int, email: String): Boolean
+        @field(resolver: "User\\OtpPasswordResetMutator")
+
+    verifyOtp(otp: Int!): Boolean @field(resolver: "User\\VerifyOtpMutator")
+
+    updatePassword(email: String!, password: String!): Boolean
+        @field(resolver: "User\\UpdatePasswordMutator")
 }

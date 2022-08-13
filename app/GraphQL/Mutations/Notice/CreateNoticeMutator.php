@@ -27,7 +27,8 @@ final class CreateNoticeMutator
         $notice = Notice::create([
             'workspace_id' => $workspace->id,
             'description' => $args['description'],
-            'date' => $args['date']
+            'date' => $args['date'],
+            'published' => false
         ]);
         $users = User::where('workspace_id', $args['workspaceId'])->get();
         foreach ($users as $user) {

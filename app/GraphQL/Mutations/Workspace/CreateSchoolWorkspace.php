@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations\Workspace;
 
+use App\Models\SetPromotion;
 use App\Models\User;
 use App\Models\Workspace;
 use Illuminate\Support\Facades\Hash;
@@ -36,6 +37,11 @@ final class CreateSchoolWorkspace
             $user->save();
 
             $user->assignRole(2);
+
+            $setPromotion = new SetPromotion();
+            $setPromotion->name = 45;
+            $setPromotion->workspace_id = $workspace->id;
+            $setPromotion->save();
         }
     }
 }

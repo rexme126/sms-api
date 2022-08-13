@@ -29,14 +29,15 @@ final class CreateResetPromotion
         $promotions = Promotion::where([
             'from_class' => $classId, 'from_term' => $termId,
             'from_session' => $sessionId, 'status' => true, 'workspace_id' => $workspaceId
-        ])->get()->pluck('student_id');
+        ])->get();
 
-        foreach ($promotions as $studentId) {
-            Student::where(['id' => $studentId, 'status' => false,  'workspace_id' => $workspaceId])
+        foreach ($promotions as $student) {
+            Student::where(['id' => $student->student_id, 'status' => false,  'workspace_id' => $workspaceId])
                 ->update([
                     'klase_id' => $classId,
                     'session_id' => $sessionId,
                     'status' => true,
+                    'cum_avg' => $student->cum_avg,
                     'promotion_term_id' => 3,
                     'workspace_id' => $workspaceId
                 ]);

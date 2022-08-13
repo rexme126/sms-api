@@ -23,7 +23,7 @@ final class ExamRecordsQuery
         $workspace = Workspace::findOrFail($args['workspaceId']);
 
         $examRecords = $workspace->examRecords()->where([
-            'klase_id' => $args['klase_id'],
+            'klase_id' => $args['klase_id'], 'term_id'=> $args['term_id'],
             'session_id' => $args['session_id'], 'section_id' => $args['section_id'],
         ])->get();
 

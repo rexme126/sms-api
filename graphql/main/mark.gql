@@ -1,7 +1,7 @@
 extend type Query {
     marks(
         klase_id: Int!
-        subject_id: Int!
+        subject_id: Int
         term_id: Int!
         session_id: Int!
         section_id: Int!

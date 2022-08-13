@@ -12,7 +12,6 @@ final class WorkspaceQuery
      */
     public function __invoke($_, array $args)
     {
-        return Workspace::where(['id'=> $args['workspaceId'], 'status'=> 0])->first();
-    
+        return Workspace::where(['id' => $args['workspaceId'], 'status' => $args['status']])->first();
     }
 }

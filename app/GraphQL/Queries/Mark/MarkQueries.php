@@ -22,12 +22,21 @@ final class MarkQueries
   {
 
     $workspace = Workspace::findOrFail($args['workspaceId']);
-        
-    $marks = $workspace->marks()->where([
-      'klase_id' => $args['klase_id'], 'subject_id' => $args['subject_id'],
-      'term_id' => $args['term_id'], 'session_id' => $args['session_id'],
-       'section_id' => $args['section_id']
-    ])->get();
+    if (isset($args['subject_id'])) {
+      $marks = $workspace->marks()->where([
+        'klase_id' => $args['klase_id'], 'subject_id' => $args['subject_id'],
+        'term_id' => $args['term_id'], 'session_id' => $args['session_id'],
+        'section_id' => $args['section_id']
+      ])->get();
+    } else {
+      $marks = $workspace->marks()->where([
+        'klase_id' => $args['klase_id'],
+        'term_id' => $args['term_id'], 'session_id' => $args['session_id'],
+        'section_id' => $args['section_id']
+      ])->get();
+    }
+
+
 
     return $marks;
   }

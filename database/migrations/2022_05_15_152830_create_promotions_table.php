@@ -26,6 +26,8 @@ class CreatePromotionsTable extends Migration
             // $table->unsignedInteger('to_section');
             $table->string('to_session');
             $table->boolean('status')->default(false);
+            $table->integer('cum_avg')->nullable();
+            $table->integer('section_id')->nullable();
             $table->timestamps();
             $table->foreign('student_id')->references('id')->on('students');
             $table->foreign('from_class')->references('id')->on('klases');
