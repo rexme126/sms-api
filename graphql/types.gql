@@ -22,7 +22,7 @@ type User {
     state: State @belongsTo
     city: City @belongsTo
     blood_group: BloodGroup @belongsTo
-    students: [Student] @hasMany
+    student: Student @hasOne
     teacher: Teacher @hasOne
     libarians: [Libarian] @hasMany
     guardian: Guardian @hasOne

@@ -1,7 +1,7 @@
 extend type Query {
     accountants(workspaceId: Int): [Accountant!]!
         @field(resolver: "Accountant\\AccountantsQuery")
-    accountant(id: Int!, workspaceId: Int @eq): Accountant
+    accountant(id: ID!, workspaceId: Int @eq): Accountant
         @field(resolver: "Accountant\\AccountantQuery")
 }
 

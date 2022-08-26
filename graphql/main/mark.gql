@@ -19,7 +19,7 @@ extend type Query {
         student_id: Int!
         term_id: Int!
         session_id: Int!
-        section_id: Int!
+        section_id: Int
         workspaceId: Int
     ): [Mark] @field(resolver: "Mark\\StudentExamResultQuery")
 

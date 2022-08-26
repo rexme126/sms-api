@@ -32,10 +32,9 @@ extend type Query {
       student_id: Int
        session_id: Int!
         term_id: Int!
-        klase_id: Int
         workspaceId: Int
         status: String! @eq
-    ): PaymentRecord @field(resolver: "Payment\\DueStudentPaymentRecords")
+    ): PaymentRecord @field(resolver: "Payment\\SingelStudentPaymentRecords")
 }
 
 extend type Mutation {

@@ -32,6 +32,7 @@ final class AssignSubjectToTeacher
              foreach ($deleteSubjectsTeacher as $key => $value) {
                  $subject->teachers()->toggle($value->id);
              }
+             return $subject;
             //  $subject->delete();
         }
     }
