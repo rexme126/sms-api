@@ -14,12 +14,7 @@ final class ResetKlaseQuery
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
 
-        $promotionKlase = $workspace->klases()->where([
-            'id' => $args['id'],
-            'section_id' =>
-            $args['section_id']
-        ]);
-        info($promotionKlase);
+        $promotionKlase = $workspace->klases()->findOrFail($args['id']);
 
         return $promotionKlase;
     }

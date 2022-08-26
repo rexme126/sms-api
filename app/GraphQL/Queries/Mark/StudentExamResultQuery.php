@@ -14,12 +14,19 @@ final class StudentExamResultQuery
     public function __invoke($_, array $args)
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
-        
-        $marks = $workspace->marks()->where([
-            'klase_id' => $args['klase_id'], 'student_id' => $args['student_id'],
-            'term_id' => $args['term_id'], 'session_id' => $args['session_id'],
-            'section_id' => $args['section_id']
-        ])->get();
+        if(isset($args['section_id'])){
+            $marks = $workspace->marks()->where([
+                'klase_id' => $args['klase_id'], 'student_id' => $args['student_id'],
+                'term_id' => $args['term_id'], 'session_id' => $args['session_id'],
+                'section_id' => $args['section_id']
+            ])->get();
+        }else{
+            $marks = $workspace->marks()->where([
+                'klase_id' => $args['klase_id'], 'student_id' => $args['student_id'],
+                'term_id' => $args['term_id'], 'session_id' => $args['session_id'],
+            ])->get();
+        }
+       
 
         return $marks;
     }
