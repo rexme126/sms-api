@@ -22,13 +22,7 @@ final class PaymentsQuery
   public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
   {
     $workspace = Workspace::findOrFail($args['workspaceId']);
-    $payments = $workspace->payments()->where('ref_no', null)
-      ->orderBy('created_at', 'desc')
-      ->get();
+    $payments = $workspace->payments()->orderBy('created_at', 'desc')->get();
     return $payments;
-
-    // return Payment::where('ref_no', null)
-    //          ->orderBy('created_at','desc')
-    //          ->get();
   }
 }

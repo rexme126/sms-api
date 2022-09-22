@@ -7,24 +7,22 @@ extend type Query {
 
 extend type Mutation {
     createNotice(
-        description: String!
+        description: String @rules(apply: ["required"])
         title: String
         photo: Upload
-        date: String!
+        date: String @rules(apply: ["required"])
         workspaceId: Int!
     ): Notice @field(resolver: "Notice\\CreateNoticeMutator")
 
-    bulkDeleteNotice(
-        workspaceId: Int!, 
-        ids: [String!]
-    ): Boolean @field(resolver: "Notice\\BulkDeleteNoticesMutator")
+    bulkDeleteNotice(workspaceId: Int!, ids: [String!]): Boolean
+        @field(resolver: "Notice\\BulkDeleteNoticesMutator")
 
     updateNotice(
         id: ID!
-        description: String!
+        description: String @rules(apply: ["required"])
         title: String
         photo: Upload
-        date: String!
+        date: String @rules(apply: ["required"])
         workspaceId: Int!
     ): Notice @field(resolver: "Notice\\UpdateNoticeMutator")
 

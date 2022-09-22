@@ -17,8 +17,7 @@ final class PromoteStudentsQuery
 
         $promotions = $workspace->students()->where([
             'klase_id' => $args['klase_id'], 'promotion_term_id' => 3,
-            'status' => $args['status'], 'session_id' => $args['session_id'],
-            'section_id' => $args['section_id']
+            'status' => $args['status'], 'session_id' => $args['session_id']
         ])->get();
 
         return $promotions;

@@ -26,7 +26,6 @@ final class UpdateMarkMutator
   {
     $marks = collect($args['marks']);
     $klase_id = $args['klase_id'];
-    $subject_id = $args['subject_id'];
     $term_id = $args['term_id'];
     $session_id = $args['session_id'];
     $section_id = $args['section_id'];

@@ -22,7 +22,7 @@ final class StudentPaymentMutator
         $student_id = $args['student_id'];
         $term_id = $args['term_id'];
         $session_id = $args['session_id'];
-        $amtPaid = $args['amt_paid'] / 100;
+        $amtPaid = $args['amt_paid'];
         $workspaceId = $args['workspaceId'];
 
 

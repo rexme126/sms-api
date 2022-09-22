@@ -6,8 +6,10 @@ extend type Query {
 }
 
 extend type Mutation {
-    createKlase(name: String!, workspaceId: Int): Klase
-        @field(resolver: "Klase\\CreateKlaseMutator")
+    createKlase(
+        name: String! @rules(apply: ["required", "unique:klases,name"])
+        workspaceId: Int
+    ): Klase @field(resolver: "Klase\\CreateKlaseMutator")
 
     updateKlase(id: ID!, name: String!, workspaceId: Int): Klase
         @field(resolver: "Klase\\UpdateKlaseMutator")

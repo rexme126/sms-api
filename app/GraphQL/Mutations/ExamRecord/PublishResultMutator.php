@@ -13,40 +13,77 @@ final class PublishResultMutator
      */
     public function __invoke($_, array $args)
     {
-        $term_id = $args['term_id'];
-        $session_id = $args['session_id'];
-        $section_id = $args['section_id'];
-        $klase_id = $args['klase_id'];
-        $status = $args['status'];
-        $workspaceId = $args['workspaceId'];
+        if (isset($args['section_id'])) {
+            $term_id = $args['term_id'];
+            $session_id = $args['session_id'];
+            $section_id = $args['section_id'];
+            $klase_id = $args['klase_id'];
+            $status = $args['status'];
+            $workspaceId = $args['workspaceId'];
 
-        $examPublished = ExamRecord::where([
-            'klase_id' => $klase_id, 'term_id' => $term_id, 'session_id' => $session_id,
-            'section_id' => $section_id, 'workspace_id' => $workspaceId
-        ])->get();
+            $examPublished = ExamRecord::where([
+                'klase_id' => $klase_id, 'term_id' => $term_id, 'session_id' => $session_id,
+                'section_id' => $section_id, 'workspace_id' => $workspaceId
+            ])->get();
 
-        if (count($examPublished) === 0) {
-            return;
+            if (count($examPublished) === 0) {
+                return;
+            } else {
+
+                ExamRecord::where([
+                    'klase_id' => $klase_id, 'term_id' => $term_id, 'session_id' => $session_id,
+                    'section_id' => $section_id, 'workspace_id' => $workspaceId
+                ])
+                    ->update([
+                        'status' => $status
+                    ]);
+                Mark::where([
+                    'klase_id' => $klase_id, 'term_id' => $term_id, 'session_id' => $session_id,
+                    'section_id' => $section_id, 'workspace_id' => $workspaceId
+                ])
+                    ->update([
+                        'status' => $status
+                    ]);
+                return  ExamRecord::where([
+                    'klase_id' => $klase_id, 'term_id' => $term_id,
+                    'session_id' => $session_id, 'section_id' => $section_id, 'workspace_id' => $workspaceId
+                ])->first();
+            }
         } else {
+            $term_id = $args['term_id'];
+            $session_id = $args['session_id'];
+            $klase_id = $args['klase_id'];
+            $status = $args['status'];
+            $workspaceId = $args['workspaceId'];
 
-            ExamRecord::where([
+            $examPublished = ExamRecord::where([
                 'klase_id' => $klase_id, 'term_id' => $term_id, 'session_id' => $session_id,
-                'section_id' => $section_id, 'workspace_id' => $workspaceId
-            ])
-                ->update([
-                    'status' => $status
-                ]);
-            Mark::where([
-                'klase_id' => $klase_id, 'term_id' => $term_id, 'session_id' => $session_id,
-                'section_id' => $section_id, 'workspace_id' => $workspaceId
-            ])
-                ->update([
-                    'status' => $status
-                ]);
-            return  ExamRecord::where([
-                'klase_id' => $klase_id, 'term_id' => $term_id,
-                'session_id' => $session_id, 'section_id' => $section_id, 'workspace_id' => $workspaceId
-            ])->first();
+                'workspace_id' => $workspaceId
+            ])->get();
+
+            if (count($examPublished) === 0) {
+                return;
+            } else {
+
+                ExamRecord::where([
+                    'klase_id' => $klase_id, 'term_id' => $term_id, 'session_id' => $session_id,
+                    'workspace_id' => $workspaceId
+                ])
+                    ->update([
+                        'status' => $status
+                    ]);
+                Mark::where([
+                    'klase_id' => $klase_id, 'term_id' => $term_id, 'session_id' => $session_id,
+                    'workspace_id' => $workspaceId
+                ])
+                    ->update([
+                        'status' => $status
+                    ]);
+                return  ExamRecord::where([
+                    'klase_id' => $klase_id, 'term_id' => $term_id,
+                    'session_id' => $session_id,  'workspace_id' => $workspaceId
+                ])->first();
+            }
         }
     }
 }

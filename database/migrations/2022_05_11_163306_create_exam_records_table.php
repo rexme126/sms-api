@@ -28,10 +28,15 @@ class CreateExamRecordsTable extends Migration
             $table->string('klase_avg')->nullable();
             $table->integer('position')->nullable();
             $table->string('status')->default('unpublished');
-            $table->string('af')->nullable();
-            $table->string('ps')->nullable();
+            $table->integer('num_present')->nullable();
+            $table->integer('num_absent')->nullable();
+            $table->integer('num_total')->nullable();
+            $table->string('promoted_to')->nullable();
             $table->string('p_comment')->nullable();
             $table->string('t_comment')->nullable();
+            $table->string('ps')->nullable();
+            $table->string('term_start')->nullable();
+            $table->string('term_end')->nullable();
             $table->timestamps();
         });
     }

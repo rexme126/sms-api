@@ -1,12 +1,23 @@
 input UsersInput {
-    country: String!
-    state: String!
-    city: String!
-    email: String @rules(apply: ["required"])
+    country: String! @rules(apply: ["required"])
+    state: String! @rules(apply: ["required"])
+    city: String! @rules(apply: ["required"])
+    email: String @rules(apply: ["required", "unique:users,email"])
     lga: String @rules(apply: ["required"])
-    bloodGroup: String!
+    bloodGroup: String
     religion: String @rules(apply: ["required"])
 }
+
+input EditUsersInput {
+    country: String! @rules(apply: ["required"])
+    state: String! @rules(apply: ["required"])
+    city: String! @rules(apply: ["required"])
+    email: String @rules(apply: ["required"])
+    lga: String @rules(apply: ["required"])
+    bloodGroup: String
+    religion: String @rules(apply: ["required"])
+}
+
 
 input WorkersInput {
     first_name: String! @rules(apply: ["required"])
@@ -15,21 +26,11 @@ input WorkersInput {
     gender: String! @rules(apply: ["required"])
     photo: Upload
         @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"])
-    birthday: String
     image: Upload
         @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"])
-    birthday: String
-    phone: String
+    birthday: String @rules(apply: ["required"])
+    phone: String @rules(apply: ["required"])
     qualification: String @rules(apply: ["required"])
-}
-
-
-# marks
-input MarkInput {
-    markId: String
-    ca1: String
-    ca2: String
-    exam: String
 }
 
 # student
@@ -39,7 +40,7 @@ input StudentUserInput {
     city: String!
     lga: String @rules(apply: ["required"])
     email: String @rules(apply: ["required", "unique:users,email"])
-    bloodGroup: String!
+    bloodGroup: String
     religion: String @rules(apply: ["required"])
 }
 
@@ -49,7 +50,7 @@ input StudentInput {
     middle_name: String
     gender: String! @rules(apply: ["required"])
     birthday: String @rules(apply: ["required"])
-    phone: String @rules(apply: ["required", "unique:libarians,phone"])
+    phone: String @rules(apply: ["required", "unique:students,phone"])
     klase: String @rules(apply: ["required"])
     address: String @rules(apply: ["required"])
     photo: Upload
@@ -58,7 +59,7 @@ input StudentInput {
     guardian_no: String @rules(apply: ["required"])
     guardian_email: String @rules(apply: ["required"])
     guardian_address: String @rules(apply: ["required"])
-    adm_no: String @rules(apply: ["required"])
+    adm_no: String @rules(apply: ["required", "unique:students,adm_no"])
     term: String @rules(apply: ["required"])
     section: String @rules(apply: ["required"])
     session: String @rules(apply: ["required"])
@@ -67,12 +68,12 @@ input StudentInput {
 
 # edit student
 input EditStudentUserInput {
-    country: String!
-    state: String!
-    city: String!
+    country: String @rules(apply: ["required"])
+    state: String @rules(apply: ["required"])
+    city: String @rules(apply: ["required"])
     lga: String @rules(apply: ["required"])
     email: String @rules(apply: ["required"])
-    bloodGroup: String!
+    bloodGroup: String
     religion: String @rules(apply: ["required"])
 }
 
@@ -96,4 +97,18 @@ input EditStudentInput {
     section: String @rules(apply: ["required"])
     session: String @rules(apply: ["required"])
     admitted_year: String @rules(apply: ["required"])
+}
+
+# marks
+input MarkInput {
+    markId: String
+    ca1: String
+    ca2: String
+    exam: String
+}
+
+# attendance
+input AttendanceInput {
+    classAttendanceId: String
+    num_present: String
 }

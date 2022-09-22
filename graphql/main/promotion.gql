@@ -3,8 +3,7 @@ extend type Query {
         status: Boolean!
         klase_id: Int!
         session_id: Int!
-        workspaceId: Int
-        section_id: Int! @eq
+        workspaceId: Int @eq
     ): [Student] @field(resolver: "Promotion\\PromoteStudentsQuery")
 
     resetKlase(id: ID!, workspaceId: Int @eq): Klase
@@ -32,7 +31,6 @@ extend type Mutation {
         session_id: Int!
         sessionTo: Int!
         from_term: Int!
-        section_id: Int!
         workspaceId: Int
     ): [Student] @field(resolver: "Promotion\\PromoteStudents")
 

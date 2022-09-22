@@ -94,4 +94,12 @@ class Workspace extends Model
     {
         return $this->hasMany(Grade::class);
     }
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
+    public function assignTeachers()
+    {
+        return $this->hasMany(AssignTeacher::class);
+    }
 }
