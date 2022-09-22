@@ -14,7 +14,7 @@ extend type Query {
         klase_id: Int!
         term_id: Int!
         session_id: Int!
-        section_id: Int!
+        section_id: Int
         workspaceId: Int
     ): [ExamRecord] @field(resolver: "ExamRecord\\klaseResultsQuery")
 
@@ -51,16 +51,6 @@ extend type Query {
         workspaceId: Int
     ): [ExamRecord] @field(resolver: "ExamRecord\\ThirdTermExamResultQuery")
 
-    # publish result
-    publishResult(
-        klase_id: Int!
-        term_id: Int!
-        session_id: Int!
-        section_id: Int!
-        status: String!
-        workspaceId: Int
-    ): ExamRecord @field(resolver: "ExamRecord\\PublishResultQuery")
-
     # student
     mainStudentExamResult(
         klase_id: Int!
@@ -79,7 +69,34 @@ extend type Mutation {
         klase_id: Int!
         term_id: Int!
         session_id: Int!
-        section_id: Int!
+        section_id: Int
         workspaceId: Int
     ): ExamRecord @field(resolver: "ExamRecord\\PublishResultMutator")
+
+        updatePTComment(
+        id: ID!
+        p_comment: String!
+        t_comment: String!
+        workspace_id: Int!
+    ): ExamRecord @field(resolver: "ExamRecord\\PTResultCommentMutator")
+
+    # class attendance record
+    
+    updateAttendance(
+        attendances: [AttendanceInput]
+        num_total: Int
+        klase_id: Int!
+        term_id: Int!
+        session_id: Int!
+        section_id: Int!
+        workspaceId: Int
+    ): ExamRecord @field(resolver: "ExamRecord\\UpdateAttendanceMutator")
+
+      updateResumption(
+        term_start: String!
+        term_end: String
+        term_id: Int!
+        session_id: Int!
+        workspaceId: Int
+    ): ExamRecord @field(resolver: "ExamRecord\\UpdateResumptionMutator")
 }

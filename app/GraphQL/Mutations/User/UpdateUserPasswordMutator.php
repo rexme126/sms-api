@@ -14,10 +14,15 @@ final class UpdateUserPasswordMutator
     public function __invoke($_, array $args)
     {
         $user = User::findOrFail($args['id']);
+        if (Hash::check($args['oldPassword'], $user->password)) {
+            info('uuuu');
+            $user->password = Hash::make($args['password']);
+            $user->save();
 
-        $user->password = Hash::make($args['confirmPassword']);
-        $user->save();
-
-        return $user;
+            return $user;
+        }else{
+            return false;
+        }
+       
     }
 }

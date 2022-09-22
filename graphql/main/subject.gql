@@ -1,13 +1,17 @@
 extend type Query {
-    subjects(klase_id: Int!, workspaceId: Int, section_id:Int!): [Subject]
+    subjects(klase_id: Int!, workspaceId: Int, section_id: Int!): [Subject]
         @field(resolver: "Subject\\SubjectsQuery")
     subject(id: ID!, workspaceId: Int @eq): Subject
         @field(resolver: "Subject\\SubjectQuery")
 }
 
 extend type Mutation {
-    createSubject(subject: String!, workspaceId: Int, klase_id: Int, section_id: Int!): Subject
-        @field(resolver: "Subject\\CreateSubjectMutator")
+    createSubject(
+        subject: String! @rules(apply: ["required", "unique:subjects,subject"])
+        workspaceId: Int
+        klase_id: Int
+        section_id: Int!
+    ): Subject @field(resolver: "Subject\\CreateSubjectMutator")
 
     updateSubject(id: ID!, subject: String!, workspaceId: Int): Subject
         @field(resolver: "Subject\\UpdateSubjectMutator")

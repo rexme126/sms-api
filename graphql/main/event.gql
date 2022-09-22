@@ -1,29 +1,28 @@
 extend type Query {
-    events(workspaceId: Int! @eq): [Event!]! @field(resolver: "Event\\EventsQuery")
+    events(workspaceId: Int! @eq): [Event!]!
+        @field(resolver: "Event\\EventsQuery")
 
     event(id: ID! @eq): Event @find
 }
 
 extend type Mutation {
     createEvent(
-        description: String!
+        description: String @rules(apply: ["required"])
         title: String
         photo: Upload
-        date: String!
+        date: String @rules(apply: ["required"])
         workspaceId: Int!
     ): Event @field(resolver: "Event\\CreateEventMutator")
 
-     bulkDeleteEvent(
-        workspaceId: Int!, 
-        ids: [String!]
-    ): Boolean @field(resolver: "Event\\BulkDeleteEventMutator")
+    bulkDeleteEvent(workspaceId: Int!, ids: [String!]): Boolean
+        @field(resolver: "Event\\BulkDeleteEventMutator")
 
     updateEvent(
         id: ID!
-        description: String!
+        description: String @rules(apply: ["required"])
         title: String
         photo: Upload
-        date: String!
+        date: String @rules(apply: ["required"])
         workspaceId: Int!
     ): Event @field(resolver: "Event\\UpdateEventMutator")
 

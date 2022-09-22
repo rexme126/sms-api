@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations\Student;
 
+use App\Models\Guardian;
 use App\Models\User;
 use App\Models\Student;
 use Illuminate\Support\Str;
@@ -22,22 +23,36 @@ final class UpdateStudentMutator
      */
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $id= $args['id'];
-        $userData =$args['studentUser'];
+        $id = $args['id'];
+        $userData = $args['studentUser'];
         $StudentData =  $args['student'];
         $file = $StudentData['image'];
-      
+
         //    student
         $student = Student::where('id', $id)->first();
+
+        // $userGuardian = User::where('email', $student->guardian_email)->first();
+
+        // check for students with thesame guardian email
+        // if ($userGuardian) {
+        //     $userGuardian->first_name = $StudentData['guardian_name'];
+        //     $userGuardian->email = $StudentData['guardian_email'];
+        //     $userGuardian->save();
+
+        //     Guardian::where('email', $student->guardian_email)->update([
+        //         'email'=> $StudentData['guardian_email']
+        //     ]);
+        // }
+
         $userId = $student->user_id;
         $user = User::where('id', $userId)->first();
-        
 
-     if($file != null){
-            $name=  Str::random(4).$file->getClientOriginalName();
+
+        if ($file != null) {
+            $name =  Str::random(4) . $file->getClientOriginalName();
             $path = $file->storePubliclyAs('public/' . $args['workspaceId'] . '/students', $name);
-         
-            Storage::delete('public/'. $args['workspaceId'] . '/students' .'/' . $student->photo);
+
+            Storage::delete('public/' . $args['workspaceId'] . '/students' . '/' . $student->photo);
 
             $student->first_name = $StudentData['first_name'];
             $student->last_name = $StudentData['last_name'];
@@ -72,9 +87,7 @@ final class UpdateStudentMutator
             $user->save();
             $student->save();
             return $student;
-          
-        
-        }else{
+        } else {
             $student->first_name = $StudentData['first_name'];
             $student->last_name = $StudentData['last_name'];
             $student->middle_name = $StudentData['middle_name'];
@@ -93,7 +106,7 @@ final class UpdateStudentMutator
             $student->admitted_year = $StudentData['admitted_year'];
 
             // user data
-        
+
             $user->state_id = $userData['state'];
             $user->country_id = $userData['country'];
             $user->blood_group_id = $userData['bloodGroup'];
@@ -102,12 +115,10 @@ final class UpdateStudentMutator
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
             $user->first_name = $StudentData['first_name'];
-     
+
             $user->save();
             $student->save();
             return $student;
-            
         }
-      
     }
 }

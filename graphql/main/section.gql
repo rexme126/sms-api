@@ -1,12 +1,15 @@
 extend type Query {
-    sections(workspaceId: Int): [Section] @field(resolver: "Section\\SectionsQuery")
+    sections(workspaceId: Int): [Section]
+        @field(resolver: "Section\\SectionsQuery")
     section(id: Int!, workspaceId: Int): Section
         @field(resolver: "Section\\SectionQuery")
 }
 
 extend type Mutation {
-    createSection(name: String!, workspaceId: Int): Section
-        @field(resolver: "Section\\CreateSectionMutator")
+    createSection(
+        name: String! @rules(apply: ["required", "unique:sections,name"])
+        workspaceId: Int
+    ): Section @field(resolver: "Section\\CreateSectionMutator")
     updateSection(id: ID!, name: String!, workspaceId: Int): Section
         @field(resolver: "Section\\UpdateSectionMutator")
 }

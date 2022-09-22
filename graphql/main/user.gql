@@ -30,7 +30,7 @@ extend type Mutation {
     markAsRead(notifiable_id: Int!): Notification
         @field(resolver: "User\\MarkAsReadMutator")
 
-    updateUserPassword(id: Int!, confirmPassword: String!): Boolean
+    updateUserPassword(id: Int!, oldPassword: String! password: String!): Boolean
         @field(resolver: "User\\UpdateUserPasswordMutator")
 
     otpPasswordReset(id: Int, email: String): Boolean

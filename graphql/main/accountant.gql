@@ -15,7 +15,7 @@ extend type Mutation {
     updateAccountant(
         id: ID!
         workspaceId: Int
-        userTable: UsersInput
+        userTable: EditUsersInput
         teacherTable: WorkersInput
     ): Accountant @field(resolver: "Accountant\\UpdateAccountantMutator")
 

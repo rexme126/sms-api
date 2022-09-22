@@ -13,7 +13,7 @@ final class EventsQuery
     public function __invoke($_, array $args)
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
-        $events = $workspace->events;
+        $events = $workspace->events()->orderBy('created_at', 'desc')->get();;
         return $events;
     }
 }

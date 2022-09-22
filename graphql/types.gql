@@ -48,6 +48,7 @@ type Notification {
     notifiable_id: Int
     data: Data
     read_at: String
+    created_at: String
 }
 
 type UnreadNotification {
@@ -190,6 +191,7 @@ type Driver {
 type Guardian {
     id: ID!
     slug: String
+    email: String
     students: [Student] @hasMany
     user: User @belongsTo
 }
@@ -280,10 +282,15 @@ type ExamRecord {
     klase_avg: String
     position: Int
     status: String
-    af: String
-    ps: String
+    num_present: Int
+    num_absent: Int
+    num_total: Int
+    term_start: String
+    term_end: String
+    promoted_to: String
     p_comment: String
     t_comment: String
+    ps: String
     subject: Subject @belongsTo
     student: Student @belongsTo
     klase: Klase @belongsTo
@@ -333,6 +340,7 @@ type PaymentRecord {
     session: Session @belongsTo
     payment: Payment @belongsTo
     student: Student @belongsTo
+    created_at: DateTime
 }
 
 type Workspace {
@@ -354,3 +362,4 @@ type Package {
     created_at: DateTime
     updated_at: DateTime
 }
+

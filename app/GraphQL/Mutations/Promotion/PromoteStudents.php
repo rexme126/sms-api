@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Mutations\Promotion;
 
+use App\Models\ExamRecord;
+use App\Models\Klase;
 use App\Models\Student;
 use App\Models\Promotion;
 use App\Models\SetPromotion;
@@ -26,7 +28,6 @@ final class PromoteStudents
         $session_id = $args['session_id'];
         $sessionTo = $args['sessionTo'];
         $from_term = $args['from_term'];
-        $section_id = $args['section_id'];
         $workspaceId = $args['workspaceId'];
 
         $setPromotion = SetPromotion::where('workspace_id', $workspaceId)->first();
@@ -35,6 +36,18 @@ final class PromoteStudents
             'session_id' => $session_id,
             'status' => true
         ])->where('cum_avg', '>=', $setPromotion->name)->get();
+
+        $klase = Klase::findOrFail($args['klaseTo']);
+
+        ExamRecord::where([
+            'workspace_id' => $workspaceId, 'session_id' => $session_id,
+            'term_id' => 3
+        ])->where('cum_avg', '>=', $setPromotion->name)->update(['promoted_to' => $klase->name]);
+
+        ExamRecord::where([
+            'workspace_id' => $workspaceId, 'session_id' => $session_id,
+            'term_id' => 3
+        ])->update(['status' => 'published']);
 
 
         foreach ($students as $student) {
@@ -45,7 +58,6 @@ final class PromoteStudents
                 'from_session' => $session_id,
                 'to_session' => $sessionTo,
                 'status' => true,
-                'section_id' => $section_id,
                 'cum_avg' => $student->cum_avg,
                 'from_term' => $from_term,
                 'workspace_id' => $workspaceId

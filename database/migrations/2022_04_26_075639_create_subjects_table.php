@@ -18,7 +18,7 @@ class CreateSubjectsTable extends Migration
             $table->unsignedBigInteger('klase_id')->nullable();
             $table->unsignedBigInteger('section_id')->nullable();
             $table->unsignedBigInteger('workspace_id')->nullable();
-            $table->string('subject')->unique()->nullable();
+            $table->string('subject')->nullable();
             $table->timestamps();
         });
     }

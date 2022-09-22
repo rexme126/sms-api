@@ -1,10 +1,10 @@
 <?php
 
-namespace App\GraphQL\Queries\Notice;
+namespace App\GraphQL\Queries\Teacher;
 
 use App\Models\Workspace;
 
-final class NoticesQuery
+final class AssignTeachersQuery
 {
     /**
      * @param  null  $_
@@ -13,7 +13,9 @@ final class NoticesQuery
     public function __invoke($_, array $args)
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
-        $notices = $workspace->notices()->orderBy('created_at', 'desc')->get();;
-        return $notices;
+        $assignTeachers = $workspace->assignTeachers()->where(
+            'klase_id',$args['klase_id'])->get();
+
+        return $assignTeachers;
     }
 }
