@@ -18,6 +18,7 @@ final class CreateSectionMutator
         $section = new Section();
         $section->workspace_id = $workspace->id;
         $section->name = $args['name'];
+        $section->klase_id = $args['klase_id'];
         $section->save();
 
         return $section;

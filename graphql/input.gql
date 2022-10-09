@@ -30,6 +30,7 @@ input WorkersInput {
         @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"])
     birthday: String @rules(apply: ["required"])
     phone: String @rules(apply: ["required"])
+    employment: String @rules(apply: ["required"])
     qualification: String @rules(apply: ["required"])
 }
 

@@ -1,0 +1,27 @@
+extend type Query {
+    schoolAdmins(workspaceId: Int): [SchoolAdmin!]!
+        @field(resolver: "Admin\\SchoolAdminsQuery")
+
+    schoolAdmin(id: Int!, workspaceId: Int @eq): SchoolAdmin
+        @field(resolver: "Admin\\SchoolAdminQuery")
+}
+
+extend type Mutation {
+    createSchoolAdmin(
+        workspaceId: Int
+        userTable: UsersInput
+        schoolAdminTable: WorkersInput
+    ): SchoolAdmin @field(resolver: "Admin\\CreateSchoolAdminMutator")
+
+    updateSchoolAdmin(
+        id: ID!
+        workspaceId: Int
+        userTable: EditUsersInput
+        schoolAdminTable: WorkersInput
+    ): SchoolAdmin @field(resolver: "Admin\\UpdateSchoolAdminMutator")
+
+    deleteSchoolAdmin(
+        id: Int!
+        workspaceId: Int
+    ): Boolean @field(resolver: "Admin\\DeleteTSchoolAdminMutator")
+}

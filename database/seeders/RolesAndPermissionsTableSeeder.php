@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\PermissionRegistrar;
 
 class RolesAndPermissionsTableSeeder extends Seeder
 {
@@ -17,15 +18,15 @@ class RolesAndPermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-          app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
-        
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
         // Permission
-         
+
         $permissions = [
             [
                 'name' => 'assign-main-admin'
             ],
-             [
+            [
                 'name' => 'assign-admin'
             ],
             [
@@ -48,30 +49,30 @@ class RolesAndPermissionsTableSeeder extends Seeder
                     'assign-admin',
                     'delete',
                     'update',
-                    
+
                 ],
             ],
-             [
+            [
                 'name' => 'main admin',
                 'permissions' => [
                     'assign-admin',
                     'delete',
                     'update',
-                   
+
                 ]
             ],
-             [
+            [
                 'name' => 'admin',
                 'permissions' => [
                     'delete',
                     'update',
-                    
+
                 ]
             ],
-             [
+            [
                 'name' => 'teacher',
                 'permissions' => [
-                   'delete',
+                    'delete',
                     'update',
                     'create'
                 ]
@@ -79,75 +80,65 @@ class RolesAndPermissionsTableSeeder extends Seeder
             [
                 'name' => 'accountant',
                 'permissions' => [
-                      'delete',
+                    'delete',
                     'update',
-                  
-                    
+
+
                 ]
-            ]
-            ,
-            [
-                'name' => 'libarian',
-                'permissions' => [
-                     'delete',
-                    'update',
-                    
-                    
-                ]
-            ]
-            ,
+            ],
             [
                 'name' => 'student',
                 'permissions' => [
-                    ''        
+                    ''
                 ]
             ],
-             [
+            [
                 'name' => 'guardian',
                 'permissions' => [
-                    ''        
+                    ''
                 ]
             ]
         ];
 
         foreach ($permissions as $permission) {
-           Permission::forceCreate($permission);
+            Permission::forceCreate($permission);
         }
 
         foreach ($roles as $role) {
             $permissions = $role['permissions'];
-            // info($permissions);
-             unset($role['permissions']);
+            
+            unset($role['permissions']);
             $role = Role::forceCreate($role);
             $role->givePermissionTo($permissions);
         }
 
-          $user= User::create([
-            'first_name'=> 'Rex',
-            'email'=> 'tojurex@yahoo.com',
-            'country_id'=> 1,
-            'state_id'=> 1,
-            'city_id'=>1,
-            'lga'=> 'Obio-Akpor',
-            'blood_group_id'=> 1,
-            'password' => Hash::make('destiny12'),
-            'workspace_id'=> 1
+        $user = User::create([
+            'first_name' => 'Toju',
+            'last_name' => 'Futughe',
+            'middle_name' => 'Rex',
+            'email' => 'tojufutughe@gmail.com',
+            'country_id' => 1,
+            'state_id' => 1,
+            'city' => 'Port Harcourt',
+            'lga' => 'Obio-Akpor',
+            'blood_group_id' => 1,
+            'password' => Hash::make('restjdestiny12@'),
+            'workspace_id' => 1
         ]);
-        $user->assignRole(1);
+        $user->assignRole('super admin');
 
-        $user1= User::create([
-            'first_name'=> 'Ronazon',
-            'email'=> 'ronazon.ltd@gmail.com',
-            'country_id'=> 1,
-            'state_id'=> 1,
-            'city_id'=>1,
-            'lga'=> 'Obio-Akpor',
-            'blood_group_id'=> 1,
+        $user1 = User::create([
+            'first_name' => 'Ronazon',
+            'email' => 'ronazon.ltd@gmail.com',
+            'country_id' => 1,
+            'state_id' => 1,
+            'city' => 'Port Harcourt',
+            'lga' => 'Obio-Akpor',
+            'blood_group_id' => 1,
             'password' => Hash::make('ronazon12'),
-            'workspace_id'=> 2
+            'workspace_id' => 2
         ]);
 
-        $user1->assignRole(2);
-    
+        $user1->assignRole('main admin');
     }
 }

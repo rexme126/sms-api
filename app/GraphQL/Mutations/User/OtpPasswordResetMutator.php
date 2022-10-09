@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations\User;
 
 use App\Models\Otp;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 final class OtpPasswordResetMutator
 {
@@ -14,7 +15,7 @@ final class OtpPasswordResetMutator
     public function __invoke($_, array $args)
     {
         $checkEmail = User::where('email', $args['email'])->first();
-       
+
         if ($checkEmail == null) {
             return $checkEmail;
         }
@@ -25,17 +26,8 @@ final class OtpPasswordResetMutator
             $checkOtp->email = $email;
             $checkOtp->otp = $otp;
             $checkOtp->save();
-           
-           
-            //    $checkOtp =[
-            //        'otp'   => $otp,
-            //        'email' => $args['email']
-            //    ];
 
-            //   Mail::to($email)->send(new \App\Mail\Otp($otp));
-            //     return [ Otp::create($checkOtp),
-            //     'email' => $email
-            // ];
+            Mail::to($email)->send(new \App\Mail\OtpMail($otp));
 
             return $checkOtp;
         }

@@ -14,6 +14,8 @@ final class KlaseQuery
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
         $klase = $workspace->klases()->findOrFail($args['id']);
+
+        info($klase);
         return $klase;
     }
 }

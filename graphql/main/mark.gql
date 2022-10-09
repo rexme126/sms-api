@@ -14,6 +14,7 @@ extend type Query {
         term_id: Int!
         session_id: Int!
         section_id: Int
+        status: String
         workspaceId: Int
     ): [Mark] @field(resolver: "Mark\\StudentExamResultQuery")
 

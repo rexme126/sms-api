@@ -20,8 +20,12 @@ class CreateWorkspacesTable extends Migration
             $table->string('email')->nullable()->unique();
             $table->string('stamp')->nullable();
             $table->string('logo')->nullable(); 
+            $table->string('gender')->nullable();
+            $table->string('bank')->nullable();
+            $table->string('account_no')->nullable();
+            $table->string('account_name')->nullable();
             $table->string('paystack_secret_key')->nullable()->unique();
-            $table->integer('status')->nullable();
+            $table->integer('status')->nullable()->default(1);
             $table->timestamps();
         });
     }

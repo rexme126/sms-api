@@ -2,14 +2,15 @@ extend type Query {
     notices(workspaceId: Int! @eq): [Notice!]!
         @field(resolver: "Notice\\NoticesQuery")
 
+    schoolNotices(workspaceId: Int! @eq): [Notice!]!
+        @field(resolver: "Notice\\SchoolNoticesQuery")
+
     notice(id: ID! @eq): Notice @find
 }
 
 extend type Mutation {
     createNotice(
         description: String @rules(apply: ["required"])
-        title: String
-        photo: Upload
         date: String @rules(apply: ["required"])
         workspaceId: Int!
     ): Notice @field(resolver: "Notice\\CreateNoticeMutator")
@@ -20,8 +21,6 @@ extend type Mutation {
     updateNotice(
         id: ID!
         description: String @rules(apply: ["required"])
-        title: String
-        photo: Upload
         date: String @rules(apply: ["required"])
         workspaceId: Int!
     ): Notice @field(resolver: "Notice\\UpdateNoticeMutator")

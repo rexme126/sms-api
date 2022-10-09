@@ -1,10 +1,10 @@
 <?php
 
-namespace App\GraphQL\Queries\Libarian;
+namespace App\GraphQL\Queries\Admin;
 
 use App\Models\Workspace;
 
-final class LibarianQuery
+final class SchoolAdminsQuery
 {
     /**
      * @param  null  $_
@@ -12,9 +12,9 @@ final class LibarianQuery
      */
     public function __invoke($_, array $args)
     {
+       
         $workspace = Workspace::findOrFail($args['workspaceId']);
-        $libarian = $workspace->libarians()->find($args['id']);
-
-        return $libarian;
+        $schoolAdmins = $workspace->schoolAdmins;
+        return $schoolAdmins;
     }
 }

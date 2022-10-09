@@ -102,4 +102,8 @@ class Workspace extends Model
     {
         return $this->hasMany(AssignTeacher::class);
     }
+    public function schoolAdmins()
+    {
+        return $this->hasMany(SchoolAdmin::class);
+    }
 }

@@ -29,9 +29,9 @@ final class CreateEventMutator
             'workspace_id' => $workspace->id,
             'description' => $args['description'],
             'date' => $args['date'],
-            'published'=> false,
+            'status'=> true,
         ]);
-        $users = User::all();
+        $users = User::where('workspace_id', $args['workspaceId'])->get();
         foreach ($users as $user) {
             $user->notify(new SchoolEvent($event));
         }

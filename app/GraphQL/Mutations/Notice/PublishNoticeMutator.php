@@ -14,7 +14,7 @@ final class PublishNoticeMutator
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
         $notice = $workspace->notices()->findOrFail($args['id']);
-        $notice->published =  !$notice->published;
+        $notice->status =  !$notice->status;
         $notice->save();
         return $notice;
     }

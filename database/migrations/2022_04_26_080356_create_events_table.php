@@ -18,9 +18,7 @@ class CreateEventsTable extends Migration
             $table->unsignedBigInteger('workspace_id')->nullable();
             $table->string('slug')->unique()->nullable();
             $table->string('description')->nullable();
-            $table->string('title')->nullable();
-            $table->string('photo')->nullable();
-            $table->boolean('published')->default(0);
+            $table->boolean('status')->default(0);
             $table->string('date')->nullable();
             $table->timestamps();
         });

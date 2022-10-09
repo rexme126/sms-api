@@ -24,6 +24,7 @@ final class CreateExamTimetableMutator
         $timetable->time = $args['time'];
         $timetable->date = $args['date'];
         $timetable->klase_id = $args['klase_id'];
+        $timetable->section_id = $args['section_id'];
         $timetable->save();
 
         return $timetable;

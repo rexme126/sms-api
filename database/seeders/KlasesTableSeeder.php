@@ -19,20 +19,18 @@ class KlasesTableSeeder extends Seeder
     {
 
         $klases = [
-            ['name' => 'JSS 1', 'workspace_id' => '1'],
-            ['name' => 'JSS 2', 'workspace_id' => '1'],
-            ['name' => 'JSS 3', 'workspace_id' => '1'],
-            ['name' => 'SSS 1', 'workspace_id' => '1'],
-            ['name' => 'SSS 2', 'workspace_id' => '1'],
-            ['name' => 'SSS 3', 'workspace_id' => '1']
+            ['name' => 'JSS 1', 'workspace_id' => '2'],
+            ['name' => 'JSS 2', 'workspace_id' => '2'],
+            ['name' => 'JSS 3', 'workspace_id' => '2'],
+            ['name' => 'SSS 1', 'workspace_id' => '2'],
+            ['name' => 'SSS 2', 'workspace_id' => '2'],
+            ['name' => 'SSS 3', 'workspace_id' => '2']
         ];
         foreach ($klases as $klase) {
             Klase::create($klase);
         }
-        $session = Session::create([
-            'name' => '2022'
-        ]);
-        $terms = ['first-term', 'second-term', 'third-term'];
+
+        $terms = ['First Term', 'Second Term', 'Third Term'];
         foreach ($terms as $term) {
             Term::create(['name' => $term]);
         }

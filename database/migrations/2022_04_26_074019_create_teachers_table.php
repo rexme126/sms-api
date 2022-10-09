@@ -27,6 +27,7 @@ class CreateTeachersTable extends Migration
             $table->string('code');
             $table->string('photo')->nullable();
             $table->string('qualification')->nullable();
+            $table->string('employment')->nullable();
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@ final class DeleteTeacherMutator
         Storage::delete('public/' . $args['workspaceId'] . '/teachers' . '/' . $teacher->photo);
         $userId = $teacher->user_id;
         $user = User::find($userId);
-        $user->removeRole(4);
+        $user->removeRole('teacher');
         $user->delete();
         return Teacher::find($args['id'])->delete();
     }

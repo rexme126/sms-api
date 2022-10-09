@@ -9,5 +9,9 @@ class Section extends Model
 {
     use HasFactory;
 
+    public function klase()
+    {
+        return $this->belongsTo(Klase::class);
+    }
     
 }

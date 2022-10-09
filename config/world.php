@@ -31,10 +31,10 @@ return [
 	*/
 	'modules' => [
 		'states' => true,
-		'cities' => true,
-		'timezones' => true,
-		'currencies' => true,
-		'languages' => true,
+		'cities' => false,
+		'timezones' => false,
+		'currencies' => false,
+		'languages' => false,
 	],
 	/*
 	|--------------------------------------------------------------------------
@@ -52,12 +52,17 @@ return [
 			'table_name' => 'countries',
 			'optional_fields' => [
 				'phone_code' => [
-					'required' => true,
+					'required' => false,
 					'type' => 'string',
 					'length' => 5,
 				],
+				'iso2' => [
+					'required' => false,
+					'type' => 'string',
+					'length' => 3,
+				],
 				'iso3' => [
-					'required' => true,
+					'required' => false,
 					'type' => 'string',
 					'length' => 3,
 				],
@@ -66,11 +71,11 @@ return [
 					'type' => 'string',
 				],
 				'region' => [
-					'required' => true,
+					'required' => false,
 					'type' => 'string',
 				],
 				'subregion' => [
-					'required' => true,
+					'required' => false,
 					'type' => 'string',
 				],
 				'latitude' => [
@@ -95,7 +100,7 @@ return [
 			'table_name' => 'states',
 			'optional_fields' => [
 				'country_code' => [
-					'required' => true,
+					'required' => false,
 					'type' => 'string',
 					'length' => 3,
 				],
@@ -118,7 +123,7 @@ return [
 			'table_name' => 'cities',
 			'optional_fields' => [
 				'country_code' => [
-					'required' => true,
+					'required' => false,
 					'type' => 'string',
 					'length' => 3,
 				],

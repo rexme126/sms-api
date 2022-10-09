@@ -2,56 +2,24 @@ extend type Query {
     adminWorkspace(workspaceId: Int!, status: Int): Workspace
         @field(resolver: "Workspace\\WorkspaceQuery")
 
-    schools: [Workspace!]! @all
+    schools: [Workspace!]! @field(resolver: "Workspace\\WorkspacesQuery")
 
     school(id: ID! @eq): Workspace @first
 }
 
 extend type Mutation {
-    # createAdminWorkspace(
-    #     workspaceId: Int!
-    #     logo: Upload
-    #         @rules(
-    #             apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"]
-    #         )
-    #     stamp: Upload
-    #         @rules(
-    #             apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"]
-    #         )
-    #     paystack_secret_key: String
-    #         @rules(apply: ["required", "unique:workspaces,paystack_secret_key"])
-    #     email: String @rules(apply: ["required", "unique:workspaces,email"])
-    #     status: Int
-    # ): Workspace @field(resolver: "Workspace\\CreateAdminWorkspace")
-
-    # updateAdminWorkspace(
-    #     id: Int!
-        # workspaceId: Int!
-        # logo: Upload
-        #     @rules(
-        #         apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"]
-        #     )
-        # stamp: Upload
-        #     @rules(
-        #         apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"]
-        #     )
-        # paystack_secret_key: String
-        #     @rules(apply: ["required", "unique:workspaces,paystack_secret_key"])
-        # email: String @rules(apply: ["required", "unique:workspaces,email"])
-        # status: Int
-    # ): Workspace @field(resolver: "Workspace\\UpdateAdminWorkspace")
-
     createSchool(
         name: String!
         slug: String!
-        email: String!
+        email: String! @rules(apply: ["required", "unique:users,email"])
         first_name: String!
         last_name: String!
-        phone: Int!
+        phone: String! @rules(apply: ["required", "unique:users,phone"])
         lga: String
+        gender: String!
         country: Int!
         state: Int!
-        city: Int!
+        city: String!
     ): Boolean @field(resolver: "Workspace\\CreateSchoolWorkspace")
 
     updateSchool(
@@ -61,15 +29,20 @@ extend type Mutation {
         email: String!
         first_name: String!
         last_name: String!
-        phone: Int!
+        phone: String!
+        gender: String!
         lga: String
         country: Int!
         state: Int!
-        city: Int!
+        city: String!
     ): Workspace @field(resolver: "Workspace\\UpdateSchoolWorkspace")
 
+    # setting
     updateAdminSettings(
         workspaceId: ID!
+        bank: String 
+        account_name: String 
+        account_no: String
         logo: Upload
             @rules(
                 apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"]
@@ -80,6 +53,9 @@ extend type Mutation {
             )
         paystack_secret_key: String
     ): Workspace @field(resolver: "Workspace\\UpdateAdminSettingsWorkspace")
+
+    SuspendSchool(workspaceId: ID!, status: Int!): Workspace
+        @field(resolver: "Workspace\\SuspendSchoolWorkspace")
 
     deleteSchool(workspaceId: Int!): Boolean
         @field(resolver: "Workspace\\DeleteSchoolWorkspace")

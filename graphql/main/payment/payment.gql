@@ -21,20 +21,28 @@ extend type Query {
 
     # student
 
-
     allDuePaymentRecords(
         workspaceId: Int
         search: String @rules(apply: ["nullable"])
     ): [PaymentRecord!]!
-    @paginate(builder: "App\\GraphQL\\Queries\\Payment\\AllDuePaymentRecordsQuery@payments")
+        @paginate(
+            builder: "App\\GraphQL\\Queries\\Payment\\AllDuePaymentRecordsQuery@payments"
+        )
 
     studentPaymentRecords(
-      student_id: Int
-       session_id: Int
+        student_id: Int
+        workspaceId: Int
+        status: String! @eq
+    ): [PaymentRecord] @field(resolver: "Payment\\SingelStudentPaymentRecords")
+
+      studentPaymentRecord(
+        student_id: Int
+        session_id: Int
+        klase_id: Int
         term_id: Int
         workspaceId: Int
         status: String! @eq
-    ): PaymentRecord @field(resolver: "Payment\\SingelStudentPaymentRecords")
+    ): PaymentRecord @field(resolver: "Payment\\SingelStudentPaymentRecord")
 }
 
 extend type Mutation {

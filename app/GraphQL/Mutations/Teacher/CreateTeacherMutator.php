@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations\Teacher;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Teacher;
 use App\Models\Workspace;
@@ -32,19 +33,19 @@ final class CreateTeacherMutator
         $user = User::create([
             'email' => $userData['email'],
             'state_id' => $userData['state'],
-            'city_id' => $userData['city'],
+            'city' => $userData['city'],
             'country_id' => $userData['country'],
             'blood_group_id' => $userData['bloodGroup'],
             'lga' => $userData['lga'],
-            'user_type' => 'student',
+            'user_type' => 'teacher',
             'religion' => $userData['religion'],
             'password' => Hash::make('destiny12'),
             'first_name' => $teacherData['first_name'],
             'workspace_id' => $args['workspaceId']
         ]);
 
-
-        $user->assignRole(4);
+        $role = Role::where('name', 'teacher')->first();
+        $user->assignRole($role->name);
 
         // $file = $args['photo'];
 
@@ -63,6 +64,7 @@ final class CreateTeacherMutator
                 'photo' => $name,
                 'code' => strtoupper(Str::random(8)),
                 'birthday' => $teacherData['birthday'],
+                'employment' => $teacherData['employment'],
                 'slug' => Str::slug($teacherData['first_name'] . Str::random(8)),
                 'workspace_id' => $args['workspaceId']
             ]);
@@ -77,6 +79,7 @@ final class CreateTeacherMutator
                 'user_id' => $user->id,
                 'code' => strtoupper(Str::random(8)),
                 'birthday' => $teacherData['birthday'],
+                'employment' => $teacherData['employment'],
                 'slug' => Str::slug($teacherData['first_name'] . Str::random(8)),
                 'workspace_id' => $args['workspaceId']
 

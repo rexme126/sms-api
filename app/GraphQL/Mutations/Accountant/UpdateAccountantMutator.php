@@ -25,7 +25,7 @@ final class UpdateAccountantMutator
 
         $id = $args['id'];
         $userData = $args['userTable'];
-        $accountantData =  $args['teacherTable'];
+        $accountantData =  $args['accountantTable'];
 
         $file = $accountantData['photo'];
 
@@ -50,6 +50,7 @@ final class UpdateAccountantMutator
             $accountant->last_name = $accountantData['last_name'];
             $accountant->middle_name = $accountantData['middle_name'];
             $accountant->birthday = $accountantData['birthday'];
+            $accountant->employment = $accountantData['employment'];
             $accountant->phone = $accountantData['phone'];
             $accountant->photo = $name;
             $accountant->qualification = $accountantData['qualification'];
@@ -60,7 +61,7 @@ final class UpdateAccountantMutator
             $user->state_id = $userData['state'];
             $user->country_id = $userData['country'];
             $user->blood_group_id = $userData['bloodGroup'];
-            $user->city_id = $userData['city'];
+            $user->city = $userData['city'];
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
@@ -74,7 +75,7 @@ final class UpdateAccountantMutator
             $accountant->last_name = $accountantData['last_name'];
             $accountant->middle_name = $accountantData['middle_name'];
             $accountant->birthday = $accountantData['birthday'];
-
+            $accountant->employment = $accountantData['employment'];
             $accountant->phone = $accountantData['phone'];
             $accountant->qualification = $accountantData['qualification'];
             $accountant->gender = $accountantData['gender'];
@@ -82,7 +83,7 @@ final class UpdateAccountantMutator
             $user->state_id = $userData['state'];
             $user->country_id = $userData['country'];
             $user->blood_group_id = $userData['bloodGroup'];
-            $user->city_id = $userData['city'];
+            $user->city = $userData['city'];
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];

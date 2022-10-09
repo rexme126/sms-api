@@ -17,6 +17,7 @@ class CreateExamTimetablesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('workspace_id')->nullable();
             $table->unsignedInteger('klase_id');
+            $table->unsignedInteger('section_id')->nullable();
             $table->string('monday')->nullable();
             $table->string('tuesday')->nullable();
             $table->string('wednesday')->nullable();

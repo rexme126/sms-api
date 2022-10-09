@@ -8,7 +8,7 @@ extend type Query {
 
 extend type Mutation {
     createSessionw(
-        name: String! @rules(apply: ["required", "unique:sessions,name"])
+        name: String! 
         workspaceId: Int
     ): Session @field(resolver: "Session\\CreateSessionMutator")
     updateSessionw(id: ID!, name: String!, workspaceId: Int): Session
