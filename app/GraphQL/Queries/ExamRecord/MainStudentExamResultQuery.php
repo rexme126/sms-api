@@ -21,12 +21,23 @@ final class MainStudentExamResultQuery
     public function __invoke($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
-        
-        $examRecords = $workspace->examRecords()->where([
-            'klase_id' => $args['klase_id'], 'student_id' =>
-            $args['student_id'], 'term_id' => $args['term_id'], 'status' => $args['status'],
-            'session_id' => $args['session_id'], 'section_id' => $args['section_id']
-        ])->get();
+
+        if (isset($args['status'])) {
+            $examRecords = $workspace->examRecords()->where([
+                'klase_id' => $args['klase_id'], 'student_id' =>
+                $args['student_id'], 'term_id' => $args['term_id'], 'status' => $args['status'],
+                'session_id' => $args['session_id'], 'section_id' => $args['section_id'],
+                'status' => $args['status']
+            ])->get();
+        }else{
+            $examRecords = $workspace->examRecords()->where([
+                'klase_id' => $args['klase_id'], 'student_id' =>
+                $args['student_id'], 'term_id' => $args['term_id'], 'status' => $args['status'],
+                'session_id' => $args['session_id'], 'section_id' => $args['section_id']
+            ])->get();
+        }
+
+
 
         return $examRecords;
     }

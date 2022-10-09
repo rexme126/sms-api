@@ -24,6 +24,7 @@ extend type Query {
         student_id: Int!
         session_id: Int!
         section_id: Int
+        status: String
         workspaceId: Int
     ): [ExamRecord] @field(resolver: "ExamRecord\\StudentExamResultQuery")
 
@@ -99,4 +100,12 @@ extend type Mutation {
         session_id: Int!
         workspaceId: Int
     ): ExamRecord @field(resolver: "ExamRecord\\UpdateResumptionMutator")
+
+
+    createGraduates(
+        klase_id: Int!
+        session_id: Int!
+        status: String!
+        workspaceId: Int!
+    ): [ExamRecord] @field(resolver: "ExamRecord\\GraduateStudentsMutator")
 }

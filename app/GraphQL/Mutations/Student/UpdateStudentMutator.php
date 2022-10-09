@@ -78,7 +78,7 @@ final class UpdateStudentMutator
             $user->state_id = $userData['state'];
             $user->country_id = $userData['country'];
             $user->blood_group_id = $userData['bloodGroup'];
-            $user->city_id = $userData['city'];
+            $user->city = $userData['city'];
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
@@ -110,7 +110,7 @@ final class UpdateStudentMutator
             $user->state_id = $userData['state'];
             $user->country_id = $userData['country'];
             $user->blood_group_id = $userData['bloodGroup'];
-            $user->city_id = $userData['city'];
+            $user->city = $userData['city'];
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];

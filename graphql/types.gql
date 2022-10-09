@@ -9,6 +9,7 @@ type User {
     religion: String
     photo: String
     email: String
+    city: String
     lga: String
     password: String
     created_at: DateTime
@@ -20,13 +21,13 @@ type User {
     unreadNotifications: [UnreadNotification]
     country: Country @belongsTo
     state: State @belongsTo
-    city: City @belongsTo
+    # city: City @belongsTo
     blood_group: BloodGroup @belongsTo
     student: Student @hasOne
     teacher: Teacher @hasOne
-    libarians: [Libarian] @hasMany
     guardian: Guardian @hasOne
     accountant: Accountant @hasOne
+    schoolAdmin: SchoolAdmin @hasOne
     workspace: Workspace
 }
 
@@ -56,7 +57,8 @@ type UnreadNotification {
     read_at: String
 }
 type Data {
-    data: String
+    description: String
+    workspace_id: Int
 }
 
 type Country {
@@ -82,20 +84,32 @@ type Event {
     id: ID!
     slug: String
     description: String!
-    title: String
-    photo: Upload
     date: String!
-    published: Boolean
+    status: Boolean
 }
 type Notice {
     id: ID!
     slug: String
     description: String!
-    title: String
-    photo: String
     date: String!
-    published: Boolean
+    status: Boolean
 }
+
+type SchoolAdmin {
+    id: ID!
+    slug: String
+    first_name: String!
+    last_name: String!
+    gender: String!
+    birthday: String
+    code: String
+    middle_name: String
+    photo: String
+    phone: String
+    qualification: String
+    user: User @belongsTo
+}
+
 type Student {
     id: ID!
     slug: String
@@ -136,6 +150,7 @@ type Teacher {
     photo: String
     phone: String
     qualification: String
+    employment: String
     user: User @belongsTo
     klases: [Klase] @belongsToMany
     subjects: [Subject] @belongsToMany
@@ -152,42 +167,11 @@ type Accountant {
     middle_name: String
     photo: String
     phone: String
-    qualification: String
-    user: User @belongsTo
-}
-type Libarian {
-    id: ID!
-    slug: String
-    first_name: String!
-    last_name: String!
-    gender: String!
-    birthday: String
-    code: String
-    middle_name: String
-    photo: String
-    phone: String
+    employment: String
     qualification: String
     user: User @belongsTo
 }
 
-type Driver {
-    id: ID!
-    slug: String!
-    first_name: String
-    last_name: String
-    religion: String
-    route: String
-    lga: String
-    photo: String
-    birthday: String
-    driver_license: String
-    vehicle_number: String
-    phone: String!
-    blood_group: BloodGroup @belongsTo
-    country: Country @belongsTo
-    state: State @belongsTo
-    city: City @belongsTo
-}
 type Guardian {
     id: ID!
     slug: String
@@ -218,6 +202,7 @@ type Timetable {
     friday: String
     time: String
     klase_id: Int!
+    section_id: Int!
 }
 type ExamTimetable {
     id: ID!
@@ -229,6 +214,7 @@ type ExamTimetable {
     time: String
     date: String
     klase_id: Int!
+    section_id: Int!
 }
 
 type Mark {
@@ -271,6 +257,7 @@ type Session {
 type Section {
     id: ID!
     name: String!
+    klase: Klase @belongsTo
 }
 
 type ExamRecord {
@@ -281,6 +268,7 @@ type ExamRecord {
     cum_avg: String
     klase_avg: String
     position: Int
+    cum_position: Int
     status: String
     num_present: Int
     num_absent: Int
@@ -314,6 +302,7 @@ type Promotion {
     status: Boolean!
     student: Student @belongsTo
 }
+
 type Payment {
     id: ID!
     title: String
@@ -350,16 +339,12 @@ type Workspace {
     name: String!
     logo: String
     stamp: String
+    gender: String
+    bank: String
+    account_name: String
+    account_no: String
     status: Int
     paystack_secret_key: String
     user: User @hasOne
-}
-
-type Package {
-    id: ID!
-    payment_method: Int
-    workspace: Workspace @belongsTo
-    created_at: DateTime
-    updated_at: DateTime
 }
 

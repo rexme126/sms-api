@@ -18,20 +18,19 @@ class WorkspacesSeederTable extends Seeder
         $worksapces = [
             [
                 'name' => 'defaultWorkspace',
-                'slug' => Str::slug('defaultWorkspace')
+                'slug' => Str::slug('defaultWorkspace'),
+                'email' => 'tojufutughe@gmail.com',
+                'status' => 1,
             ],
             [
                 'name' => 'ronazonWorkspace',
-                'slug' => Str::slug('ronazonWorkspace')
+                'slug' => Str::slug('ronazonWorkspace'),
+                'email' => 'ronazon.ltd@gmail.com',
+                'status' => 1,
             ],
         ];
         foreach ($worksapces as $worksapce) {
-           $wp=  Workspace::firstOrNew([
-                'name' => $worksapce['name'],
-                'slug' => $worksapce['slug'],
-            ]);
-            $wp->save();
-
+            Workspace::create($worksapce);
         }
     }
 }

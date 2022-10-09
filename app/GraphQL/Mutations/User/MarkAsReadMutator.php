@@ -21,9 +21,9 @@ final class MarkAsReadMutator
     {
         $id= $args['notifiable_id'];
         $user= User::find($id);
-        $markAsRead =$user->unreadNotifications->markAsRead();
+        $user->unreadNotifications->markAsRead();
       
-        $user->notifications()->delete();      
+       $user->notifications()->delete();      
         return $user;
     }
 }

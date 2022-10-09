@@ -19,6 +19,7 @@ final class UpdateSchoolWorkspace
         $workspace->name = $args['name'];
         $workspace->email = $args['email'];
         $workspace->slug = $args['slug'];
+        $workspace->gender = $args['gender'];
         $workspace->save();
 
         if ($workspace) {
@@ -27,7 +28,7 @@ final class UpdateSchoolWorkspace
             $user->last_name = $args['last_name'];
             $user->country_id = $args['country'];
             $user->state_id = $args['state'];
-            $user->city_id = $args['city'];
+            $user->city = $args['city'];
             $user->lga = $args['lga'];
             $user->email = $args['email'];
             $user->phone = $args['phone'];

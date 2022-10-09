@@ -6,7 +6,6 @@
 #import teacher.gql
 #import subject.gql
 #import accountant.gql
-#import libarian.gql
 #import driver.gql
 #import klase.gql
 #import timetable.gql
@@ -20,3 +19,4 @@
 #import grade.gql
 #import workspace.gql
 #import package.gql
+#import admin.gql

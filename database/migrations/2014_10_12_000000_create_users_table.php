@@ -19,10 +19,11 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('blood_group_id')->nullable();
             $table->unsignedInteger('country_id')->nullable();
             $table->unsignedInteger('state_id')->nullable();
-            $table->unsignedInteger('city_id')->nullable();
+            $table->string('city')->nullable();
             $table->string('lga')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
+            $table->string('middle_name')->nullable();
             $table->string('user_type')->nullable();
             $table->string('phone')->nullable();
             $table->string('photo')->nullable();

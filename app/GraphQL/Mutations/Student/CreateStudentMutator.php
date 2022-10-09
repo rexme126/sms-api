@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations\Student;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Guardian;
+use App\Models\Role;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -39,7 +40,7 @@ final class CreateStudentMutator
                 $user = User::create([
                     'email' => $userData['email'],
                     'state_id' => $userData['state'],
-                    'city_id' => $userData['city'],
+                    'city' => $userData['city'],
                     'country_id' => $userData['country'],
                     'blood_group_id' => $userData['bloodGroup'],
                     'lga' => $userData['lga'],
@@ -49,7 +50,8 @@ final class CreateStudentMutator
                     'first_name' => $StudentData['first_name'],
                     'workspace_id' => $args['workspaceId']
                 ]);
-                $user->assignRole(7);
+                $role = Role::where('name', 'student')->first();
+                $user->assignRole($role->name);
 
                 $student = Student::create([
                     'first_name' => $StudentData['first_name'],
@@ -84,8 +86,8 @@ final class CreateStudentMutator
                     'first_name' => $StudentData['guardian_name'],
                     'workspace_id' => $args['workspaceId']
                 ]);
-
-                $userGuardian->assignRole(8);
+                $guardianRole = Role::where('name', 'guardian')->first();
+                $userGuardian->assignRole($guardianRole->name);
 
                 // create guardian
                 $guardianStudent = Guardian::create([
@@ -99,7 +101,7 @@ final class CreateStudentMutator
                 $user = User::create([
                     'email' => $userData['email'],
                     'state_id' => $userData['state'],
-                    'city_id' => $userData['city'],
+                    'city' => $userData['city'],
                     'country_id' => $userData['country'],
                     'blood_group_id' => $userData['bloodGroup'],
                     'lga' => $userData['lga'],
@@ -110,7 +112,8 @@ final class CreateStudentMutator
                     'workspace_id' => $args['workspaceId']
                 ]);
                 // assign role to student
-                $user->assignRole(7);
+                $role = Role::where('name', 'student')->first();
+                $user->assignRole($role->name);
 
                 $student = Student::create([
                     'first_name' => $StudentData['first_name'],
@@ -149,7 +152,7 @@ final class CreateStudentMutator
                 $user = User::create([
                     'email' => $userData['email'],
                     'state_id' => $userData['state'],
-                    'city_id' => $userData['city'],
+                    'city' => $userData['city'],
                     'country_id' => $userData['country'],
                     'blood_group_id' => $userData['bloodGroup'],
                     'lga' => $userData['lga'],
@@ -159,7 +162,8 @@ final class CreateStudentMutator
                     'first_name' => $StudentData['first_name'],
                     'workspace_id' => $args['workspaceId']
                 ]);
-                $user->assignRole(7);
+                $role = Role::where('name', 'student')->first();
+                $user->assignRole($role->name);
 
                 $student = Student::create([
                     'first_name' => $StudentData['first_name'],
@@ -194,7 +198,10 @@ final class CreateStudentMutator
                     'first_name' => $StudentData['guardian_name'],
                     'workspace_id' => $args['workspaceId']
                 ]);
-                $userGuardian->assignRole(8);
+
+                $guardianRole = Role::where('name', 'guardian')->first();
+                $userGuardian->assignRole($guardianRole->name);
+
                 $guardianStudent = Guardian::create([
                     'slug' => Str::slug($StudentData['guardian_name'] . '-' . Str::random(8)),
                     'user_id' => $userGuardian->id,
@@ -209,7 +216,7 @@ final class CreateStudentMutator
                     $user = User::create([
                         'email' => $userData['email'],
                         'state_id' => $userData['state'],
-                        'city_id' => $userData['city'],
+                        'city' => $userData['city'],
                         'country_id' => $userData['country'],
                         'blood_group_id' => $userData['bloodGroup'],
                         'lga' => $userData['lga'],
@@ -219,7 +226,8 @@ final class CreateStudentMutator
                         'first_name' => $StudentData['first_name'],
                         'workspace_id' => $args['workspaceId']
                     ]);
-                    $user->assignRole(7);
+                    $role = Role::where('name', 'student')->first();
+                    $user->assignRole($role->name);
 
                     $student = Student::create([
                         'first_name' => $StudentData['first_name'],

@@ -26,10 +26,10 @@ final class DeleteStudentMutator
         Storage::delete('public/' . $args['workspaceId'] . '/students' . '/' . $userId->photo);
         $id = $userId->user_id;
         $gUserId = User::find($guardian->user_id);
-        $gUserId->removeRole(8);
+        $gUserId->removeRole('guardian');
         $gUserId->delete();
         $StudentUser = User::find($id);
-        $StudentUser->removerole(7);
+        $StudentUser->removerole('student');
         $StudentUser->delete();
         $guardian->delete();
        // return Student::find($args['id'])->delete();

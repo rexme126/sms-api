@@ -23,6 +23,7 @@ final class CreateTimetableMutator
         $timetable->friday = $args['friday'];
         $timetable->time = $args['time'];
         $timetable->klase_id = $args['klase_id'];
+        $timetable->section_id = $args['section_id'];
         $timetable->save();
 
         return $timetable;

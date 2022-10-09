@@ -42,9 +42,9 @@ class SchoolEvent extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -56,7 +56,8 @@ class SchoolEvent extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-             'data'=> $this->event->description
+            'description' => $this->event->description,
+            'workspace_id' => $this->event->workspace_id
         ];
     }
 }

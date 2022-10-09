@@ -14,7 +14,7 @@ final class PublishEventMutator
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
         $event = $workspace->events()->findOrFail($args['id']);
-        $event->published =  !$event->published;
+        $event->status =  !$event->status;
         $event->save();
         
         return $event;

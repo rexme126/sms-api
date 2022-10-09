@@ -9,18 +9,18 @@ extend type Mutation {
     createAccountant(
         workspaceId: Int
         userTable: UsersInput
-        teacherTable: WorkersInput
+        accountantTable: WorkersInput
     ): Accountant @field(resolver: "Accountant\\CreateAccountantMutator")
 
     updateAccountant(
         id: ID!
         workspaceId: Int
         userTable: EditUsersInput
-        teacherTable: WorkersInput
+        accountantTable: WorkersInput
     ): Accountant @field(resolver: "Accountant\\UpdateAccountantMutator")
 
     deleteAccountant(
-        id: Int! @rules(apply: ["exists:accountants"])
+        id: Int! 
         workspaceId: Int
     ): Boolean @field(resolver: "Accountant\\DeleteAccountantMutator")
 }

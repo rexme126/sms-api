@@ -23,7 +23,7 @@ class User extends Authenticatable implements JWTSubject
     //     'email',
     //     'password',
     // ];
-    protected $guarded= [];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -51,7 +51,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->getKey();
     }
 
-     public function getJWTCustomClaims()
+    public function getJWTCustomClaims()
     {
         return [];
     }
@@ -68,7 +68,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsTo(City::class);
     }
-       public function blood_group()
+    public function blood_group()
     {
         return $this->belongsTo(BloodGroup::class);
     }
@@ -93,9 +93,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(Accountant::class);
     }
+    public function schoolAdmin()
+    {
+        return $this->hasOne(SchoolAdmin::class);
+    }
     public function workspace()
     {
         return $this->belongsTo(Workspace::class);
     }
-
 }

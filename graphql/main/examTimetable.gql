@@ -1,6 +1,9 @@
 extend type Query {
-    examTimetables(klase_id: Int!, workspaceId: Int): [ExamTimetable!]!
-        @field(resolver: "ExamTimetable\\ExamTimetablesQuery")
+    examTimetables(
+        klase_id: Int!
+        section_id: Int!
+        workspaceId: Int
+    ): [ExamTimetable!]! @field(resolver: "ExamTimetable\\ExamTimetablesQuery")
 
     examTimetable(id: ID!, workspaceId: Int): ExamTimetable
         @field(resolver: "ExamTimetable\\ExamTimetableQuery")
@@ -16,6 +19,7 @@ extend type Mutation {
         time: String
         date: String
         klase_id: Int!
+        section_id: Int!
         workspaceId: Int
     ): ExamTimetable
         @field(resolver: "ExamTimetable\\CreateExamTimetableMutator")

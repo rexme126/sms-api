@@ -17,6 +17,7 @@ use App\Models\Payment;
 use App\Models\PaymentRecord;
 use App\Models\Promotion;
 use App\Models\Result;
+use App\Models\SchoolAdmin;
 use App\Models\Section;
 use App\Models\Session;
 use App\Models\SetPromotion;
@@ -38,9 +39,15 @@ final class DeleteSchoolWorkspace
     public function __invoke($_, array $args)
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
+        //notification
+        $users = User::where('workspace_id', $workspace->id)->get();
+
+        foreach ($users as $user) {
+            Notification::where('notifiable_id', $user->id)->delete();
+        }
+       
 
         Session::where('workspace_id', $workspace->id)->delete();
-        Term::where('workspace_id', $workspace->id)->delete();
         Klase::where('workspace_id', $workspace->id)->delete();
         Subject::where('workspace_id', $workspace->id)->delete();
         Notice::where('workspace_id', $workspace->id)->delete();
@@ -50,42 +57,55 @@ final class DeleteSchoolWorkspace
         Grade::where('workspace_id', $workspace->id)->delete();
         Mark::where('workspace_id', $workspace->id)->delete();
         Result::where('workspace_id', $workspace->id)->delete();
-        // Notification::where('workspace_id', $workspace)->get()->delete();
         ExamRecord::where('workspace_id', $workspace->id)->delete();
         SetPromotion::where('workspace_id', $workspace->id)->delete();
         Promotion::where('workspace_id', $workspace->id)->delete();
         Payment::where('workspace_id', $workspace->id)->delete();
         PaymentRecord::where('workspace_id', $workspace->id)->delete();
         Section::where('workspace_id', $workspace->id)->delete();
-        Package::where('workspace_id', $workspace->id)->delete();
+        Session::where('workspace_id', $workspace->id)->delete();
 
         // users
 
         $teachers = Teacher::where('workspace_id', $workspace->id)->get();
         foreach ($teachers as $teacher) {
-            $teacher->removeRole(4);
+
+            $user = User::where('id', $teacher->user_id)->first();
+            $user->removeRole('teacher');
             $teacher->delete();
         }
+      
+
         $students = Student::where('workspace_id', $workspace->id)->get();
         foreach ($students as $student) {
-            $student->removeRole(7);
+            $user = User::where('id', $student->user_id)->first();
+            $user->removeRole('student');
             $student->delete();
         }
+
         $accountants = Accountant::where('workspace_id', $workspace->id)->get();
         foreach ($accountants as $accountant) {
-            $accountant->removeRole(5);
+            $user = User::where('id', $accountant->user_id)->first();
+            $user->removeRole('accountant');
             $accountant->delete();
         }
 
         $guardians = Guardian::where('workspace_id', $workspace->id)->get();
         foreach ($guardians as $guardian) {
-            $guardian->removeRole(8);
+            $user = User::where('id', $guardian->user_id)->first();
+            $user->removeRole('guardian');
             $guardian->delete();
         }
+        
+
+        $schoolAdmin = SchoolAdmin::where('workspace_id', $workspace->id)->first();
+        $userAdmin = User::where('id', $schoolAdmin->user_id)->first();
+        $userAdmin->removeRole('admin');
+        $schoolAdmin->delete();
 
         $user = User::where('email', $workspace->email)->first();
         Storage::delete('public/' . $args['workspaceId']);
-        $user->removeRole(2);
+        $user->removeRole('main admin');
         User::where('workspace_id', $workspace->id)->delete();
 
         return $workspace->delete();

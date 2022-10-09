@@ -117,6 +117,7 @@ final class UpdateMarkMutator
     // term term promotion
 
     if ($term_id == 3) {
+
       foreach ($stud as $num) {
         $cumTotal =  ExamRecord::where([
           'student_id' => $num, 'klase_id' => $klase_id,
@@ -156,7 +157,29 @@ final class UpdateMarkMutator
             'ps' => 'Failed'
           ]);
       }
+
+      ExamRecord::where([
+        'klase_id' => $klase_id, 'term_id' => $term_id,
+        'session_id' => $session_id,
+        'section_id' => $section_id,
+        'workspace_id' => $workspaceId
+      ])->get()->groupBy('klase_id')->map(function ($subject) {
+        $rank = 0;
+        $score = -1;
+
+        return $subject->sortByDesc('cum_avg')
+          ->map(function ($record) use (&$rank, &$score) {
+
+            if ($score != $record->getAttribute('cum_avg')) {
+              $score = $record->getAttribute('cum_avg');
+              $rank++;
+            }
+            $record->setAttribute('cum_position', $rank)->save();
+            return $record->getAttributes();
+          });
+      });
     }
+    
 
     // position ranking
     $studentM = ExamRecord::where([

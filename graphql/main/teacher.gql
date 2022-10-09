@@ -24,7 +24,7 @@ extend type Mutation {
     ): Teacher @field(resolver: "Teacher\\UpdateTeacherMutator")
 
     deleteTeacher(
-        id: Int! @rules(apply: ["exists:teachers"])
+        id: Int! 
         workspaceId: Int
     ): Boolean @field(resolver: "Teacher\\DeleteTeacherMutator")
 }

@@ -16,7 +16,7 @@ class CreateKlasesTable extends Migration
         Schema::create('klases', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('workspace_id')->nullable();
-            $table->string('name')->unique()->nullable();
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }

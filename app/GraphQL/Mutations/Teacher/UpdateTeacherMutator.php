@@ -45,6 +45,7 @@ final class UpdateTeacherMutator
             $teacher->last_name = $teacherData['last_name'];
             $teacher->middle_name = $teacherData['middle_name'];
             $teacher->birthday = $teacherData['birthday'];
+            $teacher->employment = $teacherData['employment'];
             $teacher->phone = $teacherData['phone'];
             $teacher->photo = $name;
             $teacher->qualification = $teacherData['qualification'];
@@ -55,7 +56,7 @@ final class UpdateTeacherMutator
             $user->state_id = $userData['state'];
             $user->country_id = $userData['country'];
             $user->blood_group_id = $userData['bloodGroup'];
-            $user->city_id = $userData['city'];
+            $user->city = $userData['city'];
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
@@ -69,7 +70,7 @@ final class UpdateTeacherMutator
             $teacher->last_name = $teacherData['last_name'];
             $teacher->middle_name = $teacherData['middle_name'];
             $teacher->birthday = $teacherData['birthday'];
-
+            $teacher->employment = $teacherData['employment'];
             $teacher->phone = $teacherData['phone'];
             $teacher->qualification = $teacherData['qualification'];
             $teacher->gender = $teacherData['gender'];
@@ -78,7 +79,7 @@ final class UpdateTeacherMutator
             $user->email = $userData['email'];
             $user->country_id = $userData['country'];
             $user->blood_group_id = $userData['bloodGroup'];
-            $user->city_id = $userData['city'];
+            $user->city = $userData['city'];
             $user->lga = $userData['lga'];
             $user->religion = $userData['religion'];
             $user->first_name = $teacherData['first_name'];

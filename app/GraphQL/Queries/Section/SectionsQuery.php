@@ -13,7 +13,7 @@ final class SectionsQuery
     public function __invoke($_, array $args)
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
-        $sections = $workspace->sections;
+        $sections = $workspace->sections()->where('klase_id', $args['klase_id'])->get();
         return $sections;
     }
 }

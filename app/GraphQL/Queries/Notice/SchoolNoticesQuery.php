@@ -1,10 +1,10 @@
 <?php
 
-namespace App\GraphQL\Queries\Libarian;
+namespace App\GraphQL\Queries\Notice;
 
 use App\Models\Workspace;
 
-final class LibariansQuery
+final class SchoolNoticesQuery
 {
     /**
      * @param  null  $_
@@ -13,9 +13,7 @@ final class LibariansQuery
     public function __invoke($_, array $args)
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
-        
-        $libarians = $workspace->libarians;
-       
-        return $libarians;
+        $notices = $workspace->notices()->where('status', true)->orderBy('created_at', 'desc')->get();
+        return $notices;
     }
 }

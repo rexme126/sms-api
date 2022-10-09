@@ -13,7 +13,10 @@ final class TimetablesQuery
     public function __invoke($_, array $args)
     {
         $workspace = Workspace::findOrFail($args['workspaceId']);
-        $timetables = $workspace->timetables()->where('klase_id', $args['klase_id'])->get();
+        $timetables = $workspace->timetables()->where([
+            'klase_id' => $args['klase_id'],
+            'section_id' => $args['section_id']
+        ])->get();
         return $timetables;
     }
 }

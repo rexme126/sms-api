@@ -41,4 +41,12 @@ extend type Mutation {
         from_term: Int!
         workspaceId: Int
     ): [Promotion] @field(resolver: "Promotion\\CreateResetPromotion")
+
+    resetStudentPromotion(
+        promotion_id: Int!
+        from_class: Int!
+        from_session: Int!
+        from_term: Int!
+        workspaceId: Int
+    ): Promotion @field(resolver: "Promotion\\ResetStudentPromotion")
 }

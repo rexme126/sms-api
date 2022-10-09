@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations\Promotion;
 
+use App\Models\ExamRecord;
 use App\Models\Student;
 use App\Models\Promotion;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -23,7 +24,6 @@ final class CreateResetPromotion
         $classId = $args['from_class'];
         $sessionId = $args['from_session'];
         $termId = $args['from_term'];
-        $status = $args['status'];
         $workspaceId = $args['workspaceId'];
 
         $promotions = Promotion::where([
@@ -48,5 +48,13 @@ final class CreateResetPromotion
             'from_session' => $sessionId, 'status' => true, 'workspace_id' => $workspaceId
         ])->get()->pluck('id');
         Promotion::destroy($p);
+
+        ExamRecord::where([
+            'klase_id' =>  $classId, 'term_id' => 3, 'session_id' => $sessionId,
+            'workspace_id' => $workspaceId
+        ])->update([
+            'promoted_to' => null,
+            'status' => 'unpublished'
+        ]);
     }
 }

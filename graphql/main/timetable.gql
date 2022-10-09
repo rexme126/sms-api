@@ -4,7 +4,7 @@ extend type Query {
     #   klase_id: Int! @where(operator: "like")
     # ): [Timetable!]! @all
 
-    timetables(klase_id: Int!, workspaceId: Int): [Timetable!]!
+    timetables(klase_id: Int,section_id: Int, workspaceId: Int): [Timetable!]!
         @field(resolver: "Timetable\\TimetablesQuery")
 
     timetable(id: Int!, workspaceId: Int @eq): Timetable
@@ -22,6 +22,7 @@ extend type Mutation {
         friday: String
         time: String
         klase_id: Int!
+        section_id: Int!
         workspaceId: Int
     ): Timetable @field(resolver: "Timetable\\CreateTimetableMutator")
 

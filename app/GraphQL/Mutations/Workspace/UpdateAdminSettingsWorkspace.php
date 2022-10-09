@@ -23,6 +23,9 @@ final class UpdateAdminSettingsWorkspace
 
             $workspace->stamp =  $stampName;
             $workspace->paystack_secret_key = $args['paystack_secret_key'];
+            $workspace->bank = $args['bank'];
+            $workspace->account_no = $args['account_no'];
+            $workspace->account_name = $args['account_name'];
             $workspace->save();
         } else if ($args['stamp'] == null && $args['logo'] !== null) {
             $logoName =  Str::random(4) . $args['logo']->getClientOriginalName();
@@ -32,10 +35,16 @@ final class UpdateAdminSettingsWorkspace
             $workspace->logo = $logoName;
 
             $workspace->paystack_secret_key = $args['paystack_secret_key'];
+            $workspace->bank = $args['bank'];
+            $workspace->account_no = $args['account_no'];
+            $workspace->account_name = $args['account_name'];
             $workspace->save();
-        }else if ($args['stamp'] == null && $args['logo'] == null) {
-        
+        } else if ($args['stamp'] == null && $args['logo'] == null) {
+
             $workspace->paystack_secret_key = $args['paystack_secret_key'];
+            $workspace->bank = $args['bank'];
+            $workspace->account_no = $args['account_no'];
+            $workspace->account_name = $args['account_name'];
             $workspace->save();
         } else {
             $logoName =  Str::random(4) . $args['logo']->getClientOriginalName();
@@ -49,6 +58,9 @@ final class UpdateAdminSettingsWorkspace
             $workspace->logo = $logoName;
             $workspace->stamp =  $stampName;
             $workspace->paystack_secret_key = $args['paystack_secret_key'];
+            $workspace->bank = $args['bank'];
+            $workspace->account_no = $args['account_no'];
+            $workspace->account_name = $args['account_name'];
             $workspace->save();
         }
 
