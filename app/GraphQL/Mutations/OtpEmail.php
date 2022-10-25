@@ -34,18 +34,8 @@ class OtpEmail
             $checkOtp->email = $email;
             $checkOtp->otp = $otp;
             $checkOtp->save();
-            return [
-                'email' => $email
-            ];
-            //    $checkOtp =[
-            //        'otp'   => $otp,
-            //        'email' => $args['email']
-            //    ];
 
-            //   Mail::to($email)->send(new \App\Mail\Otp($otp));
-            //     return [ Otp::create($checkOtp),
-            //     'email' => $email
-            // ];
+            Mail::to($email)->send(new \App\Mail\OtpMail($otp));
         }
     }
 }

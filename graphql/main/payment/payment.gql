@@ -35,7 +35,13 @@ extend type Query {
         status: String! @eq
     ): [PaymentRecord] @field(resolver: "Payment\\SingelStudentPaymentRecords")
 
-      studentPaymentRecord(
+    studentPaidPaymentRecords(
+        student_id: Int
+        workspaceId: Int
+        status: String! @eq
+    ): [PaymentRecord] @field(resolver: "Payment\\SingelStudentPaymentRecords")
+
+    studentPaymentRecord(
         student_id: Int
         session_id: Int
         klase_id: Int

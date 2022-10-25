@@ -122,7 +122,7 @@ class RolesAndPermissionsTableSeeder extends Seeder
             'city' => 'Port Harcourt',
             'lga' => 'Obio-Akpor',
             'blood_group_id' => 1,
-            'password' => Hash::make('restjdestiny12@'),
+            'password' => Hash::make('destiny12@'),
             'workspace_id' => 1
         ]);
         $user->assignRole('super admin');

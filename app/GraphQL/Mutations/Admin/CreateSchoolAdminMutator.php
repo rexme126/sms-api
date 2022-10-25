@@ -30,7 +30,7 @@ final class CreateSchoolAdminMutator
             'lga' => $userData['lga'],
             'user_type' => 'admin',
             'religion' => $userData['religion'],
-            'password' => Hash::make('destiny12'),
+            'password' => Hash::make('school'),
             'first_name' => $schoolAdminTable['first_name'],
             'workspace_id' => $args['workspaceId']
         ]);

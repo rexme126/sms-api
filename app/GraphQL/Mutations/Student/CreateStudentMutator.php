@@ -46,7 +46,7 @@ final class CreateStudentMutator
                     'lga' => $userData['lga'],
                     'user_type' => 'student',
                     'religion' => $userData['religion'],
-                    'password' => Hash::make('destiny12'),
+                    'password' => Hash::make('school'),
                     'first_name' => $StudentData['first_name'],
                     'workspace_id' => $args['workspaceId']
                 ]);
@@ -82,7 +82,7 @@ final class CreateStudentMutator
                 $userGuardian = User::create([
                     'email' => $StudentData['guardian_email'],
                     'user_type' => 'guardian',
-                    'password' => Hash::make('destiny12'),
+                    'password' => Hash::make('school'),
                     'first_name' => $StudentData['guardian_name'],
                     'workspace_id' => $args['workspaceId']
                 ]);
@@ -107,7 +107,7 @@ final class CreateStudentMutator
                     'lga' => $userData['lga'],
                     'user_type' => 'student',
                     'religion' => $userData['religion'],
-                    'password' => Hash::make('destiny12'),
+                    'password' => Hash::make('school'),
                     'first_name' => $StudentData['first_name'],
                     'workspace_id' => $args['workspaceId']
                 ]);
@@ -158,7 +158,7 @@ final class CreateStudentMutator
                     'lga' => $userData['lga'],
                     'user_type' => 'student',
                     'religion' => $userData['religion'],
-                    'password' => Hash::make('destiny12'),
+                    'password' => Hash::make('school'),
                     'first_name' => $StudentData['first_name'],
                     'workspace_id' => $args['workspaceId']
                 ]);
@@ -194,7 +194,7 @@ final class CreateStudentMutator
                 $userGuardian = User::create([
                     'email' => $StudentData['guardian_email'],
                     'user_type' => 'guardian',
-                    'password' => Hash::make('destiny12'),
+                    'password' => Hash::make('school'),
                     'first_name' => $StudentData['guardian_name'],
                     'workspace_id' => $args['workspaceId']
                 ]);
@@ -222,7 +222,7 @@ final class CreateStudentMutator
                         'lga' => $userData['lga'],
                         'user_type' => 'student',
                         'religion' => $userData['religion'],
-                        'password' => Hash::make('destiny12'),
+                        'password' => Hash::make('school'),
                         'first_name' => $StudentData['first_name'],
                         'workspace_id' => $args['workspaceId']
                     ]);
