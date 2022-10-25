@@ -76,8 +76,8 @@ extend type Mutation {
 
         updatePTComment(
         id: ID!
-        p_comment: String!
-        t_comment: String!
+        p_comment: String
+        t_comment: String
         workspace_id: Int!
     ): ExamRecord @field(resolver: "ExamRecord\\PTResultCommentMutator")
 

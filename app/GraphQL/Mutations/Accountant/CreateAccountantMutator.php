@@ -37,7 +37,7 @@ final class CreateAccountantMutator
             'lga' => $userData['lga'],
             'user_type' => 'accountant',
             'religion' => $userData['religion'],
-            'password' => Hash::make('destiny12'),
+            'password' => Hash::make('school'),
             'first_name' => $accountantData['first_name'],
             'workspace_id' => $args['workspaceId']
         ]);

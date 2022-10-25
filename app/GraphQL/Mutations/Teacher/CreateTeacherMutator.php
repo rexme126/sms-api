@@ -39,7 +39,7 @@ final class CreateTeacherMutator
             'lga' => $userData['lga'],
             'user_type' => 'teacher',
             'religion' => $userData['religion'],
-            'password' => Hash::make('destiny12'),
+            'password' => Hash::make('school'),
             'first_name' => $teacherData['first_name'],
             'workspace_id' => $args['workspaceId']
         ]);

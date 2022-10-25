@@ -33,8 +33,8 @@ class CreateExamRecordsTable extends Migration
             $table->integer('num_absent')->nullable();
             $table->integer('num_total')->nullable();
             $table->string('promoted_to')->nullable();
-            $table->string('p_comment')->nullable();
-            $table->string('t_comment')->nullable();
+            $table->string('p_comment')->nullable()->default('A hard working student');
+            $table->string('t_comment')->nullable()->default('A very good performance, keep it up');
             $table->string('ps')->nullable();
             $table->string('term_start')->nullable();
             $table->string('term_end')->nullable();
