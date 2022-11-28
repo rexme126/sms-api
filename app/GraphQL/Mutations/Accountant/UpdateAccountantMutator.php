@@ -36,9 +36,7 @@ final class UpdateAccountantMutator
         $accountant = Accountant::where('id', $id)->first();
         $userId = $accountant->user_id;
         $user = User::where('id', $userId)->first();
-        //     info($user);
-
-
+      
         if ($file != null) {
             $name =  Str::random(4) . $file->getClientOriginalName();
             $path = $file->storePubliclyAs('public/' . $args['workspaceId'] . '/accountants', $name);

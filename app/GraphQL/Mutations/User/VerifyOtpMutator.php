@@ -14,7 +14,7 @@ final class VerifyOtpMutator
     {
         $otp = $args['otp'];
      
-        $checkCreatedAt = Otp::where(['otp'=> $args['otp'], 'status' => false])->first();
+        Otp::where(['otp'=> $args['otp'], 'status' => false])->first();
       
         $checkOtp= Otp::where(['otp'=> $args['otp'], 'status' => false, 
                    ['created_at','>=',\date_sub( now(), 

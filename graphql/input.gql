@@ -25,9 +25,9 @@ input WorkersInput {
     middle_name: String
     gender: String! @rules(apply: ["required"])
     photo: Upload
-        @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"])
+        @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg|max:1000"])
     image: Upload
-        @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"])
+        @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg|max:1000"])
     birthday: String @rules(apply: ["required"])
     phone: String @rules(apply: ["required"])
     employment: String
@@ -55,7 +55,7 @@ input StudentInput {
     klase: String @rules(apply: ["required"])
     address: String @rules(apply: ["required"])
     photo: Upload
-        @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"])
+        @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg|max:1000"])
     guardian_name: String @rules(apply: ["required"])
     guardian_no: String @rules(apply: ["required"])
     guardian_email: String @rules(apply: ["required"])
@@ -88,7 +88,7 @@ input EditStudentInput {
     klase: String @rules(apply: ["required"])
     address: String @rules(apply: ["required"])
     image: Upload
-        @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"])
+        @rules(apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg|max:1000"])
     guardian_name: String @rules(apply: ["required"])
     guardian_no: String @rules(apply: ["required"])
     guardian_email: String @rules(apply: ["required"])

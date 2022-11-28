@@ -339,6 +339,7 @@ type Workspace {
     name: String!
     logo: String
     stamp: String
+    photo: String
     gender: String
     bank: String
     account_name: String

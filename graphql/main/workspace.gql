@@ -20,6 +20,10 @@ extend type Mutation {
         country: Int!
         state: Int!
         city: String!
+        photo: Upload
+            @rules(
+                apply: ["required", "mimetypes:image/jpeg,image/png,image/jpg"]
+            )
     ): Boolean @field(resolver: "Workspace\\CreateSchoolWorkspace")
 
     updateSchool(
@@ -35,21 +39,31 @@ extend type Mutation {
         country: Int!
         state: Int!
         city: String!
+        photo: Upload
+            @rules(
+                apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"]
+            )
     ): Workspace @field(resolver: "Workspace\\UpdateSchoolWorkspace")
 
     # setting
     updateAdminSettings(
         workspaceId: ID!
-        bank: String 
-        account_name: String 
+        bank: String
+        account_name: String
         account_no: String
         logo: Upload
             @rules(
-                apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"]
+                apply: [
+                    "nullable"
+                    "mimetypes:image/jpeg,image/png,image/jpg,image/svg+xml"
+                ]
             )
         stamp: Upload
             @rules(
-                apply: ["nullable", "mimetypes:image/jpeg,image/png,image/jpg"]
+                apply: [
+                    "nullable"
+                    "mimetypes:image/jpeg,image/png,image/jpg,image/svg+xml"
+                ]
             )
         paystack_secret_key: String
     ): Workspace @field(resolver: "Workspace\\UpdateAdminSettingsWorkspace")
