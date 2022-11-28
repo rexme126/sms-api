@@ -13,7 +13,7 @@ class Subject extends Model
     {
         return $this->belongsTo(Student::class);
     }
-     public function teachers()
+    public function teachers()
     {
         return $this->belongsToMany(Teacher::class);
     }
@@ -21,6 +21,4 @@ class Subject extends Model
     {
         return $this->belongsTo(Klase::class);
     }
-    
-    
 }

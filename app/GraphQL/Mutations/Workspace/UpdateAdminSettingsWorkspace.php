@@ -35,9 +35,15 @@ final class UpdateAdminSettingsWorkspace
             $workspace->logo = $logoName;
 
             $workspace->paystack_secret_key = $args['paystack_secret_key'];
+           if(isset($args['bank'])){
+            $workspace->bank = $args['bank'];
+           }
+           if(isset($args['bank'])){
             $workspace->bank = $args['bank'];
             $workspace->account_no = $args['account_no'];
             $workspace->account_name = $args['account_name'];
+           }
+          
             $workspace->save();
         } else if ($args['stamp'] == null && $args['logo'] == null) {
 
@@ -46,7 +52,21 @@ final class UpdateAdminSettingsWorkspace
             $workspace->account_no = $args['account_no'];
             $workspace->account_name = $args['account_name'];
             $workspace->save();
-        } else {
+        } else if (!isset($args['bank'])){
+            $logoName =  Str::random(4) . $args['logo']->getClientOriginalName();
+            Storage::delete('public/' . $args['workspaceId'] . '/logo' . '/' . $workspace->logo);
+            $args['logo']->storePubliclyAs('public/' . $args['workspaceId'] . '/logo', $logoName);
+
+            $stampName =  Str::random(4) . $args['stamp']->getClientOriginalName();
+            Storage::delete('public/' . $args['workspaceId'] . '/stamp' . '/' . $workspace->stamp);
+            $args['stamp']->storePubliclyAs('public/' . $args['workspaceId'] . '/stamp', $stampName);
+
+            $workspace->logo = $logoName;
+            $workspace->stamp =  $stampName;
+            $workspace->paystack_secret_key = $args['paystack_secret_key'];
+          
+            $workspace->save();
+        } else{
             $logoName =  Str::random(4) . $args['logo']->getClientOriginalName();
             Storage::delete('public/' . $args['workspaceId'] . '/logo' . '/' . $workspace->logo);
             $args['logo']->storePubliclyAs('public/' . $args['workspaceId'] . '/logo', $logoName);

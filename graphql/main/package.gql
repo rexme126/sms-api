@@ -1,6 +1,0 @@
-extend type Query {
-    activePackages(payment_method: Int!): [Package]
-        @field(resolver: "Package\\ActivePackagesQuery")
-    inactivePackages(payment_method: Int!): [Package]
-        @field(resolver: "Package\\InactivePackagesQuery")
-}

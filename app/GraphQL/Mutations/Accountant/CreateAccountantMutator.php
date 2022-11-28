@@ -7,6 +7,7 @@ use App\Models\Accountant;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Support\Facades\Storage;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 final class CreateAccountantMutator
@@ -47,6 +48,9 @@ final class CreateAccountantMutator
 
         if ($file != null) {
             $name =  Str::random(4) . $file->getClientOriginalName();
+            //aws
+            // Storage::disk('s3')->put($args['workspaceId'] . '/accountants/'.$name , file_get_contents($file));
+          //  $file->storePubliclyAs($args['workspaceId'] . '/accountants', $name, 's3');
             $path = $file->storePubliclyAs('public/' . $args['workspaceId'] . '/accountants', $name);
             
             Accountant::create([

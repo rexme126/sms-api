@@ -8,6 +8,23 @@ extend type Query {
         workspaceId: Int
     ): [Mark] @field(resolver: "Mark\\MarkQueries")
 
+    markSubjects(
+        klase_id: Int!
+        term_id: Int!
+        session_id: Int!
+        section_id: Int!
+        workspaceId: Int
+    ): [Subject] @field(resolver: "Mark\\MarksForTabulation")
+
+     markStudents(
+        klase_id: Int!
+        term_id: Int!
+        session_id: Int!
+        section_id: Int!
+        workspaceId: Int
+    ): [Student] @field(resolver: "Mark\\MarkStudentsTabulation")
+
+
     studentMarkResult(
         klase_id: Int!
         student_id: Int!

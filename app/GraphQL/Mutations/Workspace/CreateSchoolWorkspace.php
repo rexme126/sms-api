@@ -2,11 +2,12 @@
 
 namespace App\GraphQL\Mutations\Workspace;
 
-use App\Models\Grade;
 use App\Models\Role;
-use App\Models\SetPromotion;
 use App\Models\User;
+use App\Models\Grade;
 use App\Models\Workspace;
+use Illuminate\Support\Str;
+use App\Models\SetPromotion;
 use Illuminate\Support\Facades\Hash;
 
 final class CreateSchoolWorkspace
@@ -18,12 +19,27 @@ final class CreateSchoolWorkspace
     public function __invoke($_, array $args)
     {
         $workspace = new Workspace();
-
+        $file = $args['photo'];
+    
         if ($workspace) {
+
+            
+
             $workspace->name = $args['name'];
             $workspace->email = $args['email'];
             $workspace->slug = $args['slug'];
             $workspace->gender = $args['gender'];
+           
+            $workspace->save();
+
+            $workspace = Workspace::findOrFail($workspace->id);
+
+            $name =  Str::random(4) . $file->getClientOriginalName();
+            //aws
+            // Storage::disk('s3')->put($args['workspaceId'] . '/accountants/'.$name , file_get_contents($file));
+            //  $file->storePubliclyAs($args['workspaceId'] . '/accountants', $name, 's3');
+            $file->storePubliclyAs('public/' . $workspace->id . '/schools', $name);
+            $workspace->photo = $name;
             $workspace->save();
 
             $user = new User();
@@ -39,6 +55,7 @@ final class CreateSchoolWorkspace
             $user->user_type = 'main-admin';
             $user->password = Hash::make('school');
             $user->save();
+
 
             $role = Role::where('name', 'main admin')->first();
             $user->assignRole($role->id);

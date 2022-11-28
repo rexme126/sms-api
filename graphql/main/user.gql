@@ -45,4 +45,16 @@ extend type Mutation {
         email: String!
         password: String! @rules(apply: ["required"])
     ): Boolean @field(resolver: "User\\UpdatePasswordMutator")
+
+    uploadPhoto(
+        id: ID!
+        workspaceId: Int!
+        photo: Upload
+            @rules(
+                apply: [
+                    "nullable"
+                    "mimetypes:image/jpeg,image/png,image/jpg|max:1000"
+                ]
+            )
+    ): User @field(resolver: "User\\UploadPhotoMutator")
 }
