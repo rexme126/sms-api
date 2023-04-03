@@ -28,6 +28,7 @@ final class UpdateSchoolWorkspace
             $workspace->email = $args['email'];
             $workspace->slug = $args['slug'];
             $workspace->gender = $args['gender'];
+            $workspace->numstudent_id = $args['numStudentId'];
             $workspace->photo = $name;
             $workspace->save();
 
@@ -48,6 +49,7 @@ final class UpdateSchoolWorkspace
             $workspace->email = $args['email'];
             $workspace->slug = $args['slug'];
             $workspace->gender = $args['gender'];
+            $workspace->numstudent_id = $args['numStudentId'];
             $workspace->save();
 
             if ($workspace) {

@@ -20,6 +20,8 @@ class CreateGuardiansTable extends Migration
             $table->string('email');
             $table->string('slug')->unique();
             $table->timestamps();
+
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 

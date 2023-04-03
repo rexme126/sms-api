@@ -31,19 +31,6 @@ final class UpdateStudentMutator
         //    student
         $student = Student::where('id', $id)->first();
 
-        // $userGuardian = User::where('email', $student->guardian_email)->first();
-
-        // check for students with thesame guardian email
-        // if ($userGuardian) {
-        //     $userGuardian->first_name = $StudentData['guardian_name'];
-        //     $userGuardian->email = $StudentData['guardian_email'];
-        //     $userGuardian->save();
-
-        //     Guardian::where('email', $student->guardian_email)->update([
-        //         'email'=> $StudentData['guardian_email']
-        //     ]);
-        // }
-
         $userId = $student->user_id;
         $user = User::where('id', $userId)->first();
 
@@ -54,16 +41,16 @@ final class UpdateStudentMutator
 
             Storage::delete('public/' . $args['workspaceId'] . '/students' . '/' . $student->photo);
 
-            $student->first_name = $StudentData['first_name'];
-            $student->last_name = $StudentData['last_name'];
-            $student->middle_name = $StudentData['middle_name'];
+            $student->first_name = strtoupper($StudentData['first_name']);
+            $student->last_name = strtoupper($StudentData['last_name']);
+            $student->middle_name = strtoupper($StudentData['middle_name']);
             $student->birthday = $StudentData['birthday'];
             $student->phone = $StudentData['phone'];
             $student->photo = $name;
             $student->klase_id = $StudentData['klase'];
             $student->gender = $StudentData['gender'];
             $student->address = $StudentData['address'];
-            $student->guardian_name = $StudentData['guardian_name'];
+            $student->guardian_name = strtoupper($StudentData['guardian_name']);
             $student->guardian_no = $StudentData['guardian_no'];
             $student->guardian_email = $StudentData['guardian_email'];
             $student->guardian_address = $StudentData['guardian_address'];
@@ -82,21 +69,21 @@ final class UpdateStudentMutator
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
-            $user->first_name = $StudentData['first_name'];
+            $user->first_name = strtoupper($StudentData['first_name']);
 
             $user->save();
             $student->save();
             return $student;
         } else {
-            $student->first_name = $StudentData['first_name'];
-            $student->last_name = $StudentData['last_name'];
-            $student->middle_name = $StudentData['middle_name'];
+            $student->first_name = strtoupper($StudentData['first_name']);
+            $student->last_name = strtoupper($StudentData['last_name']);
+            $student->middle_name = strtoupper($StudentData['middle_name']);
             $student->birthday = $StudentData['birthday'];
             $student->phone = $StudentData['phone'];
             $student->klase_id = $StudentData['klase'];
             $student->gender = $StudentData['gender'];
             $student->address = $StudentData['address'];
-            $student->guardian_name = $StudentData['guardian_name'];
+            $student->guardian_name = strtoupper($StudentData['guardian_name']);
             $student->guardian_no = $StudentData['guardian_no'];
             $student->guardian_email = $StudentData['guardian_email'];
             $student->guardian_address = $StudentData['guardian_address'];
@@ -114,7 +101,7 @@ final class UpdateStudentMutator
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
-            $user->first_name = $StudentData['first_name'];
+            $user->first_name = strtoupper($StudentData['first_name']);
 
             $user->save();
             $student->save();

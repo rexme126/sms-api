@@ -29,6 +29,7 @@ final class CreateSchoolWorkspace
             $workspace->email = $args['email'];
             $workspace->slug = $args['slug'];
             $workspace->gender = $args['gender'];
+            $workspace->numstudent_id = $args['numStudentId'];
            
             $workspace->save();
 

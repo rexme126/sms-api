@@ -15,12 +15,11 @@ class CreateResultsTable extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->id();
-            // $table->unsignedInteger('exam_id');
             $table->unsignedBigInteger('workspace_id')->nullable();
-            $table->unsignedInteger('student_id');
-            $table->unsignedInteger('klase_id');
-            $table->unsignedInteger('session_id');
-            $table->unsignedInteger('section_id');
+            $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('klase_id');
+            $table->unsignedBigInteger('session_id');
+            $table->unsignedBigInteger('section_id');
             $table->integer('total')->nullable();
             $table->string('ave')->nullable();
             $table->string('klase_ave')->nullable();
@@ -30,6 +29,9 @@ class CreateResultsTable extends Migration
             $table->string('p_comment')->nullable();
             $table->string('t_comment')->nullable();
             $table->timestamps();
+
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 

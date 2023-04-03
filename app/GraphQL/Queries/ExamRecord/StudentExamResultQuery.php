@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries\ExamRecord;
 
-use App\Models\ExamRecord;
 use App\Models\Workspace;
 
 final class StudentExamResultQuery

@@ -17,11 +17,11 @@ class CreateStudentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('workspace_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedInteger('klase_id');
-            $table->unsignedInteger('guardian_id');
-            $table->unsignedInteger('section_id')->nullable();
-            $table->unsignedInteger('session_id')->nullable();
-            $table->unsignedInteger('term_id')->nullable();
+            $table->unsignedBigInteger('klase_id');
+            $table->unsignedBigInteger('guardian_id');
+            $table->unsignedBigInteger('section_id')->nullable();
+            $table->unsignedBigInteger('session_id')->nullable();
+            $table->unsignedBigInteger('term_id')->nullable();
             $table->integer('promotion_term_id')->default(3);
             $table->integer('cum_avg')->nullable();
             $table->string('slug')->unique();
@@ -42,6 +42,11 @@ class CreateStudentsTable extends Migration
             $table->string('guardian_address')->nullable();
             $table->string('guardian_email')->nullable();
             $table->timestamps();
+
+            $table->foreign('session_id')->references('id')->on('sessions')->onDelete('restrict');
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('restrict');
+            $table->foreign('klase_id')->references('id')->on('klases')->onDelete('restrict');
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 

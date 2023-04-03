@@ -31,24 +31,20 @@ final class CreateSchoolAdminMutator
             'user_type' => 'admin',
             'religion' => $userData['religion'],
             'password' => Hash::make('school'),
-            'first_name' => $schoolAdminTable['first_name'],
+            'first_name' => strtoupper($schoolAdminTable['first_name']),
             'workspace_id' => $args['workspaceId']
         ]);
 
         $role = Role::where('name', 'admin')->first();
-        info($role->name);
         $user->assignRole($role->name);
-
-        // $file = $args['photo'];
-
 
         if ($file != null) {
             $name =  Str::random(4) . $file->getClientOriginalName();
             $path = $file->storePubliclyAs('public/' . $args['workspaceId'] . '/admin', $name);
             SchoolAdmin::create([
-                'first_name' => $schoolAdminTable['first_name'],
-                'last_name' => $schoolAdminTable['last_name'],
-                'middle_name' => $schoolAdminTable['middle_name'],
+                'first_name' => strtoupper($schoolAdminTable['first_name']),
+                'last_name' => strtoupper($schoolAdminTable['last_name']),
+                'middle_name' => strtoupper($schoolAdminTable['middle_name']),
                 'phone' => $schoolAdminTable['phone'],
                 'qualification' => $schoolAdminTable['qualification'],
                 'gender' => $schoolAdminTable['gender'],
@@ -61,9 +57,9 @@ final class CreateSchoolAdminMutator
             ]);
         } else {
             return  SchoolAdmin::create([
-                'first_name' => $schoolAdminTable['first_name'],
-                'last_name' => $schoolAdminTable['last_name'],
-                'middle_name' => $schoolAdminTable['middle_name'],
+                'first_name' => strtoupper($schoolAdminTable['first_name']),
+                'last_name' => strtoupper($schoolAdminTable['last_name']),
+                'middle_name' => strtoupper($schoolAdminTable['middle_name']),
                 'phone' => $schoolAdminTable['phone'],
                 'qualification' => $schoolAdminTable['qualification'],
                 'gender' => $schoolAdminTable['gender'],

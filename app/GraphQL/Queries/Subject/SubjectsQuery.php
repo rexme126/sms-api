@@ -12,7 +12,6 @@ final class SubjectsQuery
      */
     public function __invoke($_, array $args)
     {
-        info($args['klase_id']);
         $workspace = Workspace::findOrFail($args['workspaceId']);
         $subjects = $workspace->subjects()->where([
             'klase_id' => $args['klase_id'],

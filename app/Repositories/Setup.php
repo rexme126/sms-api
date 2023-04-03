@@ -16,4 +16,5 @@ class Setup
     {
         return Student::whereIn('id', $ids)->orderBy('last_name')->get();
     }
+
 }

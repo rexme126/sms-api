@@ -19,7 +19,12 @@ class CreateSubjectsTable extends Migration
             $table->unsignedBigInteger('section_id')->nullable();
             $table->unsignedBigInteger('workspace_id')->nullable();
             $table->string('subject')->nullable();
+            $table->string('subject_code')->nullable();
             $table->timestamps();
+
+            $table->foreign('klase_id')->references('id')->on('klases')->onDelete('restrict');
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('restrict');
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 

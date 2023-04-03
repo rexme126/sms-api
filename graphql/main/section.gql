@@ -13,4 +13,7 @@ extend type Mutation {
     ): Section @field(resolver: "Section\\CreateSectionMutator")
     updateSection(id: ID!, name: String!, workspaceId: Int): Section
         @field(resolver: "Section\\UpdateSectionMutator")
+
+        deleteSection(id: ID!): Section
+        @field(resolver: "Section\\DeleteSectionMutator")
 }

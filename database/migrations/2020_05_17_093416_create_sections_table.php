@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSessionsTable extends Migration
+class CreateSectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateSessionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sessions', function (Blueprint $table) {
+        Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('workspace_id')->nullable();
+            $table->unsignedBigInteger('klase_id')->nullable();
             $table->string('name')->nullable();
             $table->timestamps();
+
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 
@@ -28,6 +31,6 @@ class CreateSessionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sessions');
+        Schema::dropIfExists('sections');
     }
 }

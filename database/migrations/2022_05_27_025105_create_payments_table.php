@@ -25,6 +25,8 @@ class CreatePaymentsTable extends Migration
             $table->string('method', 100)->default('cash');
             $table->string('description')->nullable();
             $table->timestamps();
+
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 

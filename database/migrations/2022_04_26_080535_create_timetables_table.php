@@ -16,7 +16,7 @@ class CreateTimetablesTable extends Migration
         Schema::create('timetables', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('workspace_id')->nullable();
-            $table->unsignedInteger('klase_id');
+            $table->unsignedBigInteger('klase_id');
             $table->unsignedBigInteger('section_id')->nullable();
             $table->string('monday')->nullable();
             $table->string('tuesday')->nullable();
@@ -25,6 +25,8 @@ class CreateTimetablesTable extends Migration
             $table->string('friday')->nullable();
             $table->string('time')->nullable();
             $table->timestamps();
+
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 

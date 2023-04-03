@@ -50,10 +50,6 @@ class Workspace extends Model
     {
         return $this->hasMany(Accountant::class);
     }
-    public function libarians()
-    {
-        return $this->hasMany(Libarian::class);
-    }
     public function students()
     {
         return $this->hasMany(Student::class);
@@ -105,5 +101,13 @@ class Workspace extends Model
     public function schoolAdmins()
     {
         return $this->hasMany(SchoolAdmin::class);
+    }
+    public function numstudent()
+    {
+        return $this->belongsTo(Numstudent::class);
+    }
+    public function assignSubjectToTeachers()
+    {
+        return $this->hasMany(AssignSubjectTeacher::class);
     }
 }

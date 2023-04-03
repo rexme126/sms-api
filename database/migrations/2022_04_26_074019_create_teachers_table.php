@@ -29,6 +29,8 @@ class CreateTeachersTable extends Migration
             $table->string('qualification')->nullable();
             $table->string('employment')->nullable();
             $table->timestamps();
+
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 

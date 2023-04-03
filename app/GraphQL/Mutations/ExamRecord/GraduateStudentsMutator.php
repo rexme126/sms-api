@@ -15,7 +15,9 @@ final class GraduateStudentsMutator
     public function __invoke($_, array $args)
     {
         $set_promotion_mark = SetPromotion::where('workspace_id', $args['workspaceId'])->first();
-       
+
+
+
         $exams =  ExamRecord::where([
             'klase_id' => $args['klase_id'],
             'session_id' => $args['session_id'],
@@ -27,13 +29,23 @@ final class GraduateStudentsMutator
             $exam->ps =  $exam->cum_avg >=  $set_promotion_mark->name ? $args['status'] : 'Fail';
             $exam->save();
         }
-        if (count($exams) > 0) {
+        if (count($exams) > 0 && $args['status'] == 'graduated') {
             Student::where([
                 'klase_id' => $args['klase_id'],
                 'session_id' => $args['session_id'],
                 'workspace_id' => $args['workspaceId']
             ])->update([
-                'status' => 1
+                'status' => 1,
+                'klase_id' => null
+            ]);
+        } else if (count($exams) > 0 && $args['status'] != 'graduated') {
+            Student::where([
+                'klase_id' => null,
+                'session_id' => $args['session_id'],
+                'workspace_id' => $args['workspaceId']
+            ])->update([
+                'status' => 1,
+                'klase_id' => $args['klase_id']
             ]);
         }
         return $exams;

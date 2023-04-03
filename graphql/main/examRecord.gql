@@ -94,12 +94,12 @@ extend type Mutation {
     ): ExamRecord @field(resolver: "ExamRecord\\UpdateAttendanceMutator")
 
       updateResumption(
-        term_start: String!
-        term_end: String
         term_id: Int!
+        term_start: String!
+        term_end: String!
         session_id: Int!
-        workspaceId: Int
-    ): ExamRecord @field(resolver: "ExamRecord\\UpdateResumptionMutator")
+        workspaceId: Int!
+    ): [ExamRecord] @field(resolver: "ExamRecord\\UpdateResumptionMutator")
 
 
     createGraduates(

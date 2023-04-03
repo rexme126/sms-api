@@ -7,6 +7,20 @@ extend type Query {
 
     teachersDashboard(workspaceId: Int): [Teacher!]!
         @field(resolver: "Teacher\\TeacherDashboardQuery")
+
+    # assign subject to teacher
+    assignSubjectToTeachers(
+        workspaceId: Int!
+        klaseId: Int!
+        sectionId: Int!
+    ): [AssignSubjectTeacher!]!
+        @field(resolver: "Teacher\\AssignSubjectTeacherQuery")
+
+    teacherSubjectAllocation(
+        workspaceId: Int!
+        teacherId: Int!
+    ): [AssignSubjectTeacher!]!
+        @field(resolver: "Teacher\\TeacherSubjectAllocationrQuery")
 }
 
 extend type Mutation {
@@ -23,8 +37,25 @@ extend type Mutation {
         teacherTable: WorkersInput
     ): Teacher @field(resolver: "Teacher\\UpdateTeacherMutator")
 
-    deleteTeacher(
-        id: Int! 
-        workspaceId: Int
-    ): Boolean @field(resolver: "Teacher\\DeleteTeacherMutator")
+    deleteTeacher(id: Int!, workspaceId: Int): Boolean
+        @field(resolver: "Teacher\\DeleteTeacherMutator")
+
+    # assign subject to teacher
+    createSubjectToTeacher(
+        workspaceId: Int!
+        klaseId: Int!
+        sectionId: Int!
+        subjectId: [String!]
+        teacherId: Int!
+    ): AssignSubjectTeacher! @field(resolver: "Teacher\\AssignSubjectTeacher")
+
+    updateSubjectToTeacher(
+        id: ID!
+        subjectId: Int!
+        teacherId: Int!
+    ): AssignSubjectTeacher!
+        @field(resolver: "Teacher\\UpdateAssignSubjectTeacher")
+
+    deleteSubjectToTeacher(id: ID!): Boolean
+        @field(resolver: "Teacher\\DeleteSubjectToTeacherMutator")
 }

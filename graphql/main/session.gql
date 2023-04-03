@@ -7,10 +7,11 @@ extend type Query {
 }
 
 extend type Mutation {
-    createSessionw(
-        name: String! 
-        workspaceId: Int
-    ): Session @field(resolver: "Session\\CreateSessionMutator")
-    updateSessionw(id: ID!, name: String!, workspaceId: Int): Session
+    createSession(name: String!, workspaceId: Int): Session
+        @field(resolver: "Session\\CreateSessionMutator")
+    updateSession(id: ID!, name: String!, workspaceId: Int): Session
         @field(resolver: "Session\\UpdateSessionMutator")
+
+    deleteSession(id: ID!): Session
+        @field(resolver: "Session\\DeleteSessionMutator")
 }

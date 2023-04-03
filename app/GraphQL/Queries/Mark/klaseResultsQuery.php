@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries\Mark;
 
-use App\Models\Mark;
 use App\Models\Workspace;
 
 final class klaseResultsQuery

@@ -16,15 +16,13 @@ class CreateMarksTable extends Migration
         Schema::create('marks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('workspace_id')->nullable();
-            $table->unsignedInteger('student_id');
-            $table->unsignedInteger('subject_id');
-            $table->unsignedInteger('klase_id');
-            $table->unsignedInteger('section_id');
-            $table->unsignedInteger('term_id');
-            $table->unsignedInteger('grade_id')->nullable();
-            $table->unsignedInteger('session_id');
-            // $table->unsignedInteger('section_id');
-            // $table->unsignedInteger('exam_id');
+            $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('subject_id');
+            $table->unsignedBigInteger('klase_id');
+            $table->unsignedBigInteger('section_id');
+            $table->unsignedBigInteger('term_id');
+            $table->unsignedBigInteger('grade_id')->nullable();
+            $table->unsignedBigInteger('session_id');
             $table->integer('ca1')->nullable();
             $table->integer('ca2')->nullable();
             $table->integer('tca')->nullable();
@@ -35,6 +33,10 @@ class CreateMarksTable extends Migration
             $table->integer('cum')->nullable();
             $table->string('cum_ave')->nullable();
             $table->timestamps();
+
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('restrict');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 
