@@ -17,6 +17,7 @@ final class UpdateSubjectMutator
         $subject = $workspace->subjects()->findOrFail($args['id']);
 
         $subject->subject = $args['subject'];
+        $subject->subject_code = $args['subject_code'];
 
         $subject->save();
         return $subject;

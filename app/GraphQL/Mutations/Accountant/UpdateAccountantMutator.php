@@ -44,9 +44,9 @@ final class UpdateAccountantMutator
             Storage::delete('public/' . $args['workspaceId'] . '/accountants' . '/' . $accountant->photo);
 
 
-            $accountant->first_name = $accountantData['first_name'];
-            $accountant->last_name = $accountantData['last_name'];
-            $accountant->middle_name = $accountantData['middle_name'];
+            $accountant->first_name = strtoupper($accountantData['first_name']);
+            $accountant->last_name = strtoupper($accountantData['last_name']);
+            $accountant->middle_name = strtoupper($accountantData['middle_name']);
             $accountant->birthday = $accountantData['birthday'];
             $accountant->employment = $accountantData['employment'];
             $accountant->phone = $accountantData['phone'];
@@ -63,15 +63,15 @@ final class UpdateAccountantMutator
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
-            $user->first_name = $accountantData['first_name'];
+            $user->first_name = strtoupper($accountantData['first_name']);
 
             $user->save();
             $accountant->save();
             return $accountant;
         } else {
-            $accountant->first_name = $accountantData['first_name'];
-            $accountant->last_name = $accountantData['last_name'];
-            $accountant->middle_name = $accountantData['middle_name'];
+            $accountant->first_name = strtoupper($accountantData['first_name']);
+            $accountant->last_name = strtoupper($accountantData['last_name']);
+            $accountant->middle_name = strtoupper($accountantData['middle_name']);
             $accountant->birthday = $accountantData['birthday'];
             $accountant->employment = $accountantData['employment'];
             $accountant->phone = $accountantData['phone'];

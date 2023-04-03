@@ -19,7 +19,6 @@ final class SingelStudentPaymentRecords
             'student_id' => $args['student_id']
         ])->get();
 
-
         return $paymentRecords;
     }
 }

@@ -1,12 +1,19 @@
 extend type Query {
     students(workspaceId: Int): [Student!]!
         @field(resolver: "Student\\StudentsQuery")
+    encodedImages(workspaceId: Int, studentId: Int): EncodedImage!
+        @field(resolver: "Student\\StudentPhotoQuery")
 
     student(id: Int!, workspaceId: Int @eq): Student
         @field(resolver: "Student\\StudentQuery")
 
     studentsDashboard(workspaceId: Int): [Student!]!
         @field(resolver: "Student\\StudentDashboardQuery")
+    studentSubjectAllocation(
+        workspaceId: Int!
+        klaseId: Int!
+    ): [AssignSubjectTeacher!]!
+        @field(resolver: "Student\\StudentSubjectAllocationrQuery")
 }
 
 extend type Mutation {
@@ -23,8 +30,6 @@ extend type Mutation {
         student: EditStudentInput
     ): Student @field(resolver: "Student\\UpdateStudentMutator")
 
-    deleteStudent(
-        id: Int! 
-        workspaceId: Int
-    ): Boolean @field(resolver: "Student\\DeleteStudentMutator")
+    deleteStudent(id: Int!, workspaceId: Int): Boolean
+        @field(resolver: "Student\\DeleteStudentMutator")
 }

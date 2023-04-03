@@ -125,6 +125,7 @@ type Student {
     address: String!
     phone: String
     photo: String
+    photoData: String
     cum_avg: Int
     promotion_term_id: Int
     guardian_name: String
@@ -152,8 +153,6 @@ type Teacher {
     qualification: String
     employment: String
     user: User @belongsTo
-    klases: [Klase] @belongsToMany
-    subjects: [Subject] @belongsToMany
 }
 
 type Accountant {
@@ -183,14 +182,13 @@ type Klase {
     id: ID!
     slug: String
     name: String!
-    # subjects: [Subject] @hasMany
     students: [Student] @hasMany
-    teachers: [Teacher] @belongsToMany
 }
 type Subject {
     id: ID!
     subject: String!
-    teachers: [Teacher] @belongsToMany
+    subject_code: String!
+    section: Section @belongsTo
     klase: Klase @belongsTo
 }
 type Timetable {
@@ -346,6 +344,28 @@ type Workspace {
     account_no: String
     status: Int
     paystack_secret_key: String
+    numstudent: Numstudent @belongsTo
     user: User @hasOne
 }
 
+type Numstudent {
+    id: ID!
+    name: String
+    count: Int
+}
+
+type AssignSubjectTeacher {
+    id: ID!
+    klase: Klase @belongsTo
+    section: Section @belongsTo
+    teacher: Teacher @belongsTo
+    subject: Subject @belongsTo
+}
+
+type EncodedImage {
+    id: Int
+    studentId: Int
+    photoBase64: String
+    logoBase64: String
+    stampBase64: String
+}

@@ -98,7 +98,6 @@ final class UpdateMarkMutator
         'session_id' => $session_id, 'section_id' => $section_id, 'workspace_id' => $workspaceId
       ])->get();
 
-      // info($stu->avg('exam_total'));
       ExamRecord::where([
         'student_id' => $num, 'term_id' => $term_id, 'session_id' => $session_id,
         'workspace_id' => $workspaceId

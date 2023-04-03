@@ -2,6 +2,9 @@
 
 namespace App\GraphQL\Mutations\Klase;
 
+use App\Models\Klase;
+use Illuminate\Database\QueryException;
+
 final class DeleteKlaseMutator
 {
     /**
@@ -10,8 +13,11 @@ final class DeleteKlaseMutator
      */
     public function __invoke($_, array $args)
     {
-        $klaseId= $args['id'];
-        $klase = Klase::where('id', $klaseId)->first();
-        
+        try {
+            Klase::find($args['id'])->delete();
+            return;
+        } catch (QueryException $e) {
+            return;
+        }
     }
 }

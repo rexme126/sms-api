@@ -129,7 +129,7 @@ class RolesAndPermissionsTableSeeder extends Seeder
 
         $user1 = User::create([
             'first_name' => 'Ronazon',
-            'email' => 'ronazon.ltd@gmail.com',
+            'email' => 'rextj121@gmail.com',
             'country_id' => 1,
             'state_id' => 1,
             'city' => 'Port Harcourt',

@@ -22,6 +22,7 @@ class CreateWorkspacesTable extends Migration
             $table->string('logo')->nullable(); 
             $table->string('photo')->nullable(); 
             $table->string('gender')->nullable();
+            $table->unsignedBigInteger('numstudent_id')->nullable();
             $table->string('bank')->nullable();
             $table->string('account_no')->nullable();
             $table->string('account_name')->nullable();

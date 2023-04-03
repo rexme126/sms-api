@@ -25,7 +25,6 @@ final class UpdateTeacherMutator
         $id = $args['id'];
         $userData = $args['userTable'];
         $teacherData =  $args['teacherTable'];
-        // $file = $teacherData['photo'];
 
         $file = $teacherData['photo'];
 
@@ -41,9 +40,9 @@ final class UpdateTeacherMutator
            
             Storage::delete('public/'. $args['workspaceId'] . '/teachers' .'/' . $teacher->photo);
 
-            $teacher->first_name = $teacherData['first_name'];
-            $teacher->last_name = $teacherData['last_name'];
-            $teacher->middle_name = $teacherData['middle_name'];
+            $teacher->first_name = strtoupper($teacherData['first_name']);
+            $teacher->last_name = strtoupper($teacherData['last_name']);
+            $teacher->middle_name = strtoupper($teacherData['middle_name']);
             $teacher->birthday = $teacherData['birthday'];
             $teacher->employment = $teacherData['employment'];
             $teacher->phone = $teacherData['phone'];
@@ -60,15 +59,15 @@ final class UpdateTeacherMutator
             $user->lga = $userData['lga'];
             $user->email = $userData['email'];
             $user->religion = $userData['religion'];
-            $user->first_name = $teacherData['first_name'];
+            $user->first_name = strtoupper($teacherData['first_name']);
 
             $user->save();
             $teacher->save();
             return $teacher;
         } else {
-            $teacher->first_name = $teacherData['first_name'];
-            $teacher->last_name = $teacherData['last_name'];
-            $teacher->middle_name = $teacherData['middle_name'];
+            $teacher->first_name = strtoupper($teacherData['first_name']);
+            $teacher->last_name = strtoupper($teacherData['last_name']);
+            $teacher->middle_name = strtoupper($teacherData['middle_name']);
             $teacher->birthday = $teacherData['birthday'];
             $teacher->employment = $teacherData['employment'];
             $teacher->phone = $teacherData['phone'];
@@ -82,7 +81,7 @@ final class UpdateTeacherMutator
             $user->city = $userData['city'];
             $user->lga = $userData['lga'];
             $user->religion = $userData['religion'];
-            $user->first_name = $teacherData['first_name'];
+            $user->first_name = strtoupper($teacherData['first_name']);
 
             $user->save();
             $teacher->save();

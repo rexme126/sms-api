@@ -20,17 +20,17 @@ class CreatePromotionsTable extends Migration
             $table->unsignedBigInteger('from_class');
             $table->string('from_session');
             $table->unsignedBigInteger('from_term');
-            // $table->unsignedInteger('from_section');
             $table->unsignedBigInteger('to_class');
             $table->unsignedBigInteger('to_term')->default(1);
-            // $table->unsignedInteger('to_section');
             $table->string('to_session');
             $table->boolean('status')->default(false);
             $table->integer('cum_avg')->nullable();
             $table->timestamps();
-            $table->foreign('student_id')->references('id')->on('students');
             $table->foreign('from_class')->references('id')->on('klases');
             $table->foreign('to_class')->references('id')->on('klases');
+
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 

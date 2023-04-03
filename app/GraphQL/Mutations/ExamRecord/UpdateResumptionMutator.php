@@ -20,9 +20,9 @@ final class UpdateResumptionMutator
             'term_end'=>  $args['term_end'],
         ]);
 
-        return ExamRecord::where([
+       return ExamRecord::where([
             'term_id' => $args['term_id'], 'session_id' => $args['session_id'],
             'workspace_id' => $args['workspaceId']
-        ])->first();
+        ])->get();
     }
 }

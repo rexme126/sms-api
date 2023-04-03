@@ -35,7 +35,6 @@ final class SingelStudentPaymentRecord
             ])->first();
         }
 
-
         return $paymentRecords;
     }
 }

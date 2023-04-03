@@ -28,6 +28,8 @@ class CreateSchoolAdmins extends Migration
             $table->string('photo')->nullable();
             $table->string('qualification')->nullable();
             $table->timestamps();
+
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 

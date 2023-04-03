@@ -47,22 +47,22 @@ final class CreateStudentMutator
                     'user_type' => 'student',
                     'religion' => $userData['religion'],
                     'password' => Hash::make('school'),
-                    'first_name' => $StudentData['first_name'],
+                    'first_name' => strtoupper($StudentData['first_name']),
                     'workspace_id' => $args['workspaceId']
                 ]);
                 $role = Role::where('name', 'student')->first();
                 $user->assignRole($role->name);
 
-                $student = Student::create([
-                    'first_name' => $StudentData['first_name'],
-                    'last_name' => $StudentData['last_name'],
-                    'middle_name' => $StudentData['middle_name'],
+                Student::create([
+                    'first_name' => strtoupper($StudentData['first_name']),
+                    'last_name' => strtoupper($StudentData['last_name']),
+                    'middle_name' => strtoupper($StudentData['middle_name']),
                     'phone' => $StudentData['phone'],
                     'klase_id' => $StudentData['klase'],
                     'gender' => $StudentData['gender'],
                     'user_id' => $user->id,
                     'address' => $StudentData['address'],
-                    'guardian_name' => $StudentData['guardian_name'],
+                    'guardian_name' => strtoupper($StudentData['guardian_name']),
                     'guardian_no' => $StudentData['guardian_no'],
                     'guardian_email' => $StudentData['guardian_email'],
                     'guardian_address' => $StudentData['guardian_address'],
@@ -83,7 +83,7 @@ final class CreateStudentMutator
                     'email' => $StudentData['guardian_email'],
                     'user_type' => 'guardian',
                     'password' => Hash::make('school'),
-                    'first_name' => $StudentData['guardian_name'],
+                    'first_name' => strtoupper($StudentData['guardian_name']),
                     'workspace_id' => $args['workspaceId']
                 ]);
                 $guardianRole = Role::where('name', 'guardian')->first();
@@ -108,23 +108,23 @@ final class CreateStudentMutator
                     'user_type' => 'student',
                     'religion' => $userData['religion'],
                     'password' => Hash::make('school'),
-                    'first_name' => $StudentData['first_name'],
+                    'first_name' => strtoupper($StudentData['first_name']),
                     'workspace_id' => $args['workspaceId']
                 ]);
                 // assign role to student
                 $role = Role::where('name', 'student')->first();
                 $user->assignRole($role->name);
 
-                $student = Student::create([
-                    'first_name' => $StudentData['first_name'],
-                    'last_name' => $StudentData['last_name'],
-                    'middle_name' => $StudentData['middle_name'],
+                Student::create([
+                    'first_name' => strtoupper($StudentData['first_name']),
+                    'last_name' => strtoupper($StudentData['last_name']),
+                    'middle_name' => strtoupper($StudentData['middle_name']),
                     'phone' => $StudentData['phone'],
                     'klase_id' => $StudentData['klase'],
                     'gender' => $StudentData['gender'],
                     'user_id' => $user->id,
                     'address' => $StudentData['address'],
-                    'guardian_name' => $StudentData['guardian_name'],
+                    'guardian_name' => strtoupper($StudentData['guardian_name']),
                     'guardian_no' => $StudentData['guardian_no'],
                     'guardian_email' => $StudentData['guardian_email'],
                     'guardian_address' => $StudentData['guardian_address'],
@@ -159,23 +159,23 @@ final class CreateStudentMutator
                     'user_type' => 'student',
                     'religion' => $userData['religion'],
                     'password' => Hash::make('school'),
-                    'first_name' => $StudentData['first_name'],
+                    'first_name' => strtoupper($StudentData['first_name']),
                     'workspace_id' => $args['workspaceId']
                 ]);
                 $role = Role::where('name', 'student')->first();
                 $user->assignRole($role->name);
 
-                $student = Student::create([
-                    'first_name' => $StudentData['first_name'],
-                    'last_name' => $StudentData['last_name'],
-                    'middle_name' => $StudentData['middle_name'],
+                Student::create([
+                    'first_name' => strtoupper($StudentData['first_name']),
+                    'last_name' => strtoupper($StudentData['last_name']),
+                    'middle_name' => strtoupper($StudentData['middle_name']),
                     'phone' => $StudentData['phone'],
                     'klase_id' => $StudentData['klase'],
                     'gender' => $StudentData['gender'],
                     'user_id' => $user->id,
                     'photo' => $name,
                     'address' => $StudentData['address'],
-                    'guardian_name' => $StudentData['guardian_name'],
+                    'guardian_name' => strtoupper($StudentData['guardian_name']),
                     'guardian_no' => $StudentData['guardian_no'],
                     'guardian_email' => $StudentData['guardian_email'],
                     'guardian_address' => $StudentData['guardian_address'],
@@ -195,7 +195,7 @@ final class CreateStudentMutator
                     'email' => $StudentData['guardian_email'],
                     'user_type' => 'guardian',
                     'password' => Hash::make('school'),
-                    'first_name' => $StudentData['guardian_name'],
+                    'first_name' => strtoupper($StudentData['guardian_name']),
                     'workspace_id' => $args['workspaceId']
                 ]);
 
@@ -223,23 +223,23 @@ final class CreateStudentMutator
                         'user_type' => 'student',
                         'religion' => $userData['religion'],
                         'password' => Hash::make('school'),
-                        'first_name' => $StudentData['first_name'],
+                        'first_name' => strtoupper($StudentData['first_name']),
                         'workspace_id' => $args['workspaceId']
                     ]);
                     $role = Role::where('name', 'student')->first();
                     $user->assignRole($role->name);
 
-                    $student = Student::create([
-                        'first_name' => $StudentData['first_name'],
-                        'last_name' => $StudentData['last_name'],
-                        'middle_name' => $StudentData['middle_name'],
+                    Student::create([
+                        'first_name' => strtoupper($StudentData['first_name']),
+                        'last_name' => strtoupper($StudentData['last_name']),
+                        'middle_name' => strtoupper($StudentData['middle_name']),
                         'phone' => $StudentData['phone'],
                         'klase_id' => $StudentData['klase'],
                         'gender' => $StudentData['gender'],
                         'user_id' => $user->id,
                         'photo' => $name,
                         'address' => $StudentData['address'],
-                        'guardian_name' => $StudentData['guardian_name'],
+                        'guardian_name' => strtoupper($StudentData['guardian_name']),
                         'guardian_no' => $StudentData['guardian_no'],
                         'guardian_email' => $StudentData['guardian_email'],
                         'guardian_address' => $StudentData['guardian_address'],

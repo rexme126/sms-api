@@ -40,7 +40,7 @@ final class CreateTeacherMutator
             'user_type' => 'teacher',
             'religion' => $userData['religion'],
             'password' => Hash::make('school'),
-            'first_name' => $teacherData['first_name'],
+            'first_name' => strtoupper($teacherData['first_name']),
             'workspace_id' => $args['workspaceId']
         ]);
 
@@ -54,9 +54,9 @@ final class CreateTeacherMutator
             $name =  Str::random(4) . $file->getClientOriginalName();
             $path = $file->storePubliclyAs('public/' . $args['workspaceId'] . '/teachers', $name);
             Teacher::create([
-                'first_name' => $teacherData['first_name'],
-                'last_name' => $teacherData['last_name'],
-                'middle_name' => $teacherData['middle_name'],
+                'first_name' => strtoupper($teacherData['first_name']),
+                'last_name' => strtoupper($teacherData['last_name']),
+                'middle_name' => strtoupper($teacherData['middle_name']),
                 'phone' => $teacherData['phone'],
                 'qualification' => $teacherData['qualification'],
                 'gender' => $teacherData['gender'],
@@ -70,9 +70,9 @@ final class CreateTeacherMutator
             ]);
         } else {
             return  Teacher::create([
-                'first_name' => $teacherData['first_name'],
-                'last_name' => $teacherData['last_name'],
-                'middle_name' => $teacherData['middle_name'],
+                'first_name' => strtoupper($teacherData['first_name']),
+                'last_name' => strtoupper($teacherData['last_name']),
+                'middle_name' => strtoupper($teacherData['middle_name']),
                 'phone' => $teacherData['phone'],
                 'qualification' => $teacherData['qualification'],
                 'gender' => $teacherData['gender'],

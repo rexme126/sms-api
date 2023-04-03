@@ -18,6 +18,8 @@ class CreateSetPromotionsTable extends Migration
             $table->unsignedBigInteger('workspace_id')->nullable();
             $table->integer('name')->nullable();
             $table->timestamps();
+
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 

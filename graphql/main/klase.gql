@@ -5,17 +5,11 @@ extend type Query {
 }
 
 extend type Mutation {
-    createKlase(
-        name: String!
-        workspaceId: Int
-    ): Klase @field(resolver: "Klase\\CreateKlaseMutator")
+    createKlase(name: String!, workspaceId: Int): Klase
+        @field(resolver: "Klase\\CreateKlaseMutator")
 
     updateKlase(id: ID!, name: String!, workspaceId: Int): Klase
         @field(resolver: "Klase\\UpdateKlaseMutator")
 
-    deleteKlase(id: ID!): Klase @field(resolver: "Klase\\AssignKlaseToTeacher")
-
-    # assign class to teacher
-    assignKlaseToTeacher(klase: Int!, teacher: [Int!]): Klase
-        @field(resolver: "Klase\\AssignKlaseToTeacher")
+    deleteKlase(id: ID!): Klase @field(resolver: "Klase\\DeleteKlaseMutator")
 }

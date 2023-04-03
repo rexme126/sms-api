@@ -21,6 +21,8 @@ class CreateEventsTable extends Migration
             $table->boolean('status')->default(0);
             $table->string('date')->nullable();
             $table->timestamps();
+
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 

@@ -7,7 +7,6 @@ use App\Models\Student;
 use App\Models\ExamRecord;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-use App\Models\IntegrationType;
 
 final class QueryUserMarkMutator
 {

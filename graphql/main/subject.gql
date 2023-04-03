@@ -8,18 +8,19 @@ extend type Query {
 extend type Mutation {
     createSubject(
         subject: String! @rules(apply: ["required"])
+        subject_code: String! @rules(apply: ["required"])
         workspaceId: Int
         klase_id: Int
         section_id: Int!
     ): Subject @field(resolver: "Subject\\CreateSubjectMutator")
 
-    updateSubject(id: ID!, subject: String!, workspaceId: Int): Subject
-        @field(resolver: "Subject\\UpdateSubjectMutator")
+    updateSubject(
+        id: ID!
+        subject: String!
+        subject_code: String!
+        workspaceId: Int
+    ): Subject @field(resolver: "Subject\\UpdateSubjectMutator")
 
     deleteSubject(id: ID!): Subject
-        @field(resolver: "Subject\\AssignSubjectToTeacher")
-
-    # assign subject
-    assignSubject(subjects: [Int!], teacher: Int!): Subject
-        @field(resolver: "Subject\\AssignSubjectToTeacher")
+        @field(resolver: "Subject\\DeleteSubjectMutator")
 }

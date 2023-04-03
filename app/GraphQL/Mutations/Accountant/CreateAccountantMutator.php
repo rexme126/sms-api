@@ -37,9 +37,9 @@ final class CreateAccountantMutator
             'blood_group_id' => $userData['bloodGroup'],
             'lga' => $userData['lga'],
             'user_type' => 'accountant',
-            'religion' => $userData['religion'],
+            'religion' => strtoupper($userData['religion']),
             'password' => Hash::make('school'),
-            'first_name' => $accountantData['first_name'],
+            'first_name' => strtoupper($accountantData['first_name']),
             'workspace_id' => $args['workspaceId']
         ]);
 
@@ -54,9 +54,9 @@ final class CreateAccountantMutator
             $path = $file->storePubliclyAs('public/' . $args['workspaceId'] . '/accountants', $name);
             
             Accountant::create([
-                'first_name' => $accountantData['first_name'],
-                'last_name' => $accountantData['last_name'],
-                'middle_name' => $accountantData['middle_name'],
+                'first_name' => strtoupper($accountantData['first_name']),
+                'last_name' => strtoupper($accountantData['last_name']),
+                'middle_name' => strtoupper($accountantData['middle_name']),
                 'phone' => $accountantData['phone'],
                 'qualification' => $accountantData['qualification'],
                 'gender' => $accountantData['gender'],
@@ -70,9 +70,9 @@ final class CreateAccountantMutator
             ]);
         } else {
             return  Accountant::create([
-                'first_name' => $accountantData['first_name'],
-                'last_name' => $accountantData['last_name'],
-                'middle_name' => $accountantData['middle_name'],
+                'first_name' => strtoupper($accountantData['first_name']),
+                'last_name' => strtoupper($accountantData['last_name']),
+                'middle_name' => strtoupper($accountantData['middle_name']),
                 'phone' => $accountantData['phone'],
                 'qualification' => $accountantData['qualification'],
                 'gender' => $accountantData['gender'],

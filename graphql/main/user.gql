@@ -1,8 +1,6 @@
 extend type Query {
     users: [User!]! @all
     user(id: ID @eq): User @first
-    userWorkspace(id: ID @eq): User @first
-    workspaces: [Workspace!]! @all
     notification(notifiable_id: Int! @eq): Notification @first
     roles: [Role!]! @all
     permissions: [Permission!]! @all
@@ -29,6 +27,9 @@ extend type Query {
 extend type Mutation {
     markAsRead(notifiable_id: Int!): Notification
         @field(resolver: "User\\MarkAsReadMutator")
+
+    markOneAsRead(id: ID): Boolean
+        @field(resolver: "User\\MarkOneAsReadMutator")
 
     updateUserPassword(
         id: Int!

@@ -23,7 +23,6 @@ extend type Query {
 
     allDuePaymentRecords(
         workspaceId: Int
-        search: String @rules(apply: ["nullable"])
     ): [PaymentRecord!]!
         @paginate(
             builder: "App\\GraphQL\\Queries\\Payment\\AllDuePaymentRecordsQuery@payments"

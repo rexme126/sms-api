@@ -1,10 +1,14 @@
 extend type Query {
+    userWorkspace(id: ID @eq): User @first
+
+    workspaces: [Workspace!]! @all
     adminWorkspace(workspaceId: Int!, status: Int): Workspace
         @field(resolver: "Workspace\\WorkspaceQuery")
 
     schools: [Workspace!]! @field(resolver: "Workspace\\WorkspacesQuery")
 
     school(id: ID! @eq): Workspace @first
+    numStudents: [Numstudent] @all
 }
 
 extend type Mutation {
@@ -14,6 +18,7 @@ extend type Mutation {
         email: String! @rules(apply: ["required", "unique:users,email"])
         first_name: String!
         last_name: String!
+        numStudentId: Int!
         phone: String! @rules(apply: ["required", "unique:users,phone"])
         lga: String
         gender: String!
@@ -34,6 +39,7 @@ extend type Mutation {
         first_name: String!
         last_name: String!
         phone: String!
+        numStudentId: Int!
         gender: String!
         lga: String
         country: Int!

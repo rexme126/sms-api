@@ -25,8 +25,10 @@ class WorkspacesSeederTable extends Seeder
             [
                 'name' => 'ronazonWorkspace',
                 'slug' => Str::slug('ronazonWorkspace'),
-                'email' => 'ronazon.ltd@gmail.com',
+                'email' => 'rextj121@gmail.com',
+                'gender' => 'Male',
                 'status' => 1,
+                'numstudent_id'=> 1
             ],
         ];
         foreach ($worksapces as $worksapce) {

@@ -16,9 +16,9 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('workspace_id');
-            $table->unsignedInteger('blood_group_id')->nullable();
-            $table->unsignedInteger('country_id')->nullable();
-            $table->unsignedInteger('state_id')->nullable();
+            $table->unsignedBigInteger('blood_group_id')->nullable();
+            $table->unsignedBigInteger('country_id')->nullable();
+            $table->unsignedBigInteger('state_id')->nullable();
             $table->string('city')->nullable();
             $table->string('lga')->nullable();
             $table->string('first_name')->nullable();
@@ -34,7 +34,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            // $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 

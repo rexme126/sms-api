@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubjectTeacherTable extends Migration
+class CreateSessionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateSubjectTeacherTable extends Migration
      */
     public function up()
     {
-        Schema::create('subject_teacher', function (Blueprint $table) {
+        Schema::create('sessions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('workspace_id')->nullable();
-            $table->unsignedInteger('subject_id');
-            $table->unsignedInteger('teacher_id');
+            $table->string('name')->nullable();
             $table->timestamps();
+
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 
@@ -29,6 +30,6 @@ class CreateSubjectTeacherTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subject_teacher');
+        Schema::dropIfExists('sessions');
     }
 }

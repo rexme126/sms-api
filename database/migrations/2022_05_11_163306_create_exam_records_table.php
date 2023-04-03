@@ -16,7 +16,7 @@ class CreateExamRecordsTable extends Migration
         Schema::create('exam_records', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('workspace_id')->nullable();
-            $table->unsignedInteger('student_id');
+            $table->unsignedBigInteger('student_id');
             $table->unsignedInteger('klase_id');
             $table->unsignedInteger('term_id');
             $table->unsignedInteger('section_id')->nullable();
@@ -39,6 +39,9 @@ class CreateExamRecordsTable extends Migration
             $table->string('term_start')->nullable();
             $table->string('term_end')->nullable();
             $table->timestamps();
+
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('workspace_id')->references('id')->on('workspaces')->onDelete('cascade');
         });
     }
 

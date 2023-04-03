@@ -22,12 +22,6 @@ final class AllDuePaymentRecordsQuery
         $workspace = Workspace::findOrFail($args['workspaceId']);
         $duePaymentRecords = $workspace->paymentRecords()->where('status', 'Due');
 
-        if (isset($args['search'])) {
-            $duePaymentRecords->where('klase_id', 'like', "%{$args['search']}%")
-                ->OrWhere('session_id', 'like', "%{$args['search']}%")
-                ->OrWhere('term_id', 'like', "%{$args['search']}%");
-        }
-
         return $duePaymentRecords;
     }
 }
